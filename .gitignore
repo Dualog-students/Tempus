@@ -1,45 +1,45 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
-/out-tsc
+ClientApp/dist
+ClientApp/tmp
+ClientApp/out-tsc
 # Only exists if Bazel was run
-/bazel-out
+ClientApp/bazel-out
 
 # dependencies
-/node_modules
+ClientApp/node_modules
 
 # profiling files
 chrome-profiler-events*.json
 speed-measure-plugin*.json
 
 # IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+ClientApp/.idea
+ClientApp/.project
+ClientApp/.classpath
+ClientApp/.c9/
+ClientApp/*.launch
+ClientApp/.settings/
+ClientApp/*.sublime-workspace
 
 # IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+ClientApp/.vscode/*
+ClientApp/!.vscode/settings.json
+ClientApp/!.vscode/tasks.json
+ClientApp/!.vscode/launch.json
+ClientApp/!.vscode/extensions.json
+ClientApp/.history/*
 
 # misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
+ClientApp/.sass-cache
+ClientApp/connect.lock
+ClientApp/coverage
+ClientApp/libpeerconnection.log
+ClientApp/npm-debug.log
+ClientApp/yarn-error.log
+ClientApp/testem.log
+ClientApp/typings
 # System Files
-.DS_Store
-Thumbs.db
+ClientApp/.DS_Store
+ClientApp/Thumbs.db
