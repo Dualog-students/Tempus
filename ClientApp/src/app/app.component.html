@@ -3,12 +3,8 @@
   <dp-header1>TEMPUS!</dp-header1>
   <dp-card icon="id-card" header="This is an id card"> </dp-card>
 
-  <dp-datagrid
-    [items]="items"
-    [searchable]="true"
-    (rowClicked)="onRowClick($event)"
-    searchPlaceholder="Search for fruit"
-  >
+  <dp-datagrid [items]="items" [searchable]="true" (rowClicked)="onRowClick($event)"
+    searchPlaceholder="Search for fruit">
     <dp-datagrid-column field="name" header="Name" width="11"> </dp-datagrid-column>
     <dp-datagrid-column width="1" display="end">
       <ng-template dpDataGridColumnTemplate let-item>
