@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NavTogglerComponent } from './components/nav-toggler/nav-toggler.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { NavTogglerComponent } from './components/nav-toggler/nav-toggler.compon
     NotFoundComponent,
     NavbarComponent,
     NavTogglerComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -25,4 +27,4 @@ import { NavTogglerComponent } from './components/nav-toggler/nav-toggler.compon
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
