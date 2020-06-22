@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="../tempus/ClientApp/src/assets/img/tempus.png" alt="Logo" width="300">
+    <img src="../tempus/asset/tempus.png" alt="Logo" width="300">
   </a>
 
   <h1 align="center">Tempus</h1>

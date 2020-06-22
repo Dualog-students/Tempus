@@ -43,3 +43,9 @@ ClientApp/typings
 # System Files
 ClientApp/.DS_Store
 ClientApp/Thumbs.db
+
+node_modules
+.vscode
+
+Tempus.API/bin/
+Tempus.API/obj/
