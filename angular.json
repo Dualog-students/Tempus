@@ -28,9 +28,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/line-awesome/dist/line-awesome/css/line-awesome.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -124,6 +129,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "tempus"
+    }
+  },
+  "defaultProject": "tempus",
+  "cli": {
+    "analytics": "74d5725c-e2c8-4d5c-94d1-5dc2e5066d4c"
+  }
 }
