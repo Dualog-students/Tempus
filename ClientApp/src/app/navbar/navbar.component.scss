@@ -1,0 +1,34 @@
+.navbar {
+  height: 100%;
+  width: 25%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: var(--dualog-blue60);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.navbar a {
+  padding: 8px 8px 8px 10%;
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 100%;
+  text-decoration: none;
+  color: var(--dualog-olive);
+  background-color: var(--dualog-blue80);
+  display: block;
+  transition: 0.3s;
+}
+
+.navbar a:hover {
+  // background-color: var(--dualog-blue-80);
+  color: var(--dualog-nordic-dark);
+}
+
+a.navbar_logout {
+  background-color: var(--red-status-color-dark);
+  color: var(--dualog-nordic-light);
+}
