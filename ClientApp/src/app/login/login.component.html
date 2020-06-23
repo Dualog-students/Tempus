@@ -1,24 +1,9 @@
-<dp-card
-  header="Login"
->
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-    <dp-input
-      label="Username"
-      formControlName="username"
-    >
-    </dp-input>
-    <dp-input
-      label="Password"
-      type="password"
-      formControlName="password"
-    >
-    </dp-input>
-    <dp-primary-button
-      label="Login"
-      [disabled]="false"
-      [fullWidth]="false"
-      type="submit"
-    >
-    </dp-primary-button>
-  </form>
-</dp-card>
+<div class="login">
+  <dp-card header="Tempus">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <dp-input label="Email" formControlName="email"> </dp-input>
+      <dp-input label="Password" type="password" formControlName="password"> </dp-input>
+      <dp-primary-button label="Login" [disabled]="false" [fullWidth]="false" type="submit"> </dp-primary-button>
+    </form>
+  </dp-card>
+</div>
