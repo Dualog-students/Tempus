@@ -94,6 +94,7 @@ namespace Tempus.API.Controllers
 
             new_user.Password = HashString(new_user.Password);
             var bson_document = new_user.ToBsonDocument();
+            bson_document.Add("Hours", new BsonArray());
             try
             {
                 await userCollection.InsertOneAsync(bson_document);
