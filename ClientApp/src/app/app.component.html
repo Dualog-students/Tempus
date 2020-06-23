@@ -1,15 +1,33 @@
 <dualog-digitalplatform-theme>
-  <router-outlet></router-outlet>
-  <dp-header1>TEMPUS!</dp-header1>
-  <dp-card icon="id-card" header="This is an id card"> </dp-card>
+  <app-nav-toggler></app-nav-toggler>
+  <app-navbar></app-navbar>
 
-  <dp-datagrid [items]="items" [searchable]="true" (rowClicked)="onRowClick($event)"
-    searchPlaceholder="Search for fruit">
-    <dp-datagrid-column field="name" header="Name" width="11"> </dp-datagrid-column>
-    <dp-datagrid-column width="1" display="end">
-      <ng-template dpDataGridColumnTemplate let-item>
-        <dp-icon-button noClickPropagation lala="trash" [usedInList]="true" (clicked)="(null)"></dp-icon-button>
-      </ng-template>
-    </dp-datagrid-column>
-  </dp-datagrid>
+  <div
+    class="content"
+    [ngClass]="{ 'content-sidebar-open': !navbarService.hideNav }"
+  >
+    <router-outlet></router-outlet>
+    <dp-header1>TEMPUS!</dp-header1>
+    <dp-card icon="id-card" header="This is an id card"> </dp-card>
+
+    <dp-datagrid
+      [items]="items"
+      [searchable]="true"
+      (rowClicked)="onRowClick($event)"
+      searchPlaceholder="Search for fruit"
+    >
+      <dp-datagrid-column field="name" header="Name" width="11">
+      </dp-datagrid-column>
+      <dp-datagrid-column width="1" display="end">
+        <ng-template dpDataGridColumnTemplate let-item>
+          <dp-icon-button
+            noClickPropagation
+            lala="trash"
+            [usedInList]="true"
+            (clicked)="(null)"
+          ></dp-icon-button>
+        </ng-template>
+      </dp-datagrid-column>
+    </dp-datagrid>
+  </div>
 </dualog-digitalplatform-theme>

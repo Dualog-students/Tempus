@@ -1,0 +1,6 @@
+<a class="navbar-toggle" (click)="navbarService.toggleNav()">
+  <span *ngIf="navbarService.hideNav; else closeNav"><dp-icon type="tune"> </dp-icon> Menu</span>
+  <ng-template #closeNav>
+    <span *ngIf="!navbarService.hideNav"><dp-icon type="times"> </dp-icon> Close</span></ng-template
+  >
+</a>

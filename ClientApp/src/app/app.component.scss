@@ -1,0 +1,14 @@
+div.content-sidebar-open {
+  top: 0;
+  bottom: 100%;
+  left: 0;
+  z-index: 1;
+  padding: 4em;
+  margin-left: 200px;
+}
+
+.content {
+  transition: all 0.5s;
+  width: 70vw;
+  margin: 0 auto;
+}

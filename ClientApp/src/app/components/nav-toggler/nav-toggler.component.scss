@@ -1,0 +1,20 @@
+.navbar-toggle {
+  z-index: 2;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  margin: 0;
+  padding: 0 10px 10px 0;
+  font-weight: bold;
+  width: 120px;
+}
+
+.navbar-toggle:hover {
+  color: var(--dualog-white);
+  background-color: var(--dualog-aqua);
+}
+
+dp-icon {
+  height: 1.5em;
+  margin: 10px;
+}
