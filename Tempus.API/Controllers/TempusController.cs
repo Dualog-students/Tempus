@@ -119,17 +119,45 @@ namespace Tempus.API.Controllers
 
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
             var result = await userCollection.DeleteOneAsync(filter);
-            if(result.IsAcknowledged)
+            if(!result.IsAcknowledged)
             {
-                if(result.DeletedCount == 0)
-                {
-                    return BadRequest("User was not deleted.");
-                }
-
-                return Ok("User deleted successfully");
+                return BadRequest("Something went wrong.");
             }
 
-            return BadRequest("Something went wrong.");
+            if(result.DeletedCount == 0)
+            {
+                return BadRequest("User was not deleted.");
+            }
+
+            return Ok("User deleted successfully");
+        }
+
+
+
+            if(field.Field.ToLower() == "password")
+            {
+                field.Value = HashString(field.Value);
+            }
+
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
+            var update = Builders<BsonDocument>.Update.Set(field.Field, field.Value);
+            var result = await userCollection.UpdateOneAsync(filter, update);
+            if(!result.IsAcknowledged)
+            {
+                return BadRequest("Something went wrong.");
+            }
+
+            if(result.MatchedCount == 0)
+            {
+                return BadRequest("User not found.");
+            }
+
+            if(result.ModifiedCount == 0)
+            {
+                return BadRequest("Field was not updated.");
+            }
+
+            return Ok("Field successfully updated.");
         }
 
 
@@ -157,27 +185,34 @@ namespace Tempus.API.Controllers
         [Route("/{id}/insert-hours")]
         public async Task<IActionResult> InsertHours(string id, [FromBody]HoursDto hours)
         {
+            ObjectId _id;
+            if(!ObjectId.TryParse(id, out _id))
+            {
+                return BadRequest(id + " is not a valid id.");
+            }
+
+            var date = DateTimeOffset.FromUnixTimeMilliseconds(hours.Date).ToString("dd/MM/yyyy");
             var bson_hours = hours.ToBsonDocument();
             bson_hours["Date"] = DateTimeOffset.FromUnixTimeMilliseconds(hours.Date).UtcDateTime;
             var filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
             var update = Builders<BsonDocument>.Update.Push("Hours", bson_hours);
             var result = await userCollection.UpdateOneAsync(filter, update);
-            if(result.IsAcknowledged)
+            if(!result.IsAcknowledged)
             {
-                if(result.MatchedCount == 0)
-                {
-                    return BadRequest("User not found.");
-                }
-
-                if(result.ModifiedCount == 0)
-                {
-                    return BadRequest("Hours have not been logged.");
-                }
-
-                return Ok("Hours successfully logged.");
+                return BadRequest("Something went wrong.");
             }
 
-            return BadRequest("Something went wrong.");
+            if(result.MatchedCount == 0)
+            {
+                return BadRequest("User not found.");
+            }
+
+            if(result.ModifiedCount == 0)
+            {
+                return BadRequest("Hours was not deleted.");
+            }
+
+            return Ok("Hours successfully deleted.");
         }
     }
 }
