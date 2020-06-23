@@ -1,3 +1,8 @@
+nav {
+  margin: 0;
+  padding: 0;
+}
+
 .navbar {
   height: 100%;
   width: 25%;
@@ -12,13 +17,13 @@
 }
 
 .navbar a {
-  padding: 8px 8px 8px 10%;
+  padding: 10px 10px 10px 10%;
   margin-top: 0;
   margin-bottom: 0;
   width: 100%;
   text-decoration: none;
   color: var(--dualog-olive);
-  background-color: var(--dualog-blue80);
+  background-color: var(--dualog-nordic-light);
   display: block;
   transition: 0.3s;
 }
