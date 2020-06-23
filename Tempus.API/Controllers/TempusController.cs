@@ -137,6 +137,11 @@ namespace Tempus.API.Controllers
         [Route("/{id}/update-user-field")]
         public async Task<IActionResult> UpdateUserField(string id, [FromBody]UpdateUserField field)
         {
+            if(field == null)
+            {
+                return BadRequest("The body is empty.");
+            }
+
             ObjectId _id;
             if(!ObjectId.TryParse(id, out _id))
             {
@@ -174,6 +179,11 @@ namespace Tempus.API.Controllers
         [Route("/authenticate-user")]
         public async Task<IActionResult> AuthenticateUser([FromBody]AuthenticateUserDto user)
         {
+            if(user == null)
+            {
+                return BadRequest("The body is empty.");
+            }
+
             var filter = Builders<BsonDocument>.Filter.Eq("Email", user.Email);
             var query_res = await userCollection.Find(filter).FirstOrDefaultAsync();
             if(query_res == null)
@@ -194,6 +204,11 @@ namespace Tempus.API.Controllers
         [Route("/{id}/insert-hours")]
         public async Task<IActionResult> InsertHours(string id, [FromBody]HoursDto hours)
         {
+            if(hours == null)
+            {
+                return BadRequest("The body is empty.");
+            }
+
             ObjectId _id;
             if(!ObjectId.TryParse(id, out _id))
             {
