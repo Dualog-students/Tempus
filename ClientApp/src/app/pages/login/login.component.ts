@@ -10,7 +10,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
 
@@ -23,10 +23,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     const status = this.loginService.login(this.loginForm.value);
-    if (status === undefined) {
-      console.warn('Email does not exist!');
-      return;
-    } else if (status === false) {
+    if (!status) {
       console.warn('Wrong email or password!');
       return;
     }
