@@ -60,11 +60,26 @@ namespace Tempus.API.Controllers
             var query_res = await userCollection.Find(filter).FirstOrDefaultAsync();
             if(query_res == null)
             {
-                return BadRequest(id + ": is not a user.");
+                return BadRequest(id + " is not a user.");
             }
 
             var user = MongoObjectToObject(query_res);
             return Ok(user);
+        }
+
+
+        private static string HashString(string str)
+        {
+            SHA256 sha256 = SHA256.Create();
+            StringBuilder s_builder = new StringBuilder();
+            byte[] byte_str = Encoding.UTF8.GetBytes(str);
+            byte[] buffer = sha256.ComputeHash(byte_str);
+            foreach(var b in buffer)
+            {
+                s_builder.Append(b.ToString("x2"));
+            }
+
+            return s_builder.ToString();
         }
 
 
@@ -77,26 +92,37 @@ namespace Tempus.API.Controllers
                 return BadRequest("The body is empty.");
             }
 
-            SHA256 sha256 = SHA256.Create();
-            Console.WriteLine("\n\n");
-            Console.WriteLine(new_user.Password);
-            byte[] password = Encoding.Unicode.GetBytes(new_user.Password);
-            byte[] buffer = sha256.ComputeHash(password);
-            Console.WriteLine(buffer);
-            new_user.Password = Encoding.Unicode.GetString(buffer, 0, buffer.Length);
-            Console.WriteLine(new_user.Password);
-            Console.WriteLine("\n\n");
-
+            new_user.Password = HashString(new_user.Password);
             var bson_document = new_user.ToBsonDocument();
             try
             {
                 await userCollection.InsertOneAsync(bson_document);
-                return Ok();
+                return Ok("User successfully registered.");
             }
             catch (Exception e)
             {
                 return BadRequest(e);
             }
+        }
+
+
+        [HttpPost]
+        [Route("/authenticate-user")]
+        public async Task<IActionResult> CreateUser([FromBody]AuthenticateUserDto user)
+        {
+            var filter = Builders<BsonDocument>.Filter.Eq("Email", user.Email);
+            var query_res = await userCollection.Find(filter).FirstOrDefaultAsync();
+            if(query_res == null)
+            {
+                return BadRequest(user.Email + " is not a user.");
+            }
+
+            if(HashString(user.Password) == query_res["Password"])
+            {
+                return Ok("Login successful.");
+            }
+
+            return BadRequest("Incorrect password.");
         }
     }
 }
