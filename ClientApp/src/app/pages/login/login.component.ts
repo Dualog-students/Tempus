@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LoginService } from 'src/app/services/login.service';
@@ -15,7 +20,11 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 

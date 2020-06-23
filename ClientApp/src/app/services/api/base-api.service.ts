@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, first } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiOptions {
   constructor(public httpClient: HttpClient) {}
@@ -15,11 +15,11 @@ export class BaseApiService {
   constructor(protected apiOptions: ApiOptions) {}
 
   get<T>(url: string): Observable<T> {
-    return Observable.create(observer => {
+    return Observable.create((observer) => {
       this.apiOptions.httpClient
         .get<T>(this.apiUrl + url, { responseType: 'json' })
         .pipe(first(), catchError(this.handleError<T>('get', observer)))
-        .subscribe(result => {
+        .subscribe((result) => {
           observer.next(result);
           observer.complete();
         });
@@ -27,11 +27,11 @@ export class BaseApiService {
   }
 
   post<T>(url: string, object: any, httpOptions: any) {
-    return Observable.create(observer => {
+    return Observable.create((observer) => {
       this.apiOptions.httpClient
         .post<T>(this.apiUrl + url, object, httpOptions)
         .pipe(first(), catchError(this.handleError('post', observer)))
-        .subscribe(result => {
+        .subscribe((result) => {
           observer.next(result);
           observer.complete();
         });
@@ -39,7 +39,11 @@ export class BaseApiService {
   }
 
   observablePost(url: string, object: any, httpOptions: any) {
-    return this.apiOptions.httpClient.post<any>(this.apiUrl + url, object, httpOptions);
+    return this.apiOptions.httpClient.post<any>(
+      this.apiUrl + url,
+      object,
+      httpOptions
+    );
   }
 
   handleError<T>(method = '', observer, result?: T) {

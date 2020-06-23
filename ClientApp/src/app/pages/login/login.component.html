@@ -2,8 +2,20 @@
   <dp-card header="Tempus">
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <dp-input label="Email" formControlName="email"> </dp-input>
-      <dp-input class="dp-mt-4" label="Password" type="password" formControlName="password"> </dp-input>
-      <dp-primary-button class="dp-mt-8" label="Login" [disabled]="false" [fullWidth]="false" htmlType="submit">
+      <dp-input
+        class="dp-mt-4"
+        label="Password"
+        type="password"
+        formControlName="password"
+      >
+      </dp-input>
+      <dp-primary-button
+        class="dp-mt-8"
+        label="Login"
+        [disabled]="false"
+        [fullWidth]="false"
+        htmlType="submit"
+      >
       </dp-primary-button>
     </form>
   </dp-card>
