@@ -10,12 +10,6 @@ export class LoginService {
     console.log('Email: ' + user.email);
     console.log('Password: ' + user.password);
     // const canLogIn = this.databaseAPIService.get({'user': user);
-
-    // const status = {
-    // true: canLogIn
-    // false: canNotLogIn
-    // undefined: wrongEmail
-    // };
-    return undefined;
+    return true;
   }
 }
