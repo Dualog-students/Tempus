@@ -53,7 +53,7 @@ namespace Tempus.API.Controllers
             ObjectId _id;
             if(!ObjectId.TryParse(id, out _id))
             {
-                return BadRequest(id + ": is not a valid id.");
+                return BadRequest(id + " is not a valid id.");
             }
 
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
@@ -85,7 +85,7 @@ namespace Tempus.API.Controllers
 
         [HttpPost]
         [Route("/register-user")]
-        public async Task<IActionResult> CreateUser([FromBody]RegisterUserDto new_user)
+        public async Task<IActionResult> RegisterUser([FromBody]RegisterUserDto new_user)
         {
             if(new_user == null)
             {
@@ -108,7 +108,7 @@ namespace Tempus.API.Controllers
 
         [HttpPost]
         [Route("/authenticate-user")]
-        public async Task<IActionResult> CreateUser([FromBody]AuthenticateUserDto user)
+        public async Task<IActionResult> AuthenticateUser([FromBody]AuthenticateUserDto user)
         {
             var filter = Builders<BsonDocument>.Filter.Eq("Email", user.Email);
             var query_res = await userCollection.Find(filter).FirstOrDefaultAsync();
