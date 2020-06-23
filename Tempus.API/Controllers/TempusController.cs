@@ -133,6 +133,15 @@ namespace Tempus.API.Controllers
         }
 
 
+        [HttpPost]
+        [Route("/{id}/update-user-field")]
+        public async Task<IActionResult> UpdateUserField(string id, [FromBody]UpdateUserField field)
+        {
+            ObjectId _id;
+            if(!ObjectId.TryParse(id, out _id))
+            {
+                return BadRequest(id + " is not a valid id.");
+            }
 
             if(field.Field.ToLower() == "password")
             {
@@ -193,9 +202,29 @@ namespace Tempus.API.Controllers
 
             var date = DateTimeOffset.FromUnixTimeMilliseconds(hours.Date).ToString("dd/MM/yyyy");
             var bson_hours = hours.ToBsonDocument();
-            bson_hours["Date"] = DateTimeOffset.FromUnixTimeMilliseconds(hours.Date).UtcDateTime;
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
-            var update = Builders<BsonDocument>.Update.Push("Hours", bson_hours);
+            bson_hours["Date"] = date;
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
+            var update = Builders<BsonDocument>.Update.Set("Hours." + date, bson_hours);
+            var result = await userCollection.UpdateOneAsync(filter, update);
+            if(!result.IsAcknowledged)
+            {
+                return BadRequest("Something went wrong.");
+            }
+
+            if(result.MatchedCount == 0)
+            {
+                return BadRequest("User not found.");
+            }
+
+            if(result.ModifiedCount == 0)
+            {
+                return BadRequest("Hours have not been logged.");
+            }
+
+            return Ok("Hours successfully logged.");
+        }
+
+
             var result = await userCollection.UpdateOneAsync(filter, update);
             if(!result.IsAcknowledged)
             {
