@@ -108,6 +108,32 @@ namespace Tempus.API.Controllers
 
 
         [HttpPost]
+        [Route("/{id}/delete-user")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            ObjectId _id;
+            if(!ObjectId.TryParse(id, out _id))
+            {
+                return BadRequest(id + " is not a valid id.");
+            }
+
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
+            var result = await userCollection.DeleteOneAsync(filter);
+            if(result.IsAcknowledged)
+            {
+                if(result.DeletedCount == 0)
+                {
+                    return BadRequest("User was not deleted.");
+                }
+
+                return Ok("User deleted successfully");
+            }
+
+            return BadRequest("Something went wrong.");
+        }
+
+
+        [HttpPost]
         [Route("/authenticate-user")]
         public async Task<IActionResult> AuthenticateUser([FromBody]AuthenticateUserDto user)
         {
