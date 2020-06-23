@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 
 import { LoginService } from 'src/app/services/login.service';
 
@@ -32,8 +33,12 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
-    const status = this.loginService.login(this.loginForm.value);
-    if (!status) {
+    const response = this.loginService.login(this.loginForm.value);
+    const mock_response = {
+      status: 200,
+    };
+
+    if (mock_response.status !== 200) {
       console.warn('Wrong email or password!');
       return;
     }
