@@ -27,17 +27,6 @@
     </dp-tertiary-button>
   </div>
 </dp-card>
-
-<dp-modal-medium
-  header="Sign up"
-  [openWindow]="isModalOpen"
-  (cancel)="closeModal()"
->
-  <div class="row dp-mt-20 dp-mb-16">
-    <div class="col-12">
-      <dp-body-type>
-        Here the content is custom made with whatever we want to add...
-      </dp-body-type>
-    </div>
-  </div>
-</dp-modal-medium>
+<div *ngIf="isModalOpen">
+  <app-signup></app-signup>
+</div>
