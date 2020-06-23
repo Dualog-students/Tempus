@@ -1,22 +1,43 @@
-<div class="login">
-  <dp-card header="Tempus">
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <dp-input label="Email" formControlName="email"> </dp-input>
-      <dp-input
-        class="dp-mt-4"
-        label="Password"
-        type="password"
-        formControlName="password"
-      >
-      </dp-input>
-      <dp-primary-button
-        class="dp-mt-8"
-        label="Login"
-        [disabled]="false"
-        [fullWidth]="false"
-        htmlType="submit"
-      >
-      </dp-primary-button>
-    </form>
-  </dp-card>
-</div>
+<dp-card header="Tempus" class="login">
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form">
+    <dp-input label="Email" formControlName="email"> </dp-input>
+    <dp-input
+      class="dp-mt-4"
+      label="Password"
+      type="password"
+      formControlName="password"
+    >
+    </dp-input>
+    <dp-primary-button
+      class="dp-mt-8 submit"
+      label="Login"
+      [disabled]="false"
+      [fullWidth]="false"
+      htmlType="submit"
+    >
+    </dp-primary-button>
+  </form>
+  <div class="signUp">
+    <dp-tertiary-button
+      label="Sign up"
+      [disabled]="false"
+      [fullWidth]="false"
+      (clicked)="onSignUp()"
+    >
+    </dp-tertiary-button>
+  </div>
+</dp-card>
+
+<dp-modal-medium
+  header="Sign up"
+  [openWindow]="isModalOpen"
+  (cancel)="closeModal()"
+>
+  <div class="row dp-mt-20 dp-mb-16">
+    <div class="col-12">
+      <dp-body-type>
+        Here the content is custom made with whatever we want to add...
+      </dp-body-type>
+    </div>
+  </div>
+</dp-modal-medium>

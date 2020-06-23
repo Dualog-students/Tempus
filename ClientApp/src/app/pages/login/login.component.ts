@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
+  isModalOpen: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,5 +46,22 @@ export class LoginComponent implements OnInit {
 
     console.log('You are logged in :)');
     this.router.navigate(['/home']);
+  }
+
+  onSignUp() {
+    console.log('Signing up');
+    this.openModal();
+  }
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  confirm() {
+    this.isModalOpen = false;
   }
 }
