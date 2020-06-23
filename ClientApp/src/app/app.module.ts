@@ -11,6 +11,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NavTogglerComponent } from './components/nav-toggler/nav-toggler.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LoginService } from './services/login.service';
+import { SignupComponent } from './components/modals/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { LoginService } from './services/login.service';
     NotFoundComponent,
     NavbarComponent,
     NavTogglerComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

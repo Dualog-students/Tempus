@@ -50,18 +50,6 @@ export class LoginComponent implements OnInit {
 
   onSignUp() {
     console.log('Signing up');
-    this.openModal();
-  }
-
-  openModal() {
     this.isModalOpen = true;
-  }
-
-  closeModal() {
-    this.isModalOpen = false;
-  }
-
-  confirm() {
-    this.isModalOpen = false;
   }
 }
