@@ -22,8 +22,15 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
-    const email = this.loginForm.value.email;
-    const password = this.loginForm.value.password;
-    this.loginService.login(email, password);
+    const status = this.loginService.login(this.loginForm.value);
+    if (status === undefined) {
+      console.warn('Email does not exist!');
+      return;
+    } else if (status === false) {
+      console.warn('Wrong email or password!');
+      return;
+    }
+
+    console.log('You are logged in :)');
   }
 }

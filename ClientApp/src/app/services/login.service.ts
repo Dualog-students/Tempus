@@ -4,10 +4,18 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class LoginService {
-  constructor() {}
+  constructor() {} // private databaseAPIService: DatabaseAPIService;
 
-  login(email: string, password: string) {
-    console.log('Email: ' + email);
-    console.log('Password: ' + password);
+  login(user: any) {
+    console.log('Email: ' + user.email);
+    console.log('Password: ' + user.password);
+    // const canLogIn = this.databaseAPIService.get({'user': user);
+
+    // const status = {
+    // true: canLogIn
+    // false: canNotLogIn
+    // undefined: wrongEmail
+    // };
+    return undefined;
   }
 }
