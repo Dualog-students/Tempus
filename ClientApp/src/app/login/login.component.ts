@@ -4,21 +4,22 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    username: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(
-    private formBuilder: FormBuilder,
-  ) { }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {}
 
   onLogin() {
-    console.log(this.loginForm.value);
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+    console.log('Email: ' + email);
+    console.log('Password: ' + password);
   }
 }
