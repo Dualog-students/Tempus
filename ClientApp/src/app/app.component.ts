@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { NavbarToggleService } from './services/navbar-toggle.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  constructor(public navbarService: NavbarToggleService) {}
 
   items = [
     {
@@ -43,10 +45,8 @@ export class AppComponent {
       name: 'Kiwi',
       price: 6,
       discounted: true,
-    }
+    },
   ];
-
-
 
   title = 'tempus';
 }

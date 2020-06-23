@@ -1,12 +1,15 @@
+:host {
+  background: #343a49;
+}
+
 nav {
   margin: 0;
   padding: 0;
 }
 
 .navbar {
-  height: 100%;
-  width: 25%;
-  max-width: 200px;
+  height: 100vh;
+  width: 200px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -15,6 +18,10 @@ nav {
   overflow: hidden;
   transition: 0.5s;
   padding-top: 60px;
+}
+
+#sidebar.hidden {
+  margin-left: -200px;
 }
 
 .navbar ul {
@@ -30,25 +37,26 @@ nav {
   margin-bottom: 0;
   width: 100%;
   text-decoration: none;
-  color: var(--dualog-olive);
+  font-weight: bold;
+  color: var(--dualog-aqua);
   background-color: var(--dualog-nordic-light);
   display: block;
   transition: 0.3s;
 }
 
 .navbar a:hover {
-  background-color: var(--dualog-blue60);
-  color: var(--dualog-nordic-light);
+  background-color: var(--dualog-aqua);
+  color: var(--dualog-white);
 }
 
 .navbar a.navbar_logout {
   background-color: var(--red-status-color-light);
-  color: var(--dualog-olive);
+  color: var(--dualog-aqua);
   position: absolute;
   bottom: 0;
 }
 
 .navbar a.navbar_logout:hover {
   background-color: var(--red-status-color-dark);
-  color: var(--dualog-nordic-light);
+  color: var(--dualog-white);
 }

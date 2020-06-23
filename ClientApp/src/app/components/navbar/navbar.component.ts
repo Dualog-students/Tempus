@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { NavbarToggleService } from '../../services/navbar-toggle.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,11 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  constructor() {}
+  constructor(public navbarService: NavbarToggleService, private el: ElementRef) {}
 
   ngOnInit(): void {}
-
-  sidebar_open() {}
-
-  sidebar_close() {}
 }
