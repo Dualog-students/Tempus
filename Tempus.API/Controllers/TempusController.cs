@@ -125,5 +125,33 @@ namespace Tempus.API.Controllers
 
             return BadRequest("Incorrect password.");
         }
+
+
+        [HttpPost]
+        [Route("/{id}/insert-hours")]
+        public async Task<IActionResult> InsertHours(string id, [FromBody]HoursDto hours)
+        {
+            var bson_hours = hours.ToBsonDocument();
+            bson_hours["Date"] = DateTimeOffset.FromUnixTimeMilliseconds(hours.Date).UtcDateTime;
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
+            var update = Builders<BsonDocument>.Update.Push("Hours", bson_hours);
+            var result = await userCollection.UpdateOneAsync(filter, update);
+            if(result.IsAcknowledged)
+            {
+                if(result.MatchedCount == 0)
+                {
+                    return BadRequest("User not found.");
+                }
+
+                if(result.ModifiedCount == 0)
+                {
+                    return BadRequest("Hours have not been logged.");
+                }
+
+                return Ok("Hours successfully logged.");
+            }
+
+            return BadRequest("Something went wrong.");
+        }
     }
 }
