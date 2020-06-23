@@ -6,14 +6,22 @@ nav {
 .navbar {
   height: 100%;
   width: 25%;
+  max-width: 200px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: var(--dualog-blue60);
-  overflow-x: hidden;
+  background-color: var(--dualog-nordic-light);
+  overflow: hidden;
   transition: 0.5s;
   padding-top: 60px;
+}
+
+.navbar ul {
+  list-style-type: none;
+  width: 100%;
+  height: 100%;
+  padding: 0;
 }
 
 .navbar a {
@@ -29,11 +37,18 @@ nav {
 }
 
 .navbar a:hover {
-  // background-color: var(--dualog-blue-80);
-  color: var(--dualog-nordic-dark);
+  background-color: var(--dualog-blue60);
+  color: var(--dualog-nordic-light);
 }
 
-a.navbar_logout {
+.navbar a.navbar_logout {
+  background-color: var(--red-status-color-light);
+  color: var(--dualog-olive);
+  position: absolute;
+  bottom: 0;
+}
+
+.navbar a.navbar_logout:hover {
   background-color: var(--red-status-color-dark);
   color: var(--dualog-nordic-light);
 }
