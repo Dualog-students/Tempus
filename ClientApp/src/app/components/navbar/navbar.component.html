@@ -1,4 +1,4 @@
-<nav class="navbar navbar-block navbar-animate-left">
+<nav id="sidebar" class="navbar" [ngClass]="{ hidden: navbarService.hideNav }">
   <ul>
     <li><a routerLink="/profile">Profile</a></li>
     <li><a routerLink="/dashboard">Dashboard</a></li>
