@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
 
 import { BaseApiService, ApiOptions } from '../services/api/base-api.service';
 
@@ -12,24 +11,14 @@ export class LoginService extends BaseApiService {
   }
 
   async authencicateUser(user: any) {
-    const url = 'authenticate-user';
-    const httpOptions = {
-      header: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return await super.post(url, user, httpOptions).toPromise();
+    return await super.post('authenticate-user', user).toPromise();
   }
 
   async registerUser(user: any) {
-    const url = 'authenticate-user';
-    const httpOptions = {
-      header: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
+    return await super.post('register-user', user).toPromise();
+  }
 
-    return await super.post(url, user, httpOptions).toPromise();
+  async getUsers() {
+    return await super.get('users').toPromise();
   }
 }
