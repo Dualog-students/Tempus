@@ -28,6 +28,10 @@ namespace Tempus.API.Controllers
             dbClient = new MongoClient(mongoSetting);
             database = dbClient.GetDatabase("TempusDB");
             userCollection = database.GetCollection<BsonDocument>("Users");
+
+            var key = Builders<BsonDocument>.IndexKeys.Ascending("Email");
+            var option = new CreateIndexOptions{ Unique = true };
+            userCollection.Indexes.CreateOne(new CreateIndexModel<BsonDocument>(key, option));
         }
 
 
@@ -102,9 +106,13 @@ namespace Tempus.API.Controllers
                 await userCollection.InsertOneAsync(bson_document);
                 return Ok("User successfully registered.");
             }
+            catch (MongoDB.Driver.MongoWriteException)
+            {
+                return BadRequest("A user with this email already exists.");
+            }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -157,7 +165,16 @@ namespace Tempus.API.Controllers
 
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
             var update = Builders<BsonDocument>.Update.Set(field.Field, field.Value);
-            var result = await userCollection.UpdateOneAsync(filter, update);
+            UpdateResult result;
+            try
+            {
+                result = await userCollection.UpdateOneAsync(filter, update);
+            }
+            catch (MongoDB.Driver.MongoWriteException)
+            {
+                return BadRequest("A user with this email already exists.");
+            }
+
             if(!result.IsAcknowledged)
             {
                 return BadRequest("Something went wrong.");
