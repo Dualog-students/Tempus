@@ -27,6 +27,6 @@
     </dp-tertiary-button>
   </div>
 </dp-card>
-<div *ngIf="isModalOpen">
-  <app-signup></app-signup>
+<div *ngIf="modal">
+  <app-signup [(modal)]="modal"></app-signup>
 </div>

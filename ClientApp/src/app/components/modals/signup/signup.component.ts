@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-signup',
@@ -6,17 +7,24 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-  isModalOpen: boolean = true;
+  @Input() modal: boolean;
+  @Output() modalChange = new EventEmitter<boolean>();
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.openModal();
+  }
 
   openModal() {
-    this.isModalOpen = true;
+    this.modal = true;
+    this.modalChange.emit(this.modal);
+    console.log('Opening modal');
   }
 
   closeModal() {
-    this.isModalOpen = false;
+    this.modal = false;
+    this.modalChange.emit(this.modal);
+    console.log('Closing modal');
   }
 }
