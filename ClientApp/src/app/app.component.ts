@@ -7,7 +7,7 @@ import { NavbarToggleService } from './services/navbar-toggle.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(public navbarService: NavbarToggleService) { }
+  constructor(public navbarService: NavbarToggleService) {}
 
   items = [
     {

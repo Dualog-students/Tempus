@@ -1,7 +1,10 @@
 <dualog-digitalplatform-theme>
   <app-nav-toggler></app-nav-toggler>
   <app-navbar></app-navbar>
-  <div class="content" [ngClass]="{ 'content-sidebar-open': !navbarService.hideNav }">
+  <div
+    class="content"
+    [ngClass]="{ 'content-sidebar-open': !navbarService.hideNav }"
+  >
     <router-outlet></router-outlet>
   </div>
 </dualog-digitalplatform-theme>

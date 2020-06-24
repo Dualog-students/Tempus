@@ -21,9 +21,9 @@ export class SignupComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   closeModal() {
     this.modal = false;
