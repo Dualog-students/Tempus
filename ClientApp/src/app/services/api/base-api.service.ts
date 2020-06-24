@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, first } from 'rxjs/operators';
 
@@ -7,17 +7,28 @@ import { catchError, first } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ApiOptions {
-  constructor(public httpClient: HttpClient) {}
+  constructor(public httpClient: HttpClient) { }
 }
 export class BaseApiService {
   public apiUrl = 'http://localhost:5000/';
+  defaultPostOptions = {
+    header: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+    responseType: 'text',
+    observe: 'response'
+  };
+  defaultGetOptions = {
+    responseType: 'json',
+    observe: 'response'
+  };
 
-  constructor(protected apiOptions: ApiOptions) {}
+  constructor(protected apiOptions: ApiOptions) { }
 
-  get<T>(url: string): Observable<T> {
+  get<T>(url: string, httpOptions: any = this.defaultGetOptions): Observable<T> {
     return Observable.create((observer) => {
       this.apiOptions.httpClient
-        .get<T>(this.apiUrl + url, { responseType: 'json' })
+        .get<T>(this.apiUrl + url, httpOptions)
         .pipe(first(), catchError(this.handleError<T>('get', observer)))
         .subscribe((result) => {
           observer.next(result);
@@ -26,7 +37,7 @@ export class BaseApiService {
     });
   }
 
-  post<T>(url: string, object: any, httpOptions: any) {
+  post<T>(url: string, object: any, httpOptions: any = this.defaultPostOptions) {
     return Observable.create((observer) => {
       this.apiOptions.httpClient
         .post<T>(this.apiUrl + url, object, httpOptions)
@@ -38,7 +49,7 @@ export class BaseApiService {
     });
   }
 
-  observablePost(url: string, object: any, httpOptions: any) {
+  observablePost(url: string, object: any, httpOptions: any = this.defaultPostOptions) {
     return this.apiOptions.httpClient.post<any>(
       this.apiUrl + url,
       object,
@@ -49,9 +60,9 @@ export class BaseApiService {
   handleError<T>(method = '', observer, result?: T) {
     return (error: any): Observable<T> => {
       // Just return null for everything that fails
-      observer.next(null);
+      observer.next(error);
       observer.complete();
-      return of(null);
+      return of(error);
     };
   }
 }
