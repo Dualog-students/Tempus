@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
-  isModalOpen: boolean = false;
+  modal: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,18 +28,20 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.modal = false;
+  }
 
   onLogin() {
     if (!this.loginForm.valid) {
       return;
     }
     const response = this.loginService.login(this.loginForm.value);
-    const mock_response = {
+    const mockResponse = {
       status: 200,
     };
 
-    if (mock_response.status !== 200) {
+    if (mockResponse.status !== 200) {
       console.warn('Wrong email or password!');
       return;
     }
@@ -50,6 +52,6 @@ export class LoginComponent implements OnInit {
 
   onSignUp() {
     console.log('Signing up');
-    this.isModalOpen = true;
+    this.modal = true;
   }
 }
