@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
 
 import { LoginService } from 'src/app/services/login.service';
 
@@ -36,7 +35,7 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
-    const response = this.loginService.login(this.loginForm.value);
+    const response = this.loginService.authencicateUser(this.loginForm.value);
     const mockResponse = {
       status: 200,
     };
@@ -45,8 +44,11 @@ export class LoginComponent implements OnInit {
       console.warn('Wrong email or password!');
       return;
     }
+    this.login(this.loginForm.value);
+  }
 
-    console.log('You are logged in :)');
+  login(user: any) {
+    console.log(['Logged in as user:', user]);
     this.router.navigate(['/home']);
   }
 
