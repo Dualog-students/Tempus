@@ -15,6 +15,7 @@ import {
 export class SignupComponent implements OnInit {
   @Input() modal: boolean;
   @Output() modalChange = new EventEmitter<boolean>();
+
   signUpForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
@@ -22,15 +23,7 @@ export class SignupComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.openModal();
-  }
-
-  openModal() {
-    this.modal = true;
-    this.modalChange.emit(this.modal);
-    console.log('Opening modal');
-  }
+  ngOnInit(): void {}
 
   closeModal() {
     this.modal = false;

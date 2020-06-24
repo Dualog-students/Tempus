@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
-  modal: boolean;
+  modal = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,15 +27,14 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.modal = false;
-  }
+  ngOnInit(): void {}
 
   onLogin() {
     if (!this.loginForm.valid) {
       return;
     }
     const response = this.loginService.authencicateUser(this.loginForm.value);
+    console.log(response);
     const mockResponse = {
       status: 200,
     };
