@@ -2,7 +2,7 @@
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form">
     <dp-input label="Email" formControlName="email"> </dp-input>
     <dp-input
-      class="dp-mt-4"
+      class="dp-mt-8"
       label="Password"
       type="password"
       formControlName="password"
@@ -25,6 +25,9 @@
       (clicked)="onSignUp()"
     >
     </dp-tertiary-button>
+  </div>
+  <div *ngIf="error">
+    <dp-message-box-info>{{ errorMsg }}</dp-message-box-info>
   </div>
 </dp-card>
 <div *ngIf="modal">

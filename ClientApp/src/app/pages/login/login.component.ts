@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
   modal = false;
+  error = false;
+  errorMsg: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,26 +35,23 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
-    console.log(['Users', await this.loginService.getUsers()]);
     const response = await this.loginService.authencicateUser(
       this.loginForm.value
     );
-    console.log(['Authentication', response]);
 
     if (response.status !== 200) {
-      console.warn('Wrong email or password!');
+      this.errorMsg = 'Wrong email or password!';
+      this.error = true;
       return;
     }
     this.login(response.body);
   }
 
   login(userId: any) {
-    console.log(['Logged in as user:', userId]);
     this.router.navigate(['/home']);
   }
 
   onSignUp() {
-    console.log('Signing up');
     this.modal = true;
   }
 }
