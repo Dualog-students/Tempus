@@ -28,13 +28,11 @@ export class SignupComponent implements OnInit {
   closeModal() {
     this.modal = false;
     this.modalChange.emit(this.modal);
-    console.log('Closing modal');
   }
 
   onSignUp() {
     if (!this.signUpForm.valid) {
       return;
     }
-    console.log('Signed up!');
   }
 }
