@@ -1,10 +1,15 @@
 <dualog-digitalplatform-theme>
-  <app-nav-toggler></app-nav-toggler>
-  <app-navbar></app-navbar>
-  <div
-    class="content"
-    [ngClass]="{ 'content-sidebar-open': !navbarService.hideNav }"
-  >
-    <router-outlet></router-outlet>
+  <div *ngIf="loggedIn; else loggedOut">
+    <app-nav-toggler></app-nav-toggler>
+    <app-navbar></app-navbar>
+    <div
+      class="content"
+      [ngClass]="{ 'content-sidebar-open': !navbarService.hideNav }"
+    >
+      <router-outlet></router-outlet>
+    </div>
   </div>
+  <ng-template #loggedOut>
+    <router-outlet></router-outlet>
+  </ng-template>
 </dualog-digitalplatform-theme>
