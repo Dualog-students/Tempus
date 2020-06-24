@@ -25,29 +25,29 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  async ngOnInit() { }
 
-  onLogin() {
+  async onLogin() {
     if (!this.loginForm.valid) {
       return;
     }
-    const response = this.loginService.authencicateUser(this.loginForm.value);
-    console.log(response);
-    const mockResponse = {
-      status: 200,
-    };
+    console.log(['Users', await this.loginService.getUsers()]);
+    const response = await this.loginService.authencicateUser(
+      this.loginForm.value
+    );
+    console.log(['Authentication', response]);
 
-    if (mockResponse.status !== 200) {
+    if (response.status !== 200) {
       console.warn('Wrong email or password!');
       return;
     }
-    this.login(this.loginForm.value);
+    this.login(response.body);
   }
 
-  login(user: any) {
-    console.log(['Logged in as user:', user]);
+  login(userId: any) {
+    console.log(['Logged in as user:', userId]);
     this.router.navigate(['/home']);
   }
 
