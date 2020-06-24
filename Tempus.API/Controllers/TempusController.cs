@@ -193,7 +193,7 @@ namespace Tempus.API.Controllers
 
             if(HashString(user.Password) == query_res["Password"])
             {
-                return Ok("Login successful.");
+                return Ok(query_res["_id"].ToString());
             }
 
             return BadRequest("Incorrect password.");
