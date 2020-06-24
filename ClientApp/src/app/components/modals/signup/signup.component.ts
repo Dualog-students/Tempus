@@ -1,5 +1,11 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -9,6 +15,10 @@ import { EventEmitter } from '@angular/core';
 export class SignupComponent implements OnInit {
   @Input() modal: boolean;
   @Output() modalChange = new EventEmitter<boolean>();
+  signUpForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+  });
 
   constructor() {}
 
@@ -26,5 +36,12 @@ export class SignupComponent implements OnInit {
     this.modal = false;
     this.modalChange.emit(this.modal);
     console.log('Closing modal');
+  }
+
+  onSignUp() {
+    if (!this.signUpForm.valid) {
+      return;
+    }
+    console.log('Signed up!');
   }
 }

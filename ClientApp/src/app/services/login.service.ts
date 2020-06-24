@@ -11,7 +11,18 @@ export class LoginService extends BaseApiService {
     super(apiOptions);
   }
 
-  async login(user: any) {
+  async authencicateUser(user: any) {
+    const url = 'authenticate-user';
+    const httpOptions = {
+      header: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return await super.post(url, user, httpOptions).toPromise();
+  }
+
+  async registerUser(user: any) {
     const url = 'authenticate-user';
     const httpOptions = {
       header: new HttpHeaders({
