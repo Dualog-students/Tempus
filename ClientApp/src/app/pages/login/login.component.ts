@@ -25,9 +25,9 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     private router: Router
-  ) { }
+  ) {}
 
-  async ngOnInit() { }
+  async ngOnInit() {}
 
   async onLogin() {
     if (!this.loginForm.valid) {

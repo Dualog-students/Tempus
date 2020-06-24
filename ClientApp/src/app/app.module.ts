@@ -20,7 +20,7 @@ import { SignupComponent } from './components/modals/signup/signup.component';
     NavbarComponent,
     NavTogglerComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,4 +33,4 @@ import { SignupComponent } from './components/modals/signup/signup.component';
   providers: [LoginService],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

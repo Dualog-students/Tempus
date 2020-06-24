@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, first } from 'rxjs/operators';
 
@@ -7,7 +11,7 @@ import { catchError, first } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ApiOptions {
-  constructor(public httpClient: HttpClient) { }
+  constructor(public httpClient: HttpClient) {}
 }
 export class BaseApiService {
   public apiUrl = 'http://localhost:5000/';
@@ -16,16 +20,19 @@ export class BaseApiService {
       'Content-Type': 'application/json',
     }),
     responseType: 'text',
-    observe: 'response'
+    observe: 'response',
   };
   defaultGetOptions = {
     responseType: 'json',
-    observe: 'response'
+    observe: 'response',
   };
 
-  constructor(protected apiOptions: ApiOptions) { }
+  constructor(protected apiOptions: ApiOptions) {}
 
-  get<T>(url: string, httpOptions: any = this.defaultGetOptions): Observable<T> {
+  get<T>(
+    url: string,
+    httpOptions: any = this.defaultGetOptions
+  ): Observable<T> {
     return Observable.create((observer) => {
       this.apiOptions.httpClient
         .get<T>(this.apiUrl + url, httpOptions)
@@ -37,7 +44,11 @@ export class BaseApiService {
     });
   }
 
-  post<T>(url: string, object: any, httpOptions: any = this.defaultPostOptions) {
+  post<T>(
+    url: string,
+    object: any,
+    httpOptions: any = this.defaultPostOptions
+  ) {
     return Observable.create((observer) => {
       this.apiOptions.httpClient
         .post<T>(this.apiUrl + url, object, httpOptions)
@@ -49,7 +60,11 @@ export class BaseApiService {
     });
   }
 
-  observablePost(url: string, object: any, httpOptions: any = this.defaultPostOptions) {
+  observablePost(
+    url: string,
+    object: any,
+    httpOptions: any = this.defaultPostOptions
+  ) {
     return this.apiOptions.httpClient.post<any>(
       this.apiUrl + url,
       object,
