@@ -23,7 +23,9 @@ namespace Tempus.API.Controllers
 
         public TempusController()
         {
-            dbClient = new MongoClient("mongodb://localhost:27017/");
+            var mongoConnectionString = Environment.GetEnvironmentVariable("TempusDBConnectionString");
+            var mongoSetting = MongoClientSettings.FromConnectionString(mongoConnectionString);
+            dbClient = new MongoClient(mongoSetting);
             database = dbClient.GetDatabase("TempusDB");
             userCollection = database.GetCollection<BsonDocument>("Users");
         }

@@ -13,6 +13,18 @@
   </p>
 </p>
 
+## Requirements
+ * Need to create an environment variable with the connection string for the Dualog MongoDB server:
+   * Linux:
+     ````
+     export TempusDBConnectionString="<Connection-String>"
+     ````
+   * Windows:
+      ````
+      setx TempusDBConnectionString "<Connection-String>"
+      ````
+
+
 ## Coding conventions
 
 ### Commit naming
