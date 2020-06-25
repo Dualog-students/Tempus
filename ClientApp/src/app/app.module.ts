@@ -12,6 +12,7 @@ import { NavTogglerComponent } from './components/nav-toggler/nav-toggler.compon
 import { LoginComponent } from './pages/login/login.component';
 import { LoginService } from './services/login.service';
 import { SignupComponent } from './components/modals/signup/signup.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { SignupComponent } from './components/modals/signup/signup.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [LoginService],
+  providers: [LoginService, UserService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
