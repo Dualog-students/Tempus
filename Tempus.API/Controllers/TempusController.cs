@@ -164,7 +164,16 @@ namespace Tempus.API.Controllers
             }
 
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
-            var update = Builders<BsonDocument>.Update.Set(field.Field, field.Value);
+            bool bool_val;
+            UpdateDefinition<BsonDocument> update;
+            if(Boolean.TryParse(field.Value, out bool_val))
+            {
+                update = Builders<BsonDocument>.Update.Set(field.Field, bool_val);
+            }
+            else
+            {
+                update = Builders<BsonDocument>.Update.Set(field.Field, field.Value);
+            }
             UpdateResult result;
             try
             {
