@@ -1,5 +1,5 @@
 <dualog-digitalplatform-theme>
-  <div *ngIf="loggedIn; else loggedOut">
+  <div *ngIf="this.userService.isLoggedIn; else loggedOut">
     <app-nav-toggler></app-nav-toggler>
     <app-navbar></app-navbar>
     <div
