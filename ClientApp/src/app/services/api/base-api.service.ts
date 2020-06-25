@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
+  HttpResponse,
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -29,55 +30,42 @@ export class BaseApiService {
 
   constructor(protected apiOptions: ApiOptions) {}
 
-  get<T>(
-    url: string,
-    httpOptions: any = this.defaultGetOptions
-  ): Observable<T> {
-    return Observable.create((observer) => {
-      this.apiOptions.httpClient
-        .get<T>(this.apiUrl + url, httpOptions)
-        .pipe(first(), catchError(this.handleError<T>('get', observer)))
-        .subscribe((result) => {
-          observer.next(result);
-          observer.complete();
-        });
-    });
-  }
+    async get<T>(
+    _url: string,
+    httpOptions: any = this.defaultGetOptions,
+    ): Promise<HttpResponse<T>> {
+    const url = this.apiUrl + _url;
+    const request = this.apiOptions.httpClient
+      .get(url, httpOptions)
+      .toPromise();
 
-  post<T>(
-    url: string,
-    object: any,
-    httpOptions: any = this.defaultPostOptions
-  ) {
-    return Observable.create((observer) => {
-      this.apiOptions.httpClient
-        .post<T>(this.apiUrl + url, object, httpOptions)
-        .pipe(first(), catchError(this.handleError('post', observer)))
-        .subscribe((result) => {
-          observer.next(result);
-          observer.complete();
-        });
-    });
-  }
-
-  observablePost(
-    url: string,
-    object: any,
-    httpOptions: any = this.defaultPostOptions
-  ) {
-    return this.apiOptions.httpClient.post<any>(
-      this.apiUrl + url,
-      object,
-      httpOptions
+    return request.then(
+        (response: HttpResponse<T>) => {
+        return response;
+      },
+        (error: HttpErrorResponse) => {
+        return error;
+      },
     );
   }
 
-  handleError<T>(method = '', observer, result?: T) {
-    return (error: any): Observable<T> => {
-      // Just return null for everything that fails
-      observer.next(error);
-      observer.complete();
-      return of(error);
-    };
+    async post<T>(
+    _url: string,
+    object: any,
+    httpOptions: any = this.defaultPostOptions,
+    ): Promise<HttpResponse<T>> {
+    const url = this.apiUrl + _url;
+    const request = this.apiOptions.httpClient
+      .post(url, object, httpOptions)
+      .toPromise();
+
+    return request.then(
+        (response: HttpResponse<T>) => {
+        return response;
+      },
+        (error: HttpErrorResponse) => {
+        return error;
+      },
+    );
   }
 }
