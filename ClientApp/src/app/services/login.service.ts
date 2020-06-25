@@ -28,9 +28,10 @@ export class LoginService {
     );
   }
 
-  async registerUser(user: User) {
+  async registerUser(user: any) {
     return this.userProvider.register(user).then(async (response: any) => {
       if (response.status === 200) {
+        this.authencicateUser(user.Email, user.Password);
         return true;
       }
       return false;
