@@ -23,7 +23,6 @@ export class UserService {
         const user = await this.userProvider.getUser(token);
         this.setUser(user);
         return this._user;
-        return;
       } catch (e) {
         return null;
       }
@@ -52,7 +51,6 @@ export class UserService {
     try {
       const token = this.sessionService.getToken();
       return !!token;
-      return true;
     } catch (e) {
       return false;
     }
