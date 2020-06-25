@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavbarToggleService } from './services/navbar-toggle.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +8,10 @@ import { NavbarToggleService } from './services/navbar-toggle.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  loggedIn: boolean = false;
+  constructor(
+    private userService: UserService,
+    public navbarService: NavbarToggleService,
+  ) {}
 
-  constructor(public navbarService: NavbarToggleService) {}
-
-  ngOnInit(): void {
-    // TODO: Create loggin detection component
-    //this.loggedIn = this.loggedInGuardComponent.isLoggedIn;
-  }
+  ngOnInit(): void {}
 }
