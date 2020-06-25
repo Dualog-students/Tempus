@@ -19,5 +19,5 @@ export class UserProviderService extends BaseApiService {
   register = (user: User): Promise<string> =>
     super.post<string>('register-user', user);
 
-    getUser = (id: string): Promise<User> => super.get<User>('users/' + id);
+  getUser = (id: string): Promise<User> => super.get<User>('users/' + id);
 }
