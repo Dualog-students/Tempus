@@ -36,4 +36,9 @@ export class LoginService {
       return false;
     });
   }
+
+  logout() {
+    this.sessionService.removeToken();
+    this.userService.removeUser();
+  }
 }
