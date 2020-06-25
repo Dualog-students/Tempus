@@ -3,10 +3,26 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin-page.component';
+import {
+  IsLoggedInGuard,
+  IsNotLoggedInGuard,
+  IsAdminGuard,
+} from './guards/authentication.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  // TODO: Create home page
+  { path: '', component: NotFoundComponent, canActivate: [IsLoggedInGuard] },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [IsNotLoggedInGuard],
+  },
+  {
+    path: 'manage-admin',
+    component: ManageAdminPageComponent,
+    canActivate: [IsAdminGuard],
+  },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '/404' },
 ];
