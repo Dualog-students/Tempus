@@ -1,4 +1,7 @@
-<dp-card header="Tempus" class="login">
+<div class="loginBox">
+  <div class="title dp-mb-8">
+    <dp-header1>Tempus</dp-header1>
+  </div>
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form">
     <dp-input label="Email" formControlName="email"> </dp-input>
     <dp-input
@@ -8,28 +11,27 @@
       formControlName="password"
     >
     </dp-input>
-    <dp-primary-button
-      class="dp-mt-8 submit"
-      label="Login"
-      [disabled]="false"
-      [fullWidth]="false"
-      htmlType="submit"
-    >
-    </dp-primary-button>
+    <div class="formButton dp-mt-8">
+      <dp-tertiary-button
+        label="Sign up"
+        [disabled]="false"
+        [fullWidth]="false"
+        (clicked)="onSignUp()"
+      >
+      </dp-tertiary-button>
+      <dp-primary-button
+        label="Login"
+        [disabled]="false"
+        [fullWidth]="false"
+        htmlType="submit"
+      >
+      </dp-primary-button>
+    </div>
   </form>
-  <div class="signUp">
-    <dp-tertiary-button
-      label="Sign up"
-      [disabled]="false"
-      [fullWidth]="false"
-      (clicked)="onSignUp()"
-    >
-    </dp-tertiary-button>
-  </div>
   <div *ngIf="error">
     <dp-message-box-info>{{ errorMsg }}</dp-message-box-info>
   </div>
-</dp-card>
+</div>
 <div *ngIf="modal">
   <app-signup [(modal)]="modal"></app-signup>
 </div>
