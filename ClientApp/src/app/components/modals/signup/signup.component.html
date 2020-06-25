@@ -1,13 +1,49 @@
 <dp-modal-medium header="Sign up" [openWindow]="modal" (cancel)="closeModal()">
   <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()" class="form">
-    <dp-input label="Email" formControlName="email"> </dp-input>
     <dp-input
-      class="dp-mt-4"
+      class="dp-mt-8"
+      label="Name"
+      type="text"
+      formControlName="name"
+    ></dp-input>
+    <dp-input class="dp-mt-8" label="Email" formControlName="email"> </dp-input>
+    <dp-input
+      class="dp-mt-8"
       label="Password"
       type="password"
       formControlName="password"
     >
     </dp-input>
+
+    <dp-dropdownlist
+      class="dp-mt-8"
+      [options]="options"
+      optionField="position"
+      label="Select item"
+      formControlName="position"
+      placeholder="Select your position"
+    >
+    </dp-dropdownlist>
+
+    <dp-checkbox
+      class="dp-mt-8"
+      [checked]="true"
+      [isDisabled]="false"
+      label="Full-time"
+      (changed)="onPartTime($event)"
+      [indeterminate]="false"
+    >
+    </dp-checkbox>
+    <div *ngIf="!isFullTime">
+      <dp-input
+        class="dp-mt-8"
+        label="Part-time percentage"
+        type="number"
+        formControlName="partTimePercentage"
+      >
+      </dp-input>
+    </div>
+
     <dp-primary-button
       class="dp-mt-8 submit"
       label="Sign up"
@@ -17,4 +53,7 @@
     >
     </dp-primary-button>
   </form>
+  <div *ngIf="error">
+    <dp-message-box-info>{{ errorMsg }}</dp-message-box-info>
+  </div>
 </dp-modal-medium>

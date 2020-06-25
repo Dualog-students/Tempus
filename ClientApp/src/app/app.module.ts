@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { DualogDesignSystemModule } from '@dualog/design-system';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,6 +33,7 @@ import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [LoginService, UserService],
   bootstrap: [AppComponent],
