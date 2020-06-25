@@ -13,6 +13,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { LoginService } from './services/login.service';
 import { SignupComponent } from './components/modals/signup/signup.component';
 import { UserService } from './services/user.service';
+import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin-page.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { UserService } from './services/user.service';
     NavTogglerComponent,
     LoginComponent,
     SignupComponent,
+    ManageAdminPageComponent,
   ],
   imports: [
     BrowserModule,
