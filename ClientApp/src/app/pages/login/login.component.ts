@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
   ) {}
 
   async ngOnInit() {}
@@ -36,18 +36,15 @@ export class LoginComponent implements OnInit {
       return;
     }
     const response = await this.loginService.authencicateUser(
-      this.loginForm.value
+      this.loginForm.controls.email.value,
+      this.loginForm.controls.password.value,
     );
 
-    if (response.status !== 200) {
+    if (!response) {
       this.errorMsg = 'Wrong email or password!';
       this.error = true;
       return;
     }
-    this.login(response.body);
-  }
-
-  login(userId: any) {
     this.router.navigate(['/home']);
   }
 
