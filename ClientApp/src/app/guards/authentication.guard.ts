@@ -38,3 +38,21 @@ export class IsNotLoggedInGuard implements CanActivate {
     }
   }
 }
+
+@Injectable({
+  providedIn: 'root',
+})
+export class IsAdminGuard implements CanActivate {
+  constructor(private userService: UserService, private router: Router) {}
+
+  async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (this.userService.isLoggedIn) {
+      const user = await this.userService.getCurrentUser();
+      if (user.IsAdmin) {
+        return true;
+      }
+    }
+    this.router.navigate(['']);
+    return false;
+  }
+}
