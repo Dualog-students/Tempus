@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { User } from '../models/user.model';
-// import { SessionService } from './session.service';
+import { SessionService } from './session.service';
 import { UserProviderService } from './api/user-provider.service';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class UserService {
   private _user: User;
 
   constructor(
-    // private sessionService: SessionService,
+    private sessionService: SessionService,
     private userProvider: UserProviderService,
   ) {}
 
@@ -19,11 +19,11 @@ export class UserService {
     if (!this._user) {
       try {
         // First time or refresh
-        // const token = this.sessionService.getToken();
-        // const user = await this.userProvider.getUser();
-        // this.setUser(user);
-        // return this._user;
-          return;
+        const token = this.sessionService.getToken();
+        const user = await this.userProvider.getUser(token);
+        this.setUser(user);
+        return this._user;
+        return;
       } catch (e) {
         return null;
       }
@@ -34,8 +34,8 @@ export class UserService {
 
   public async fetchUser(id: string) {
     // Called only on login
-    // const token = this.sessionService.getToken();
-    const user = await this.userProvider.getUser(id);
+    const token = this.sessionService.getToken();
+    const user = await this.userProvider.getUser(token);
     this.setUser(user);
   }
 
@@ -50,8 +50,8 @@ export class UserService {
 
   public get isLoggedIn(): boolean {
     try {
-      // const token = this.sessionService.getToken();
-      // return !!token;
+      const token = this.sessionService.getToken();
+      return !!token;
       return true;
     } catch (e) {
       return false;
