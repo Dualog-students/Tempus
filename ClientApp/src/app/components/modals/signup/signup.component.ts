@@ -121,8 +121,8 @@ export class SignupComponent implements OnInit {
     console.log(result);
     if (result.position === 'Other') {
       this.signUpForm.controls.otherPosition.setValidators(Validators.required);
-      return;
+    } else {
+      this.signUpForm.controls.otherPosition.clearValidators();
     }
-    this.signUpForm.controls.otherPosition.clearValidators();
   }
 }
