@@ -29,8 +29,17 @@
       label="Select item"
       formControlName="position"
       placeholder="Select your position"
+      (changed)="onChange($event)"
     >
     </dp-dropdownlist>
+    <div *ngIf="signUpForm.controls.position.value.position === 'Other'">
+      <dp-input
+        class="dp-mt-8"
+        label="Your Position:"
+        formControlName="otherPosition"
+      >
+      </dp-input>
+    </div>
 
     <div id="part-time">
       <dp-checkbox
