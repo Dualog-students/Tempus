@@ -5,12 +5,12 @@
   [searchProps]="['Name']"
   searchPlaceholder="Search for user"
 >
-  <dp-datagrid-column field="Name" header="Name" width="10">
+  <dp-datagrid-column field="name" header="Name" width="10">
   </dp-datagrid-column>
   <dp-datagrid-column header="Is admin" width="2" display="end">
     <ng-template dpDataGridColumnTemplate let-item>
       <dp-checkbox
-        [checked]="item.IsAdmin"
+        [checked]="item.isAdmin"
         [isDisabled]="false"
         (changed)="toggleAdmin(item, $event)"
       >
