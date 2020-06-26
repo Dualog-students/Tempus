@@ -11,7 +11,8 @@
     <ds-grid-column>
       <div class="user-info">
         <dp-detail-type class="dp-mb-2">Position</dp-detail-type>
-        <dp-icon (click)="openModal('Position')" class="edit-button" type="pen"> </dp-icon>
+        <dp-icon (click)="openModal('Position')" class="edit-button" type="pen">
+        </dp-icon>
       </div>
       <dp-body-type>{{ user?.Position }}</dp-body-type>
     </ds-grid-column>
@@ -20,37 +21,37 @@
     <ds-grid-column>
       <div class="user-info">
         <dp-detail-type class="dp-mb-2">Email</dp-detail-type>
-        <dp-icon (click)="openModal('Email')" class="edit-button" type="pen"> </dp-icon>
+        <dp-icon (click)="openModal('Email')" class="edit-button" type="pen">
+        </dp-icon>
       </div>
       <dp-body-type>{{ user?.Email }}</dp-body-type>
     </ds-grid-column>
     <ds-grid-column>
       <div class="user-info">
-        <dp-detail-type class="dp-mb-2">Percentage</dp-detail-type>
-        <dp-icon (click)="openModal('Percentage')" class="edit-button" type="pen"> </dp-icon>
+        <dp-detail-type class="dp-mb-2">Part time percentage</dp-detail-type>
+        <dp-icon
+        (click)="openModal('Part time percentage')"
+          class="edit-button"
+          type="pen"
+        >
+        </dp-icon>
       </div>
-      <dp-body-type>{{ user?.Percentage }}</dp-body-type>
+      <dp-body-type>{{ user?.partTimePercentage }}</dp-body-type>
     </ds-grid-column>
   </ds-grid-row>
   <ds-grid-row>
     <ds-grid-column>
-      <div>
-        <dp-tertiary-button
-          label="New field"
-          [disabled]="false"
-          [fullWidth]="false"
-          (click)="openModal(null)"
-        >
-        </dp-tertiary-button>
-        <dp-tertiary-button
-          label="Change password"
-          [disabled]="false"
-          [fullWidth]="false"
-          (click)="openModal('Password')"
-        >
-        </dp-tertiary-button>
-      </div>
+      <dp-tertiary-button
+        label="Change password"
+        [disabled]="false"
+        [fullWidth]="false"
+        (click)="openModal('Password')"
+      >
+      </dp-tertiary-button>
     </ds-grid-column>
   </ds-grid-row>
 </ds-grid>
-<app-edit-user-modal [field]="editUserField" [(modal)]="isModalOpen"></app-edit-user-modal>
+<app-edit-user-modal
+  [field]="editUserField"
+  [(modal)]="isModalOpen"
+></app-edit-user-modal>
