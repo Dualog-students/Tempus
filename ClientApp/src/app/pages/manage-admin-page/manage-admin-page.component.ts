@@ -25,7 +25,11 @@ export class ManageAdminPageComponent implements OnInit {
     }
   }
 
-    async toggleAdmin(user: User, status: boolean) {
-        await this.userProvider.updateUserField(user._id, "IsAdmin", status.toString());
-    }
+  async toggleAdmin(user: User, status: boolean) {
+    await this.userProvider.updateUserField(
+      user._id,
+      'IsAdmin',
+      status.toString(),
+    );
+  }
 }

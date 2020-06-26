@@ -15,10 +15,10 @@ export class NavbarComponent implements OnInit {
   user: User;
 
   constructor(
-    public navbarService: NavbarToggleService,
-    private loginService: LoginService,
     private router: Router,
     private userService: UserService,
+    private loginService: LoginService,
+    public navbarService: NavbarToggleService,
   ) {}
 
   async ngOnInit() {
