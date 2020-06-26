@@ -99,7 +99,7 @@ export class SignupComponent implements OnInit {
   passwordValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       let error = null;
-      if (!control.touched || control.value.length < this.passwordLength) {
+      if (control.pristine || control.value.length < this.passwordLength) {
         error =
           'Password must have atleast ' + this.passwordLength + ' characters';
       } else if (!control.value.match(this.passwordRegexNonCapitalized)) {
