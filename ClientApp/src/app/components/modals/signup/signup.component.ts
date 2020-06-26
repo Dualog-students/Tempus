@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 
 import { LoginService } from 'src/app/services/login.service';
 import { RegisterUser } from '../../../models/registerUser.model';
+import positions from '../../../../assets/positions.json';
 
 @Component({
   selector: 'app-signup',
@@ -22,7 +23,9 @@ export class SignupComponent implements OnInit {
   @Output() modalChange = new EventEmitter<boolean>();
   error = false;
   errorMsg = 'Email is already taken';
-  options = [{ position: 'Manager' }, { position: 'Intern' }];
+  options = positions.map((x) => {
+    return { position: x };
+  });
   isFullTime = true;
   passwordRegexNumber = /\d+/g;
   passwordRegexCapitalized = /[A-Z]+/g;
