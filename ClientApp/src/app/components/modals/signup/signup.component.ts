@@ -36,7 +36,12 @@ export class SignupComponent implements OnInit {
 
   constructor(private loginService: LoginService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.signUpForm.controls.confirmPassword.setValidators([
+      Validators.required,
+      this.confirmPasswordValidator(),
+    ]);
+  }
 
   closeModal() {
     this.modal = false;
@@ -77,6 +82,15 @@ export class SignupComponent implements OnInit {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (control.value < 10 || control.value > 90) {
         return { error: 'Number has to be between 10 and 90' };
+      }
+      return null;
+    };
+  }
+
+  confirmPasswordValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (control.value !== this.signUpForm.value.password) {
+        return { error: 'Passwords is not equal' };
       }
       return null;
     };
