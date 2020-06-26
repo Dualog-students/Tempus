@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseApiService, ApiOptions } from './base-api.service';
 import { RegisterUser } from '../../models/RegisterUser.model';
+import { User } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root',
