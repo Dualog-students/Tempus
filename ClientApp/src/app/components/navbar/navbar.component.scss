@@ -59,4 +59,5 @@ nav {
 .navbar a.navbar_logout:hover {
   background-color: var(--red-status-color-dark);
   color: var(--dualog-white);
+  cursor: pointer;
 }
