@@ -10,10 +10,10 @@ import {
   IsNotLoggedInGuard,
   IsAdminGuard,
 } from './guards/authentication.guard';
+import { DashboardComponent } from './pages/dashboard/dashboard-page.component';
 
 const routes: Routes = [
-  // TODO: Create home page
-  { path: '', component: NotFoundComponent, canActivate: [IsLoggedInGuard] },
+  { path: '', component: DashboardComponent, canActivate: [IsLoggedInGuard] },
   {
     path: 'login',
     component: LoginComponent,
