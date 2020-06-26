@@ -1,7 +1,10 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { NavbarToggleService } from '../../services/navbar-toggle.service';
 import { LoginService } from '../../services/login.service';
-import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -9,13 +12,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+  user: User;
+
   constructor(
     public navbarService: NavbarToggleService,
     private loginService: LoginService,
     private router: Router,
+    private userService: UserService,
   ) {}
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    this.user = await this.userService.getCurrentUser();
+  }
 
   logout() {
     this.loginService.logout();
