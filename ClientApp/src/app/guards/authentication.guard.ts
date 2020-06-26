@@ -48,7 +48,7 @@ export class IsAdminGuard implements CanActivate {
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.userService.isLoggedIn) {
       const user = await this.userService.getCurrentUser();
-      if (user.IsAdmin) {
+      if (user.isAdmin) {
         return true;
       }
     }

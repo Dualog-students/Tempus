@@ -3,7 +3,7 @@ export class User {
   name: string;
   email: string;
   position: string;
-  IsAdmin?: boolean;
+  isAdmin?: boolean;
   hours: {};
   partTimePercentage: number;
 }
