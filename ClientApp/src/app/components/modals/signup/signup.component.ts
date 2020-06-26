@@ -1,15 +1,16 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import {
-  FormBuilder,
   FormGroup,
   FormControl,
   Validators,
   ValidatorFn,
   AbstractControl,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { LoginService } from 'src/app/services/login.service';
-import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
+import { RegisterUser } from '../../../models/registerUser.model';
 
 @Component({
   selector: 'app-signup',
@@ -19,20 +20,20 @@ import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 export class SignupComponent implements OnInit {
   @Input() modal: boolean;
   @Output() modalChange = new EventEmitter<boolean>();
-  error: boolean = false;
-  errorMsg: string = 'Email is already taken';
+  error = false;
+  errorMsg = 'Email is already taken';
   options = [{ position: 'Manager' }, { position: 'Intern' }];
-  isFullTime: boolean = true;
+  isFullTime = true;
 
   signUpForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
-    partTimePercentage: new FormControl(null),
+    partTimePercentage: new FormControl(100),
     position: new FormControl('', [Validators.required]),
   });
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -46,9 +47,10 @@ export class SignupComponent implements OnInit {
     if (this.isFullTime) {
       this.signUpForm.controls.partTimePercentage.clearValidators();
       this.signUpForm.controls.partTimePercentage.reset();
+      this.signUpForm.controls.partTimePercentage.setValue(100);
     } else {
       this.signUpForm.controls.partTimePercentage.setValidators(
-        percentValidator()
+        percentValidator(),
       );
     }
   }
@@ -60,12 +62,14 @@ export class SignupComponent implements OnInit {
     }
     const form = this.signUpForm.value;
     form.position = form.position.position;
-    const response = await this.loginService.registerUser(form);
-    if (response.status === 200) {
-      this.closeModal();
+    const user: RegisterUser = form;
+
+    const response = await this.loginService.registerUser(user);
+    if (!response) {
+      this.error = true;
       return;
     }
-    this.error = true;
+    this.router.navigate(['/home']);
   }
 }
 
