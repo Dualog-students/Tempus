@@ -14,6 +14,13 @@
       formControlName="password"
     >
     </dp-input>
+    <dp-input
+      class="dp-mt-8"
+      label="Confirm Password"
+      type="password"
+      formControlName="confirmPassword"
+    >
+    </dp-input>
 
     <dp-dropdownlist
       class="dp-mt-8"
@@ -25,23 +32,25 @@
     >
     </dp-dropdownlist>
 
-    <dp-checkbox
-      class="dp-mt-8"
-      [checked]="true"
-      [isDisabled]="false"
-      label="Full-time"
-      (changed)="onPartTime($event)"
-      [indeterminate]="false"
-    >
-    </dp-checkbox>
-    <div *ngIf="!isFullTime">
-      <dp-input
-        class="dp-mt-8"
-        label="Part-time percentage"
-        type="number"
-        formControlName="partTimePercentage"
+    <div id="part-time">
+      <dp-checkbox
+        class="dp-mt-8 dp-ml-2"
+        [checked]="true"
+        [isDisabled]="false"
+        label="Full-time"
+        (changed)="onPartTime($event)"
+        [indeterminate]="false"
       >
-      </dp-input>
+      </dp-checkbox>
+      <div *ngIf="!isFullTime">
+        <dp-input
+          class="dp-mt-8"
+          label="Part-time percentage"
+          type="number"
+          formControlName="partTimePercentage"
+        >
+        </dp-input>
+      </div>
     </div>
 
     <dp-primary-button
