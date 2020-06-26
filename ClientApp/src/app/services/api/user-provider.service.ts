@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseApiService, ApiOptions } from './base-api.service';
-import { User } from '../../models/user.model';
+import { RegisterUser } from '../../models/RegisterUser.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class UserProviderService extends BaseApiService {
       Password: password,
     });
 
-  register = (user: User): Promise<string> =>
+  register = (user: RegisterUser): Promise<string> =>
     super.post<string>('register-user', user);
 
   getUser = (id: string): Promise<User> => super.get<User>('users/' + id);

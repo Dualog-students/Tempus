@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { UserProviderService } from '../services/api/user-provider.service';
 import { UserService } from '../services/user.service';
 import { SessionService } from '../services/session.service';
-import { User } from '../models/user.model';
+import { RegisterUser } from '../models/registerUser.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,10 +28,10 @@ export class LoginService {
       });
   }
 
-  async registerUser(user: any) {
+  async registerUser(user: RegisterUser) {
     return this.userProvider.register(user).then(async (response: string) => {
       if (typeof response === 'string') {
-        this.authencicateUser(user.Email, user.Password);
+        this.authencicateUser(user.email, user.password);
         return true;
       }
       return false;
