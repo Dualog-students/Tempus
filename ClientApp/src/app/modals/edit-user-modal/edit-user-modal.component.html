@@ -9,7 +9,7 @@
     <div class="row dp-mt-20 dp-mb-16">
       <div class="col-12">
         <dp-body-type>
-          <dp-input label="Value" formControlName="value"></dp-input>
+          <dp-input label="{{ field }}" formControlName="value"></dp-input>
         </dp-body-type>
       </div>
     </div>
@@ -32,17 +32,17 @@
         <div class="col-12">
           <dp-body-type>
             <dp-input label="Field" formControlName="field"> </dp-input>
-            <dp-input label="Value" formControlName="value"> </dp-input>
+            <dp-input label="{{ field }}" formControlName="value"> </dp-input>
           </dp-body-type>
         </div>
       </div>
-    <dp-primary-button
-      label="Save"
-      [disabled]="false"
-      [fullWidth]="false"
-      (clicked)="saveModal()"
-    >
-    </dp-primary-button>
+      <dp-primary-button
+        label="Save"
+        [disabled]="false"
+        [fullWidth]="false"
+        (clicked)="saveModal()"
+      >
+      </dp-primary-button>
     </dp-modal-small>
   </ng-template>
 </div>

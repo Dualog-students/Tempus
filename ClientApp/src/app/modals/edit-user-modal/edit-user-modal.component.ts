@@ -18,6 +18,7 @@ export class EditUserModalComponent implements OnInit {
   fgUpdateUserField = new FormGroup({
     field: new FormControl(this.field, [Validators.required]),
     value: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('')
   });
 
   constructor(
@@ -25,7 +26,9 @@ export class EditUserModalComponent implements OnInit {
     private userProvider: UserProviderService,
   ) {}
 
-  ngOnInit(): void {}
+    ngOnInit(): void {
+        this.fgUpdateUserField.controls.
+    }
 
   closeModal() {
     this.fgUpdateUserField.reset();
