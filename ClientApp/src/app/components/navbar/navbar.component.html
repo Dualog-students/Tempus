@@ -1,7 +1,7 @@
 <nav id="sidebar" class="navbar" [ngClass]="{ hidden: navbarService.hideNav }">
   <ul>
     <li><a routerLink="/profile">Profile</a></li>
-    <li><a routerLink="/dashboard">Dashboard</a></li>
+    <li><a routerLink="">Dashboard</a></li>
     <li><a routerLink="/overview">Overview</a></li>
     <div *ngIf="user?.IsAdmin">
       <li><a routerLink="/manage-admin">Manage admins</a></li>
