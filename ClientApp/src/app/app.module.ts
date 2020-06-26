@@ -17,6 +17,8 @@ import { UserService } from './services/user.service';
 import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { EditUserModalComponent } from './components/modals/edit-user-modal/edit-user-modal.component';
+import { DashboardComponent } from './pages/dashboard/dashboard-page.component';
+import { RegisterHoursComponent } from './components/register-hours/register-hours.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { EditUserModalComponent } from './components/modals/edit-user-modal/edit
     ManageAdminPageComponent,
     ProfilePageComponent,
     EditUserModalComponent,
+    DashboardComponent,
+    RegisterHoursComponent,
   ],
   imports: [
     BrowserModule,

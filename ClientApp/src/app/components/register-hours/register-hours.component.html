@@ -1,0 +1,35 @@
+<div class="box">
+  <div class="title dp-mb-8">
+    <dp-header1>Tempus</dp-header1>
+  </div>
+
+  <dp-datepicker [defaultDate]="selectedDate" (selected)="updateDate($event)">
+  </dp-datepicker>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+    <dp-input
+      label="hours"
+      type="number"
+      min="0"
+      max="24"
+      formControlName="hours"
+    ></dp-input>
+    <input type="number" name="" id="" max="24" min="0" />
+
+    <div class="formButton dp-mt-8">
+      <dp-primary-button
+        label="Register"
+        [disabled]="false"
+        [fullWidth]="false"
+        htmlType="submit"
+      >
+      </dp-primary-button>
+    </div>
+  </form>
+</div>
+<div class="box" *ngIf="user" (click)="loghours()">
+  {{ user.hours }}
+</div>
+
+<div class="box" *ngIf="jsonString">
+  {{ jsonString }}
+</div>
