@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin-page.component';
 import {
   IsLoggedInGuard,
@@ -17,6 +18,11 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     canActivate: [IsNotLoggedInGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfilePageComponent,
+    canActivate: [IsLoggedInGuard],
   },
   {
     path: 'manage-admin',
