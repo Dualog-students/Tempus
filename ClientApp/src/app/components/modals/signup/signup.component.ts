@@ -40,6 +40,7 @@ export class SignupComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     partTimePercentage: new FormControl(100),
     position: new FormControl('', [Validators.required]),
+    otherPosition: new FormControl(''),
   });
 
   constructor(private loginService: LoginService, private router: Router) {}
@@ -118,5 +119,14 @@ export class SignupComponent implements OnInit {
       }
       return null;
     };
+  }
+
+  onChange(result) {
+    console.log(result);
+    if (result.position === 'Other') {
+      this.signUpForm.controls.otherPosition.setValidators(Validators.required);
+      return;
+    }
+    this.signUpForm.controls.otherPosition.clearValidators();
   }
 }
