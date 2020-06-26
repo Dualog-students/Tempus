@@ -79,7 +79,7 @@ export class SignupComponent implements OnInit {
       this.signUpForm.markAllAsTouched();
       return;
     }
-    const form = this.signUpForm.value;
+    const form = { ...this.signUpForm.value };
     form.position = form.position.position;
     const user: RegisterUser = form;
 
