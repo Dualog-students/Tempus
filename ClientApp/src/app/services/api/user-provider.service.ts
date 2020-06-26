@@ -20,4 +20,12 @@ export class UserProviderService extends BaseApiService {
     super.post<string>('register-user', user);
 
   getUser = (id: string): Promise<User> => super.get<User>('users/' + id);
+
+  getAllUsers = (): Promise<User[]> => super.get<User[]>('users');
+
+  updateUserField = (id: string, field: string, value: string) =>
+    super.post<string>(id + '/update-user-field', {
+      Field: field,
+      Value: value,
+    });
 }
