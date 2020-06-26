@@ -15,6 +15,7 @@ import { LoginService } from './services/login.service';
 import { SignupComponent } from './components/modals/signup/signup.component';
 import { UserService } from './services/user.service';
 import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin
     LoginComponent,
     SignupComponent,
     ManageAdminPageComponent,
+    ProfilePageComponent,
   ],
   imports: [
     BrowserModule,
