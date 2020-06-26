@@ -110,7 +110,7 @@ export class SignupComponent implements OnInit {
   confirmPasswordValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (control.value !== this.signUpForm.value.password) {
-        return { error: 'Passwords is not equal' };
+        return { error: 'Passwords do not match' };
       }
       return null;
     };
