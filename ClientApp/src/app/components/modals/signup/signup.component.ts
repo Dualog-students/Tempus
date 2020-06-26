@@ -28,6 +28,7 @@ export class SignupComponent implements OnInit {
   signUpForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     partTimePercentage: new FormControl(100),
     position: new FormControl('', [Validators.required]),
@@ -50,7 +51,7 @@ export class SignupComponent implements OnInit {
       this.signUpForm.controls.partTimePercentage.setValue(100);
     } else {
       this.signUpForm.controls.partTimePercentage.setValidators(
-        percentValidator(),
+        this.percentValidator(),
       );
     }
   }
@@ -71,13 +72,13 @@ export class SignupComponent implements OnInit {
     }
     this.router.navigate(['/home']);
   }
-}
 
-export function percentValidator(): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    if (control.value < 10 || control.value > 90) {
-      return { error: 'Number has to be between 10 and 90' };
-    }
-    return null;
-  };
+  percentValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (control.value < 10 || control.value > 90) {
+        return { error: 'Number has to be between 10 and 90' };
+      }
+      return null;
+    };
+  }
 }
