@@ -27,10 +27,6 @@ export class SignupComponent implements OnInit {
     return { position: x };
   });
   isFullTime = true;
-  passwordRegexNumber = /\d+/g;
-  passwordRegexCapitalized = /[A-Z]+/g;
-  passwordRegexNonCapitalized = /[a-z]+/g;
-  passwordRegexSymbol = /[^\w\s]+/g;
   passwordLength = 6;
 
   signUpForm = new FormGroup({
@@ -101,21 +97,11 @@ export class SignupComponent implements OnInit {
 
   passwordValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      let error = null;
       if (control.pristine || control.value.length < this.passwordLength) {
-        error =
-          'Password must have atleast ' + this.passwordLength + ' characters';
-      } else if (!control.value.match(this.passwordRegexNonCapitalized)) {
-        error = 'Password must have atleast 1 non capitalized letter';
-      } else if (!control.value.match(this.passwordRegexCapitalized)) {
-        error = 'Password must have atleast 1 capitalized letter';
-      } else if (!control.value.match(this.passwordRegexNumber)) {
-        error = 'Password must have atleast 1 number';
-      } else if (!control.value.match(this.passwordRegexSymbol)) {
-        error = 'Password must have atleast 1 symbol';
-      }
-      if (error) {
-        return { error };
+        return {
+          error:
+            'Password must have atleast ' + this.passwordLength + ' characters',
+        };
       }
       return null;
     };
