@@ -3,12 +3,18 @@
     <dp-header1>Tempus</dp-header1>
   </div>
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form">
-    <dp-input label="Email" formControlName="email"> </dp-input>
+    <dp-input
+      label="Email"
+      formControlName="email"
+      (valueSubmitted)="onLogin()"
+    >
+    </dp-input>
     <dp-input
       class="dp-mt-8"
       label="Password"
       type="password"
       formControlName="password"
+      (valueSubmitted)="onLogin()"
     >
     </dp-input>
     <div class="formButton dp-mt-8">
