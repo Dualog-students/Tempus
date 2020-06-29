@@ -30,6 +30,7 @@
       formControlName="position"
       placeholder="Select your position"
       (changed)="onChange($event)"
+      dropdownHeight="{{ dropdownHeight }}"
     >
     </dp-dropdownlist>
     <div *ngIf="otherOption === 'Other'">
