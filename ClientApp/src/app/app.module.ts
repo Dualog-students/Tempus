@@ -19,7 +19,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { EditUserModalComponent } from './components/modals/edit-user-modal/edit-user-modal.component';
 import { DashboardComponent } from './pages/dashboard/dashboard-page.component';
 import { RegisterHoursComponent } from './components/register-hours/register-hours.component';
-import { ProjectChooserComponent } from './components/project-chooser/project-chooser.component';
+import { ProjectDateSelectorComponent } from './components/project-date-selector/project-date-selector.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { ProjectChooserComponent } from './components/project-chooser/project-ch
     EditUserModalComponent,
     DashboardComponent,
     RegisterHoursComponent,
-    ProjectChooserComponent,
+    ProjectDateSelectorComponent,
   ],
   imports: [
     BrowserModule,
