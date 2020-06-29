@@ -1,1 +1,58 @@
-<p>compare-hours works!</p>
+<dp-toggle-button
+  [options]="periodOptions"
+  labelKey="name"
+  valueKey="value"
+  (changed)="onTabChange($event)"
+>
+</dp-toggle-button>
+<div style="display: flex; flex-direction: row; justify-content: space-between">
+  <div *ngIf="currentTab === TimePeriod.Month" style="width: 45% !important">
+    <dp-datagrid
+      [items]="allMonths"
+      [itemsSelected]="selectedPeriods"
+      [selectable]="true"
+      [searchable]="true"
+      uniqueProperty="month"
+      (selected)="onSelect($event)"
+      searchPlaceholder="Search for month"
+    >
+      <dp-datagrid-column field="month" width="12"> </dp-datagrid-column>
+    </dp-datagrid>
+  </div>
+  <div *ngIf="currentTab === TimePeriod.Week" style="width: 45% !important">
+    <dp-datagrid
+      [items]="allWeeks"
+      [itemsSelected]="selectedPeriods"
+      [selectable]="true"
+      [searchable]="true"
+      uniqueProperty="week"
+      (selected)="onSelect($event)"
+      searchPlaceholder="Search for month"
+    >
+      <dp-datagrid-column field="week" width="12"> </dp-datagrid-column>
+    </dp-datagrid>
+  </div>
+  <div style="width: 45% !important">
+    <ds-grid>
+      <ds-grid-row>
+        <ds-grid-column title="Total hours off:">
+          <div *ngIf="totalHoursOff < 0; else green">
+            <dp-body-type style="color: red">{{ totalHoursOff }}</dp-body-type>
+          </div>
+          <ng-template #green>
+            <dp-body-type style="color: green"
+              >{{ totalHoursOff }}</dp-body-type
+            >
+          </ng-template>
+        </ds-grid-column>
+      </ds-grid-row>
+      <ds-grid-row>
+        <ds-grid-column title="Hours needed to make up this month">
+          <dp-body-type>
+            {{ hoursLeftThisPeriod }}
+          </dp-body-type>
+        </ds-grid-column>
+      </ds-grid-row>
+    </ds-grid>
+  </div>
+</div>
