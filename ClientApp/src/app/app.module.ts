@@ -23,6 +23,7 @@ import { ProjectDateSelectorComponent } from './components/project-date-selector
 import { GridLoggerComponent } from './components/grid-logger/grid-logger.component';
 import { LoggerDetailsComponent } from './components/logger-details/logger-details.component';
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
+import { CompareHoursComponent } from './components/compare-hours/compare-hours.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { OverviewPageComponent } from './pages/overview-page/overview-page.compo
     GridLoggerComponent,
     LoggerDetailsComponent,
     OverviewPageComponent,
+    CompareHoursComponent,
   ],
   imports: [
     BrowserModule,
