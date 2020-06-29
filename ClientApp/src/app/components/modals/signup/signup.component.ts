@@ -30,7 +30,11 @@ export class SignupComponent implements OnInit {
   passwordLength = 6;
 
   signUpForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email,
+      Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@dualog.com*$/),
+    ]),
     password: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
