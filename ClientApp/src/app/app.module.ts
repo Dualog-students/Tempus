@@ -16,7 +16,7 @@ import { SignupComponent } from './components/modals/signup/signup.component';
 import { UserService } from './services/user.service';
 import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
-import { EditUserModalComponent } from './modals/edit-user-modal/edit-user-modal.component';
+import { EditUserModalComponent } from './components/modals/edit-user-modal/edit-user-modal.component';
 
 @NgModule({
   declarations: [
