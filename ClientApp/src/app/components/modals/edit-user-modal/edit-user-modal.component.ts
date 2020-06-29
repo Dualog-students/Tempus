@@ -103,13 +103,13 @@ export class EditUserModalComponent implements OnInit {
     let fg, field, value;
     if (this._field === 'Password') {
       fg = this.fgChangePassword;
-      field = fg.controls.password;
-      value = fg.controls.changePassword;
+      field = 'Password'
+      value = fg.controls.confirmPassword.value;
     } else {
       fg = this.fgUpdateUserField;
       fg.controls.field.setValue(this._field);
-      field = fg.controls.field;
-      value = fg.controls.value;
+      field = fg.controls.field.value;
+      value = fg.controls.value.value;
     }
     if (!fg.valid) {
       fg.markAllAsTouched();
@@ -117,8 +117,8 @@ export class EditUserModalComponent implements OnInit {
     }
     await this.userProvider.updateUserField(
       this.user._id,
-      field.value,
-      value.value,
+      field,
+      value,
     );
     this.closeModal();
     location.reload();
