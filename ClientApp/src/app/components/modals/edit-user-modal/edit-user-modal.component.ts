@@ -118,7 +118,7 @@ export class EditUserModalComponent implements OnInit {
     await this.userProvider.updateUserField(
       this.user._id,
       field,
-      value,
+      value.toString(),
     );
     this.closeModal();
     location.reload();
