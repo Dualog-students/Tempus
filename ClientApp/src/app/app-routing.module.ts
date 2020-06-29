@@ -5,6 +5,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin-page.component';
+import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 import {
   IsLoggedInGuard,
   IsNotLoggedInGuard,
@@ -22,6 +23,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfilePageComponent,
+    canActivate: [IsLoggedInGuard],
+  },
+  {
+    path: 'overview',
+    component: OverviewPageComponent,
     canActivate: [IsLoggedInGuard],
   },
   {
