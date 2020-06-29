@@ -21,6 +21,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard-page.component';
 import { RegisterHoursComponent } from './components/register-hours/register-hours.component';
 import { ProjectDateSelectorComponent } from './components/project-date-selector/project-date-selector.component';
 import { GridLoggerComponent } from './components/grid-logger/grid-logger.component';
+import { LoggerDetailsComponent } from './components/logger-details/logger-details.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { GridLoggerComponent } from './components/grid-logger/grid-logger.compon
     RegisterHoursComponent,
     ProjectDateSelectorComponent,
     GridLoggerComponent,
+    LoggerDetailsComponent,
   ],
   imports: [
     BrowserModule,
