@@ -10,6 +10,7 @@ import {
   passwordValidator,
   confirmPasswordValidator,
 } from '../../../validators/password.validator';
+import { partTimePercentValidator } from '../../../validators/part-time-percentage.validator';
 
 @Component({
   selector: 'app-signup',
@@ -74,7 +75,7 @@ export class SignupComponent implements OnInit {
       this.signUpForm.controls.partTimePercentage.setValue(100);
     } else {
       this.signUpForm.controls.partTimePercentage.setValidators(
-        this.percentValidator(),
+        partTimePercentValidator(this.signUpForm.controls.partTimePercentage),
       );
     }
   }
@@ -94,14 +95,5 @@ export class SignupComponent implements OnInit {
       return;
     }
     this.router.navigate(['/home']);
-  }
-
-  percentValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value < 10 || control.value > 90) {
-        return { error: 'Number has to be between 10 and 90' };
-      }
-      return null;
-    };
   }
 }
