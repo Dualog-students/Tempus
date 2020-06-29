@@ -7,14 +7,14 @@ import {
   AbstractControl,
 } from '@angular/forms';
 
-import { User } from '../../models/user.model';
-import { UserService } from '../../services/user.service';
-import { UserProviderService } from '../../services/api/user-provider.service';
+import { User } from '../../../models/user.model';
+import { UserService } from '../../../services/user.service';
+import { UserProviderService } from '../../../services/api/user-provider.service';
 import {
   passwordValidator,
   confirmPasswordValidator,
-} from '../../validators/password.validator';
-import { partTimePercentValidator } from '../../validators/part-time-percentage.validator';
+} from '../../../validators/password.validator';
+import { partTimePercentValidator } from '../../../validators/part-time-percentage.validator';
 
 @Component({
   selector: 'app-edit-user-modal',
