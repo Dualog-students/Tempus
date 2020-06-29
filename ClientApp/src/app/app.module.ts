@@ -17,6 +17,7 @@ import { UserService } from './services/user.service';
 import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { EditUserModalComponent } from './components/modals/edit-user-modal/edit-user-modal.component';
+import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { EditUserModalComponent } from './components/modals/edit-user-modal/edit
     ManageAdminPageComponent,
     ProfilePageComponent,
     EditUserModalComponent,
+    OverviewPageComponent,
   ],
   imports: [
     BrowserModule,
