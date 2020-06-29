@@ -1,17 +1,15 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  ValidatorFn,
-  AbstractControl,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LoginService } from 'src/app/services/login.service';
 import { RegisterUser } from '../../../models/registerUser.model';
 import positions from '../../../../assets/positions.json';
+import {
+  passwordValidator,
+  confirmPasswordValidator,
+} from '../../../validators/password.validator';
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +22,7 @@ export class SignupComponent implements OnInit {
 
   error = false;
   errorMsg = 'Email is already taken';
-  options = positions.map((x) => {
+  options = positions.map(x => {
     return { position: x };
   });
   isFullTime = true;
@@ -54,11 +52,14 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.signUpForm.controls.password.setValidators([
       Validators.required,
-      this.passwordValidator(),
+      passwordValidator(this.signUpForm.controls.password),
     ]);
     this.signUpForm.controls.confirmPassword.setValidators([
       Validators.required,
-      this.confirmPasswordValidator(),
+      confirmPasswordValidator(
+        this.signUpForm.controls.confirmPassword,
+        this.signUpForm.controls.password,
+      ),
     ]);
   }
 
@@ -104,34 +105,5 @@ export class SignupComponent implements OnInit {
       }
       return null;
     };
-  }
-
-  passwordValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.pristine || control.value.length < this.passwordLength) {
-        return {
-          error:
-            'Password must have atleast ' + this.passwordLength + ' characters',
-        };
-      }
-      return null;
-    };
-  }
-
-  confirmPasswordValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value !== this.signUpForm.value.password) {
-        return { error: 'Passwords do not match' };
-      }
-      return null;
-    };
-  }
-
-  onChange(result) {
-    if (result.position === 'Other') {
-      this.signUpForm.controls.otherPosition.setValidators(Validators.required);
-    } else {
-      this.signUpForm.controls.otherPosition.clearValidators();
-    }
   }
 }
