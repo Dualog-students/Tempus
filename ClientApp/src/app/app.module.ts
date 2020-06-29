@@ -20,6 +20,7 @@ import { EditUserModalComponent } from './components/modals/edit-user-modal/edit
 import { DashboardComponent } from './pages/dashboard/dashboard-page.component';
 import { RegisterHoursComponent } from './components/register-hours/register-hours.component';
 import { ProjectDateSelectorComponent } from './components/project-date-selector/project-date-selector.component';
+import { GridLoggerComponent } from './components/grid-logger/grid-logger.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ProjectDateSelectorComponent } from './components/project-date-selector
     DashboardComponent,
     RegisterHoursComponent,
     ProjectDateSelectorComponent,
+    GridLoggerComponent,
   ],
   imports: [
     BrowserModule,
