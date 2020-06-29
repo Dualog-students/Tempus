@@ -1,4 +1,7 @@
 <div class="box">
-  <dp-header1 *ngIf="user">Dashboard - {{ user.Name }}</dp-header1>
+  <dp-header1 class="dp-mb-8" *ngIf="user"
+    >Dashboard - {{ user.Name }}</dp-header1
+  >
+  <app-project-date-selector class="dp-mb-8"></app-project-date-selector>
   <app-register-hours></app-register-hours>
 </div>
