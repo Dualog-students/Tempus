@@ -18,6 +18,7 @@ import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { EditUserModalComponent } from './components/modals/edit-user-modal/edit-user-modal.component';
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
+import { CompareHoursComponent } from './components/compare-hours/compare-hours.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { OverviewPageComponent } from './pages/overview-page/overview-page.compo
     ProfilePageComponent,
     EditUserModalComponent,
     OverviewPageComponent,
+    CompareHoursComponent,
   ],
   imports: [
     BrowserModule,
