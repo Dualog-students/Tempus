@@ -1,7 +1,7 @@
 <div [formGroup]="fgUpdateUserField">
   <dp-modal-small
-    *ngIf="field; else both"
-    header="Change {{ field }}"
+    *ngIf="_field !== 'Password'; else changePassword"
+    header="Change {{ _field }}"
     [openWindow]="modal"
     (confirm)="updateUser()"
     (cancel)="closeModal()"
@@ -9,7 +9,7 @@
     <div class="row dp-mt-20 dp-mb-16">
       <div class="col-12">
         <dp-body-type>
-          <dp-input label="{{ field }}" formControlName="value"></dp-input>
+          <dp-input label="{{ _field }}" formControlName="value"></dp-input>
         </dp-body-type>
       </div>
     </div>
@@ -21,9 +21,11 @@
     >
     </dp-primary-button>
   </dp-modal-small>
-  <ng-template #both>
+</div>
+<div [formGroup]="fgChangePassword">
+  <ng-template #changePassword>
     <dp-modal-small
-      header="New field"
+      header="Change password"
       [openWindow]="modal"
       (confirm)="updateUser()"
       (cancel)="closeModal()"
@@ -31,8 +33,8 @@
       <div class="row dp-mt-20 dp-mb-16">
         <div class="col-12">
           <dp-body-type>
-            <dp-input label="Field" formControlName="field"> </dp-input>
-            <dp-input label="{{ field }}" formControlName="value"> </dp-input>
+              <dp-input label="Password" formControlName="password"> </dp-input>
+            <dp-input label="Confirm password" formControlName="confirmPassword"> </dp-input>
           </dp-body-type>
         </div>
       </div>
