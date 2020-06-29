@@ -1,8 +1,46 @@
-<dp-toggle-button
-  class="test"
-  [options]="options"
-  labelKey="name"
-  valueKey="value"
-  (changed)="onChange($event)"
->
-</dp-toggle-button>
+<div class="grid-container">
+  <div class="grid-container">
+    <div class="back">
+      <dp-icon-button iconType="back" [disabled]="false" (clicked)="onBack()">
+      </dp-icon-button>
+    </div>
+    <div class="date">
+      <dp-datepicker></dp-datepicker>
+    </div>
+    <div class="next">
+      <dp-icon-button
+        iconType="arrowright"
+        [disabled]="false"
+        (clicked)="onNext()"
+      >
+      </dp-icon-button>
+    </div>
+    <div class="day">
+      <dp-secondary-button
+        label="Day"
+        [disabled]="false"
+        [fullWidth]="false"
+        (clicked)="onDay()"
+      >
+      </dp-secondary-button>
+    </div>
+    <div class="work-week">
+      <dp-secondary-button
+        label="Work week"
+        [disabled]="false"
+        [fullWidth]="false"
+        (clicked)="onWorkWeek()"
+      >
+      </dp-secondary-button>
+    </div>
+    <div class="week">
+      <dp-secondary-button
+        label="Week"
+        [disabled]="false"
+        [fullWidth]="false"
+        (clicked)="onWeek()"
+      >
+      </dp-secondary-button>
+    </div>
+  </div>
+</div>
