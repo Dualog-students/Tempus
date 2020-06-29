@@ -6,18 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-date-selector.component.scss'],
 })
 export class ProjectDateSelectorComponent implements OnInit {
-  options = [
-    { name: 'Item 1', value: 'Item 1' },
-    { name: 'Item 2', value: 'Item 2' },
-    { name: 'Item 3', value: 'Item 3' },
-    { name: 'Item 4', value: 'Item 4' },
-  ];
-
   constructor() {}
 
   ngOnInit(): void {}
 
-  onChange(event) {
-    console.log(event);
+  onBack() {
+    console.log('onBack');
+  }
+  onNext() {
+    console.log('onNext');
+  }
+  onDay() {
+    console.log('onDay');
+  }
+  onWorkWeek() {
+    console.log('onWorkWeek');
+  }
+  onWeek() {
+    console.log('onWeek');
   }
 }

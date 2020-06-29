@@ -1,4 +1,31 @@
-.toggle-button {
-  // TODO
-  border-right: none;
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 1px 1px;
+  grid-template-areas: 'back date next day work-week week';
+}
+
+.back {
+  grid-area: back;
+}
+
+.date {
+  grid-area: date;
+}
+
+.next {
+  grid-area: next;
+}
+
+.day {
+  grid-area: day;
+}
+
+.work-week {
+  grid-area: work-week;
+}
+
+.week {
+  grid-area: week;
 }
