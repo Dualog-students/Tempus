@@ -1,9 +1,9 @@
 export class User {
   _id: string;
-  name: string;
-  email: string;
-  position: string;
-  isAdmin?: boolean;
-  hours: {};
-  partTimePercentage: number;
+  Name: string;
+  Email: string;
+  Position: string;
+  IsAdmin?: boolean;
+  Hours: {};
+  PartTimePercentage: number;
 }

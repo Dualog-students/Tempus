@@ -3,7 +3,7 @@
     <li><a routerLink="/profile">Profile</a></li>
     <li><a routerLink="/dashboard">Dashboard</a></li>
     <li><a routerLink="/overview">Overview</a></li>
-    <div *ngIf="user?.isAdmin">
+    <div *ngIf="user?.IsAdmin">
       <li><a routerLink="/manage-admin">Manage admins</a></li>
     </div>
     <li><a class="navbar_logout" (click)="logout()">Logout</a></li>
