@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit {
     email: new FormControl('', [
       Validators.required,
       Validators.email,
-      Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@dualog.com*$/),
+      Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@dualog.com$/),
     ]),
     password: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
