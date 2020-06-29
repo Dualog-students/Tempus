@@ -10,10 +10,7 @@ import {
   passwordValidator,
   confirmPasswordValidator,
 } from '../../../validators/password.validator';
-<<<<<<< HEAD
 import { partTimePercentValidator } from '../../../validators/part-time-percentage.validator';
-=======
->>>>>>> Move passwor validators to separate file 🍅
 
 @Component({
   selector: 'app-signup',
