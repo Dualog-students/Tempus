@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  ViewChild,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import {
   FormGroup,
@@ -24,6 +31,7 @@ import { partTimePercentValidator } from '../../../validators/part-time-percenta
 export class EditUserModalComponent implements OnInit {
   @Input() modal: boolean;
   @Output() modalChange = new EventEmitter<boolean>();
+  @ViewChild('valueInput') valueInput;
   _field: string;
   user: User;
 
@@ -39,6 +47,7 @@ export class EditUserModalComponent implements OnInit {
   constructor(
     private userService: UserService,
     private userProvider: UserProviderService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   async ngOnInit() {
@@ -54,6 +63,13 @@ export class EditUserModalComponent implements OnInit {
         this.fgChangePassword.controls.password,
       ),
     ]);
+  }
+
+  ngAfterViewInit() {
+    if (this._field === 'PartTimePercentage') {
+      this.valueInput.type = 'number';
+      this.cdr.detectChanges();
+    }
   }
 
   @Input()

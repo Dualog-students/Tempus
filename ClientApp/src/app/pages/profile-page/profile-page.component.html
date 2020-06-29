@@ -30,7 +30,7 @@
       <div class="user-info">
         <dp-detail-type class="dp-mb-2">Part time percentage</dp-detail-type>
         <dp-icon
-        (click)="openModal('PartTimePercentage')"
+          (click)="openModal('PartTimePercentage')"
           class="edit-button"
           type="pen"
         >
@@ -51,7 +51,9 @@
     </ds-grid-column>
   </ds-grid-row>
 </ds-grid>
-<app-edit-user-modal
-  [field]="editUserField"
-  [(modal)]="isModalOpen"
-></app-edit-user-modal>
+<div *ngIf="isModalOpen">
+  <app-edit-user-modal
+    [field]="editUserField"
+    [(modal)]="isModalOpen"
+  ></app-edit-user-modal>
+</div>
