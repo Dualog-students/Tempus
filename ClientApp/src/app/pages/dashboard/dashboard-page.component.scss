@@ -1,8 +1,28 @@
 .box {
   margin: auto;
   margin-top: 4rem;
-  max-width: 80%;
   padding: 2rem;
   box-shadow: 0px 0px 32px var(--dualog-nordic-dark);
   border-radius: 1rem;
+  overflow: auto;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 8fr 1fr;
+  gap: 1px 1px;
+  grid-template-areas: 'selector' 'grid' 'details';
+}
+
+.grid {
+  grid-area: grid;
+}
+
+.selector {
+  grid-area: selector;
+}
+
+.details {
+  grid-area: details;
 }
