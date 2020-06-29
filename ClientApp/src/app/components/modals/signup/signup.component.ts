@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
     otherPosition: new FormControl(''),
   });
 
-  get otherOption(): boolean {
+  get otherOption(): string {
     return this.signUpForm.controls.position.value.position;
   }
 
