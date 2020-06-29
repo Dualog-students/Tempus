@@ -43,6 +43,10 @@ export class SignupComponent implements OnInit {
     otherPosition: new FormControl(''),
   });
 
+  get otherOption(): boolean {
+    return this.signUpForm.controls.position.value.position;
+  }
+
   constructor(private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {
@@ -122,7 +126,6 @@ export class SignupComponent implements OnInit {
   }
 
   onChange(result) {
-    console.log(result);
     if (result.position === 'Other') {
       this.signUpForm.controls.otherPosition.setValidators(Validators.required);
     } else {

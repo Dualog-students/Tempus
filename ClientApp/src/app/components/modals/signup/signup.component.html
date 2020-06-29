@@ -32,7 +32,7 @@
       (changed)="onChange($event)"
     >
     </dp-dropdownlist>
-    <div *ngIf="signUpForm.controls.position.value.position === 'Other'">
+    <div *ngIf="otherOption === 'Other'">
       <dp-input
         class="dp-mt-8"
         label="Your Position:"
