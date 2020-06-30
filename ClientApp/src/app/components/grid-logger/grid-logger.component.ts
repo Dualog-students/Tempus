@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-grid-logger',
@@ -15,9 +15,8 @@ export class GridLoggerComponent implements OnInit {
     { name: 'Saturday' },
     { name: 'Sunday' },
   ];
-  numDays = 7;
+  @Input() numDays: number;
   date: number;
-  days: any[];
 
   projects = [
     {
@@ -36,13 +35,7 @@ export class GridLoggerComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.setDays(this.numDays);
-  }
-
-  setDays(num: number) {
-    this.days = this.weekDays.splice(0, num);
-  }
+  ngOnInit(): void {}
 
   onAdd(day) {
     this.projects.push({
