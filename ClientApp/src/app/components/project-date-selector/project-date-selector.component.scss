@@ -1,31 +1,24 @@
-.grid-container {
+.container {
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  gap: 1px 1px;
-  grid-template-areas: 'back date next day work-week week';
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  grid-gap: 1rem;
+  align-items: start;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-.back {
-  grid-area: back;
+.inner {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
 
-.date {
-  grid-area: date;
+.inner.date {
+  display: flex;
+  justify-content: left;
 }
 
-.next {
-  grid-area: next;
-}
-
-.day {
-  grid-area: day;
-}
-
-.work-week {
-  grid-area: work-week;
-}
-
-.week {
-  grid-area: week;
+.inner.days {
+  display: flex;
+  justify-content: right;
 }

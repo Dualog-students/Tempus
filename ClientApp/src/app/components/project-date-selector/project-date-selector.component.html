@@ -1,13 +1,13 @@
-<div class="grid-container">
-  <div class="grid-container">
-    <div class="back">
+<div class="container">
+  <div class="inner date">
+    <div class="child">
       <dp-icon-button iconType="back" [disabled]="false" (clicked)="onBack()">
       </dp-icon-button>
     </div>
-    <div class="date">
+    <div class="child">
       <dp-datepicker></dp-datepicker>
     </div>
-    <div class="next">
+    <div class="child">
       <dp-icon-button
         iconType="arrowright"
         [disabled]="false"
@@ -15,7 +15,9 @@
       >
       </dp-icon-button>
     </div>
-    <div class="day">
+  </div>
+  <div class="inner days">
+    <div class="child">
       <dp-secondary-button
         label="Day"
         [disabled]="false"
@@ -24,7 +26,7 @@
       >
       </dp-secondary-button>
     </div>
-    <div class="work-week">
+    <div class="child">
       <dp-secondary-button
         label="Work week"
         [disabled]="false"
@@ -33,7 +35,7 @@
       >
       </dp-secondary-button>
     </div>
-    <div class="week">
+    <div class="child">
       <dp-secondary-button
         label="Week"
         [disabled]="false"
