@@ -306,5 +306,82 @@ namespace Tempus.API.Controllers
 
             return Ok("Hours successfully deleted.");
         }
+
+
+        [HttpPost]
+        [Route("/{id}/add-project")]
+        public async Task<IActionResult> AddProject(string id, [FromBody]ProjectDto project)
+        {
+            if(project == null)
+            {
+                return BadRequest("The body is empty.");
+            }
+
+            ObjectId _id;
+            if(!ObjectId.TryParse(id, out _id))
+            {
+                return BadRequest(id + " is not a valid id.");
+            }
+
+            var bson_project = project.ToBsonDocument();
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
+            var update = Builders<BsonDocument>.Update.AddToSet("Projects", bson_project);
+            var result = await userCollection.UpdateOneAsync(filter, update);
+            if(!result.IsAcknowledged)
+            {
+                return BadRequest("Something went wrong.");
+            }
+
+            if(result.MatchedCount == 0)
+            {
+                return BadRequest("User not found.");
+            }
+
+            if(result.ModifiedCount == 0)
+            {
+                return BadRequest("Project has not been added.");
+            }
+
+            return Ok("Project successfully added.");
+        }
+
+
+        [HttpPost]
+        [Route("/{id}/delete-project")]
+        public async Task<IActionResult> DeleteProject(string id, [FromBody]ProjectDto project)
+        {
+            if(project == null)
+            {
+                return BadRequest("The body is empty.");
+            }
+
+            ObjectId _id;
+            if(!ObjectId.TryParse(id, out _id))
+            {
+                return BadRequest(id + " is not a valid id.");
+            }
+
+            var bson_project = project.ToBsonDocument();
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
+            var update = Builders<BsonDocument>.Update.PullFilter("Projects",
+                    Builders<BsonDocument>.Filter.Eq("Project", project.Project));
+            var result = await userCollection.UpdateOneAsync(filter, update);
+            if(!result.IsAcknowledged)
+            {
+                return BadRequest("Something went wrong.");
+            }
+
+            if(result.MatchedCount == 0)
+            {
+                return BadRequest("User not found.");
+            }
+
+            if(result.ModifiedCount == 0)
+            {
+                return BadRequest("Project has not been deleted.");
+            }
+
+            return Ok("Project successfully deleted.");
+        }
     }
 }
