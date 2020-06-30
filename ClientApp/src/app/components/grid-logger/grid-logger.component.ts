@@ -44,12 +44,36 @@ export class GridLoggerComponent implements OnInit {
     this.user = await this.userService.getCurrentUser();
   }
 
-  onAdd(day, i) {
-    this.modalDate.setDate(this.date.getDate() + i + 1 - this.date.getDay());
-    this.modal = true;
+  zeroPad(n: number): string {
+    return (n < 10 ? '0' + n : n).toString();
   }
 
-  onEdit(day, i) {
-    // TODO
+  updateHoursKey(date): string {
+    const day = this.zeroPad(date.getDate());
+    const month = this.zeroPad(date.getMonth() + 1);
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
+
+  getHours(day, i) {
+    const date = new Date();
+    date.setDate(this.date.getDate() + i + 1 - this.date.getDay());
+    let hour: any;
+    const hours = [];
+    Object.values(this.user.Hours).map((hour) => {
+      if (this.updateHoursKey(date) === hour.Date) {
+        hours.push(hour);
+      }
+    });
+    return hours.length ? hours : null;
+  }
+
+  async onAdd(day, i) {
+    this.modalDate = new Date();
+    this.modalDate.setDate(this.date.getDate() + i + 1 - this.date.getDay());
+    this.modal = true;
+    this.user = await this.userService.getCurrentUser();
+  }
+
+  onEdit(day, i) {}
 }
