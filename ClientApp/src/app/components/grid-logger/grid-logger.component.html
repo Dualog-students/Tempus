@@ -7,11 +7,13 @@
             <h2>{{ day.name }}</h2>
           </div>
           <ul class="card-list">
-            <div *ngFor="let project of projects">
-              <li class="card-item" (click)="onEdit(day, i)">
-                <h5>{{ project.name }}</h5>
-                <p>Hours: {{ project.hours }}</p>
-              </li>
+            <div *ngIf="user">
+              <div *ngFor="let hours of getHours(day, i)">
+                <li class="card-item" (click)="onEdit(day, i)">
+                  <h5>{{ hours.Project }}</h5>
+                  <p>Hours: {{ hours.Hours }}</p>
+                </li>
+              </div>
             </div>
             <li class="card-item card-item-add" (click)="onAdd(day, i)">
               <p>+</p>
