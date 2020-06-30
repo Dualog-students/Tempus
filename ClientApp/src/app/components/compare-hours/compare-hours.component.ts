@@ -29,7 +29,7 @@ export class CompareHoursComponent implements OnInit {
 
   getAllMonths() {
     const currentMonth = new Date();
-    let oldestMonth = Object.values(this.user.Hours).reduce(
+    const oldestMonth = Object.values(this.user.Hours).reduce<string>(
       (prev, hour: any) => {
         const month = hour.Date.slice(3);
         if (month.localeCompare(prev) < 0) return month;
@@ -38,11 +38,13 @@ export class CompareHoursComponent implements OnInit {
       currentMonth.toLocaleDateString().slice(3),
     );
 
-    oldestMonth = oldestMonth.split('/');
-    const tempMonth = new Date(oldestMonth[0] + '/01/' + oldestMonth[1]);
+    const oldestMonthSplit = oldestMonth.split('/');
+    const tempMonth = new Date(
+      oldestMonthSplit[0] + '/01/' + oldestMonthSplit[1],
+    );
     while (
       tempMonth.getMonth() < currentMonth.getMonth() ||
-      tempMonth.getYear() < currentMonth.getYear()
+      tempMonth.getFullYear() < currentMonth.getFullYear()
     ) {
       this.allMonths.unshift({
         month: tempMonth.toLocaleDateString().slice(3),
