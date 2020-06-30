@@ -3,8 +3,7 @@
   [openWindow]="modal"
   (cancel)="closeModal()"
 >
-  <!-- TODO: Replace with input from date selector when implemented -->
-  <dp-datepicker [defaultDate]="selectedDate" (selected)="updateDate($event)">
+  <dp-datepicker [defaultDate]="date" (selected)="updateDate($event)">
   </dp-datepicker>
 
   <form [formGroup]="hoursRegisterForm" (ngSubmit)="onSubmit()" class="form">

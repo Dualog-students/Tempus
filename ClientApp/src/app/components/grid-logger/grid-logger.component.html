@@ -8,12 +8,12 @@
           </div>
           <ul class="card-list">
             <div *ngFor="let project of projects">
-              <li class="card-item">
+              <li class="card-item" (click)="onEdit(day, i)">
                 <h5>{{ project.name }}</h5>
                 <p>Hours: {{ project.hours }}</p>
               </li>
             </div>
-            <li class="card-item card-item-add" (click)="onAdd(day)">
+            <li class="card-item card-item-add" (click)="onAdd(day, i)">
               <p>+</p>
             </li>
           </ul>
@@ -21,4 +21,10 @@
       </div>
     </div>
   </ul>
+</div>
+<div *ngIf="modal">
+  <app-register-hours-modal
+    [date]="modalDate"
+    [(modal)]="modal"
+  ></app-register-hours-modal>
 </div>

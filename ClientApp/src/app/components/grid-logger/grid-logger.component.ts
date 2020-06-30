@@ -19,7 +19,9 @@ export class GridLoggerComponent implements OnInit {
     { name: 'Sunday' },
   ];
   @Input() numDays: number;
-  date: number;
+  @Input() date: Date;
+  modalDate = new Date();
+  modal = false;
 
   projects = [
     {
@@ -42,10 +44,12 @@ export class GridLoggerComponent implements OnInit {
     this.user = await this.userService.getCurrentUser();
   }
 
-  onAdd(day) {
-    this.projects.push({
-      name: 'project1',
-      hours: 53,
-    });
+  onAdd(day, i) {
+    this.modalDate.setDate(this.date.getDate() + i + 1 - this.date.getDay());
+    this.modal = true;
+  }
+
+  onEdit(day, i) {
+    // TODO
   }
 }

@@ -11,20 +11,13 @@ export class DashboardComponent implements OnInit {
   constructor(private userService: UserService) {}
   user: User;
   @Input() numDays: number;
+  @Input() date: Date;
 
-  modal = true;
+  modal = false;
 
-  ngOnInit(): void {
-    console.log(this.userService.isLoggedIn);
-
-    // Set the user to be current user
-    this.userService.getCurrentUser().then((resp) => {
-      this.user = resp;
-    });
+  async ngOnInit() {
     this.numDays = 7;
-  }
-
-  onRegister() {
-    this.modal = true;
+    this.date = new Date();
+    this.user = await this.userService.getCurrentUser();
   }
 }
