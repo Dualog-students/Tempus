@@ -1,6 +1,6 @@
 <div class="box">
   <dp-header1 class="dp-mb-8" *ngIf="user"
-    >Dashboard - {{ user.Name }}</dp-header1
+    >Dashboard - {{ user?.Name }}</dp-header1
   >
   <app-project-date-selector [(numDays)]="numDays"></app-project-date-selector>
   <app-grid-logger [numDays]="numDays"></app-grid-logger>
