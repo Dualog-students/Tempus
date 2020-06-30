@@ -9,5 +9,6 @@ namespace Tempus.API.Controllers.Dto
         public string Password { get; set; }
         public string Position { get; set; }
         public int PartTimePercentage { get; set; }
+        public List<string> Projects { get; set; }
     }
 }
