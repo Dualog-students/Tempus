@@ -23,21 +23,6 @@ export class GridLoggerComponent implements OnInit {
   modalDate = new Date();
   modal = false;
 
-  projects = [
-    {
-      name: 'project1',
-      hours: 53,
-    },
-    {
-      name: 'project2',
-      hours: 65,
-    },
-    {
-      name: 'project3',
-      hours: 15,
-    },
-  ];
-
   constructor(private userService: UserService) {}
 
   async ngOnInit() {
