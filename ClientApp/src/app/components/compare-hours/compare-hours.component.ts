@@ -35,7 +35,7 @@ export class CompareHoursComponent implements OnInit {
         if (month.localeCompare(prev) < 0) return month;
         return prev;
       },
-      currentMonth.toLocaleDateString().slice(3),
+      currentMonth.getMonth() + '/' + currentMonth.getFullYear(),
     );
 
     const oldestMonthSplit = oldestMonth.split('/');
@@ -47,7 +47,7 @@ export class CompareHoursComponent implements OnInit {
       tempMonth.getFullYear() < currentMonth.getFullYear()
     ) {
       this.allMonths.unshift({
-        month: tempMonth.toLocaleDateString().slice(3),
+        month: currentMonth.getMonth() + '/' + currentMonth.getFullYear(),
       });
       tempMonth.setMonth(tempMonth.getMonth() + 1);
     }
@@ -59,7 +59,9 @@ export class CompareHoursComponent implements OnInit {
   }
 
   calculateHours() {
-    const currentMonth = new Date().toLocaleDateString().slice(3);
+    const currentDate = new Date();
+    const currentMonth =
+      currentDate.getMonth() + '/' + currentDate.getFullYear();
     let prevSum = 0;
     let currentSum = 0;
     Object.values(this.user.Hours).map((hour: any) => {
