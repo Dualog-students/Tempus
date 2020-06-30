@@ -96,6 +96,6 @@ export class SignupComponent implements OnInit {
       this.error = true;
       return;
     }
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
   }
 }
