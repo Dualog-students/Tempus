@@ -6,4 +6,5 @@ export class User {
   isAdmin?: boolean;
   hours: {};
   partTimePercentage: number;
+  projects: {};
 }

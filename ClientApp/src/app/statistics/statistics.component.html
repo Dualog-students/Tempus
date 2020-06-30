@@ -1,0 +1,25 @@
+<div class="statistics">
+  <dp-pie-chart
+    [series]="series"
+    [labels]="labels"
+    [showTooltip]="true"
+    [showLabels]="false"
+    [showLegend]="true"
+    [colors]="colors"
+    [size]="400"
+  ></dp-pie-chart>
+
+  <dp-line-chart
+    [series]="[series2[0]]"
+    [xaxis]="xaxis"
+    [showGrid]="true"
+    [showAxis]="true"
+    [showDataLabels]="false"
+    [showLegend]="false"
+    [showTooltip]="true"
+    [showBorder]="true"
+    [showMarkers]="false"
+    [stacked]="false"
+  ></dp-line-chart>
+</div>
+>
