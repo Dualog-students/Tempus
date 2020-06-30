@@ -26,15 +26,11 @@ export class GraphsComponent implements OnInit {
   series = [
     {
       name: 'Hours',
-      data: [55, 45, 5, 55, 25, 30, 25, 35, 60, 20, 55, 45, 5, 55, 25, 30, 25],
-    },
-    {
-      name: 'Values',
-      data: [58, 120, 5, 45, 25, 30, 25, 35, 60, 20],
+      data: [6.5, 8, 2, 8, 7.5],
     },
   ];
 
   xaxis = {
-    categories: this.day,
+    categories: this.test,
   };
 }
