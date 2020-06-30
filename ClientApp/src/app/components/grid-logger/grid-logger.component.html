@@ -1,30 +1,24 @@
 <div class="wrapper">
   <ul class="column-list">
-    <li *ngFor="let day of days" class="column-item">
-      <div class="column-title--wrapper">
-        <h2>{{ day.name }}</h2>
-      </div>
-      <ul class="card-list">
-        <div *ngFor="let project of projects">
-          <div
-            *ngIf="
-              !(project.name === 'project3' && day.name === 'Tuesday') &&
-              !(project.name === 'project2' && day.name === 'Friday') &&
-              !(project.name === 'project1' && day.name === 'Sunday') &&
-              !(project.name === 'project1' && day.name === 'Thursday') &&
-              !(project.name === 'project2' && day.name === 'Thursday')
-            "
-          >
-            <li class="card-item">
-              <h5>{{ project.name }}</h5>
-              <p>Hours: {{ project.hours }}</p>
-            </li>
+    <div *ngFor="let day of weekDays; index as i">
+      <div *ngIf="i < numDays">
+        <li class="column-item">
+          <div class="column-title--wrapper">
+            <h2>{{ day.name }}</h2>
           </div>
-        </div>
-        <li class="card-item card-item-add" (click)="onAdd(day)">
-          <p>+</p>
+          <ul class="card-list">
+            <div *ngFor="let project of projects">
+              <li class="card-item">
+                <h5>{{ project.name }}</h5>
+                <p>Hours: {{ project.hours }}</p>
+              </li>
+            </div>
+            <li class="card-item card-item-add" (click)="onAdd(day)">
+              <p>+</p>
+            </li>
+          </ul>
         </li>
-      </ul>
-    </li>
+      </div>
+    </div>
   </ul>
 </div>
