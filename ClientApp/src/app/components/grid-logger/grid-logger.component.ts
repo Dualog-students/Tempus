@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-grid-logger',
@@ -6,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./grid-logger.component.scss'],
 })
 export class GridLoggerComponent implements OnInit {
+  user: User;
   weekDays = [
     { name: 'Monday' },
     { name: 'Tuesday' },
@@ -33,9 +36,11 @@ export class GridLoggerComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private userService: UserService) {}
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    this.user = await this.userService.getCurrentUser();
+  }
 
   onAdd(day) {
     this.projects.push({
