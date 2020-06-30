@@ -10,14 +10,15 @@ import { UserService } from '../../services/user.service';
 export class GridLoggerComponent implements OnInit {
   user: User;
   weekDays = [
-    { name: 'Monday' },
-    { name: 'Tuesday' },
-    { name: 'Wednesday' },
-    { name: 'Thursday' },
-    { name: 'Friday' },
-    { name: 'Saturday' },
-    { name: 'Sunday' },
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
   ];
+
   @Input() numDays: number;
   @Input() date: Date;
   modalDate = new Date();
@@ -27,6 +28,10 @@ export class GridLoggerComponent implements OnInit {
 
   async ngOnInit() {
     this.user = await this.userService.getCurrentUser();
+  }
+
+  get numDaysList() {
+    return [...Array(this.numDays).keys()];
   }
 
   zeroPad(n: number): string {
@@ -40,9 +45,24 @@ export class GridLoggerComponent implements OnInit {
     return `${day}/${month}/${year}`;
   }
 
-  getHours(day, i) {
+  getWeekDay(day) {
+    if (this.numDays === 1) {
+      return this.weekDays[this.date.getDay()];
+    }
+    return this.weekDays[(day + 1) % 7];
+  }
+
+  getHours(day: number) {
     const date = new Date();
-    date.setDate(this.date.getDate() + i + 1 - this.date.getDay());
+    if (this.numDays !== 1) {
+      date.setDate(this.date.getDate() + day + 1 - this.date.getDay());
+      return this.mapHours(date);
+    } else {
+      return this.mapHours(this.date);
+    }
+  }
+
+  mapHours(date: Date) {
     let hour: any;
     const hours = [];
     Object.values(this.user.Hours).map((hour) => {
@@ -53,9 +73,9 @@ export class GridLoggerComponent implements OnInit {
     return hours.length ? hours : null;
   }
 
-  async onAdd(day, i) {
+  async onAdd(day) {
     this.modalDate = new Date();
-    this.modalDate.setDate(this.date.getDate() + i + 1 - this.date.getDay());
+    this.modalDate.setDate(this.date.getDate() + day + 1 - this.date.getDay());
     this.modal = true;
     this.user = await this.userService.getCurrentUser();
   }

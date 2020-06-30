@@ -6,7 +6,7 @@
     </div>
     <div class="child">
       <!--<dp-datepicker></dp-datepicker>-->
-      <p>{{ date.toDateString() }}</p>
+      <p (click)="onCurrent()">{{ date.toDateString() }}</p>
     </div>
     <div class="child">
       <dp-icon-button

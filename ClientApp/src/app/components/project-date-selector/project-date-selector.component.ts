@@ -19,28 +19,47 @@ export class ProjectDateSelectorComponent implements OnInit {
   }
 
   onBack() {
-    // console.log('onBack');
+    if (this.numDays === 1) {
+      this.addDate(-1);
+    } else {
+      const add = 1 - this.date.getDay() - 7;
+      this.addDate(add);
+    }
   }
-  setDate() {
-    this.date = new Date();
-    this.dateChange.emit(this.date);
+
+  onCurrent() {
+    this.setDate(new Date());
   }
+
   onNext() {
-    // console.log('onNext');
+    if (this.numDays === 1) {
+      this.addDate(1);
+    } else {
+      const add = 8 - this.date.getDay();
+      this.addDate(add);
+    }
+  }
+
+  addDate(num: number) {
+    const date = this.date;
+    date.setDate(date.getDate() + num);
+    this.setDate(date);
+  }
+
+  setDate(date = new Date()) {
+    this.date = date;
+    this.dateChange.emit(this.date);
   }
 
   onDay() {
-    // console.log('onDay');
     this.numDays = 1;
     this.numDaysChange.emit(this.numDays);
   }
   onWorkWeek() {
-    // console.log('onWorkWeek');
     this.numDays = 5;
     this.numDaysChange.emit(this.numDays);
   }
   onWeek() {
-    // console.log('onWeek');
     this.numDays = 7;
     this.numDaysChange.emit(this.numDays);
   }
