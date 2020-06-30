@@ -1,12 +1,13 @@
 <dp-modal-medium
-  header="Register Hours"
+  header="Register Hours {{ hoursKey }}"
   [openWindow]="modal"
   (cancel)="closeModal()"
 >
-  <dp-datepicker [defaultDate]="date" (selected)="updateDate($event)">
-  </dp-datepicker>
-
-  <form [formGroup]="hoursRegisterForm" (ngSubmit)="onSubmit()" class="form">
+  <form
+    [formGroup]="hoursRegisterForm"
+    (ngSubmit)="onSubmit()"
+    class="form dp-mt=20"
+  >
     <dp-input
       label="hours"
       type="number"

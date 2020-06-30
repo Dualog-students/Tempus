@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
 import {
   FormBuilder,
   Validators,
@@ -23,17 +22,16 @@ export class RegisterHoursComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private hoursService: HoursService,
-    private router: Router,
   ) {}
 
-  @Input() date = new Date();
+  @Input() date: Date;
   @Input() modal: boolean;
   @Output() modalChange = new EventEmitter<boolean>();
 
   user: User;
   hoursKey: string;
   hoursRegisterForm = this.fb.group({
-    date: [this.date.getTime()],
+    date: [, Validators.required],
     hours: [, Validators.required],
     project: ['', Validators.required],
   });
@@ -44,7 +42,7 @@ export class RegisterHoursComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.updateHoursKey();
+    this.hoursKey = this.findHoursKey(this.date);
     this.getUserData();
   }
 
@@ -53,22 +51,11 @@ export class RegisterHoursComponent implements OnInit {
   }
 
   // Updates the hourkey to the selected date zero-padded
-  updateHoursKey(): void {
-    const day = this.zeroPad(this.date.getDate());
-    const month = this.zeroPad(this.date.getMonth() + 1);
-    const year = this.date.getFullYear();
-    this.hoursKey = `${day}/${month}/${year}`;
-  }
-
-  updateDate(date: Date): void {
-    this.date = date;
-    this.updateHoursKey();
-    this.updateForm();
-
-    // Update the date in the form to UTC of date
-    this.hoursRegisterForm.patchValue({
-      date: date.getTime(),
-    });
+  findHoursKey(date: Date): string {
+    const day = this.zeroPad(date.getDate());
+    const month = this.zeroPad(date.getMonth() + 1);
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 
   // Get the user data and update the form
@@ -76,7 +63,6 @@ export class RegisterHoursComponent implements OnInit {
     this.userService.getCurrentUser().then((resp) => {
       this.user = resp;
       this.updateForm();
-      // console.log(this.user.Hours[this.hoursKey]);
     });
   }
 
@@ -85,15 +71,15 @@ export class RegisterHoursComponent implements OnInit {
     this.hoursRegisterForm.patchValue({
       project: this.hoursRegisterForm.get('project').value.name,
     });
-    const hours: Hours = this.hoursRegisterForm.value;
+
     const id = this.user._id;
+    const hours: Hours = this.hoursRegisterForm.value;
     this.hoursService.registerHours(id, hours).then((resp) => {
       if (resp) {
         this.closeModal();
-        /* console.log(this.hoursRegisterForm.value); */
-        /* location.reload(); */
-        /* this.router.navigate(['/']); */
+        location.reload();
       } else {
+        alert('Hour registration failed');
       }
     });
   }
@@ -106,8 +92,9 @@ export class RegisterHoursComponent implements OnInit {
       project = this.projectOptions[0].name;
     }
 
-    // Patch the form hours and project values to the values from the database
+    // Update the fields in the form
     this.hoursRegisterForm.patchValue({
+      date: this.date.getTime(),
       hours: this.getHoursObject().Hours,
       project: { name: project },
     });
