@@ -1,26 +1,24 @@
 <div class="wrapper">
   <ul class="column-list">
-    <div *ngFor="let day of weekDays; index as i">
-      <div *ngIf="i < numDays">
-        <li class="column-item">
-          <div class="column-title--wrapper">
-            <h2>{{ day.name }}</h2>
-          </div>
-          <ul class="card-list">
-            <div *ngIf="user">
-              <div *ngFor="let hours of getHours(day, i)">
-                <li class="card-item" (click)="onEdit(day, i)">
-                  <h5>{{ hours.Project }}</h5>
-                  <p>Hours: {{ hours.Hours }}</p>
-                </li>
-              </div>
+    <div *ngFor="let day of numDaysList">
+      <li class="column-item">
+        <div class="column-title--wrapper">
+          <h2>{{ getWeekDay(day) }}</h2>
+        </div>
+        <ul class="card-list">
+          <div *ngIf="user">
+            <div *ngFor="let hours of getHours(day)">
+              <li class="card-item" (click)="onEdit(day)">
+                <h5>{{ hours.Project }}</h5>
+                <p>Hours: {{ hours.Hours }}</p>
+              </li>
             </div>
-            <li class="card-item card-item-add" (click)="onAdd(day, i)">
-              <p>+</p>
-            </li>
-          </ul>
-        </li>
-      </div>
+          </div>
+          <li class="card-item card-item-add" (click)="onAdd(day)">
+            <p>+</p>
+          </li>
+        </ul>
+      </li>
     </div>
   </ul>
 </div>
