@@ -6,23 +6,3 @@
   border-radius: 1rem;
   overflow: auto;
 }
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 8fr 1fr;
-  gap: 1px 1px;
-  grid-template-areas: 'selector' 'grid' 'details';
-}
-
-.grid {
-  grid-area: grid;
-}
-
-.selector {
-  grid-area: selector;
-}
-
-.details {
-  grid-area: details;
-}
