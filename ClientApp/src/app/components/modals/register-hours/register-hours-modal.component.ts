@@ -26,16 +26,14 @@ export class RegisterHoursComponent implements OnInit {
     private router: Router,
   ) {}
 
+  @Input() date = new Date();
   @Input() modal: boolean;
   @Output() modalChange = new EventEmitter<boolean>();
-
-  // TODO: Replace with date from dashboard that created modal
-  selectedDate = new Date();
 
   user: User;
   hoursKey: string;
   hoursRegisterForm = this.fb.group({
-    date: [this.selectedDate.getTime()],
+    date: [this.date.getTime()],
     hours: [, Validators.required],
     project: ['', Validators.required],
   });
@@ -56,14 +54,14 @@ export class RegisterHoursComponent implements OnInit {
 
   // Updates the hourkey to the selected date zero-padded
   updateHoursKey(): void {
-    const day = this.zeroPad(this.selectedDate.getDate());
-    const month = this.zeroPad(this.selectedDate.getMonth() + 1);
-    const year = this.selectedDate.getFullYear();
+    const day = this.zeroPad(this.date.getDate());
+    const month = this.zeroPad(this.date.getMonth() + 1);
+    const year = this.date.getFullYear();
     this.hoursKey = `${day}/${month}/${year}`;
   }
 
   updateDate(date: Date): void {
-    this.selectedDate = date;
+    this.date = date;
     this.updateHoursKey();
     this.updateForm();
 
@@ -78,7 +76,7 @@ export class RegisterHoursComponent implements OnInit {
     this.userService.getCurrentUser().then((resp) => {
       this.user = resp;
       this.updateForm();
-      console.log(this.user.Hours[this.hoursKey]);
+      // console.log(this.user.Hours[this.hoursKey]);
     });
   }
 

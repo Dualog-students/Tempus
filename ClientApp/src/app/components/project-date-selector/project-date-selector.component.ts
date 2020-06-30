@@ -8,31 +8,39 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ProjectDateSelectorComponent implements OnInit {
   @Input() numDays: number;
   @Output() numDaysChange = new EventEmitter<number>();
+  @Input() date: Date;
+  @Output() dateChange = new EventEmitter<Date>();
 
   constructor() {}
 
   ngOnInit(): void {
+    this.setDate();
     this.onWeek();
   }
 
   onBack() {
-    console.log('onBack');
+    // console.log('onBack');
+  }
+  setDate() {
+    this.date = new Date();
+    this.dateChange.emit(this.date);
   }
   onNext() {
-    console.log('onNext');
+    // console.log('onNext');
   }
+
   onDay() {
-    console.log('onDay');
+    // console.log('onDay');
     this.numDays = 1;
     this.numDaysChange.emit(this.numDays);
   }
   onWorkWeek() {
-    console.log('onWorkWeek');
+    // console.log('onWorkWeek');
     this.numDays = 5;
     this.numDaysChange.emit(this.numDays);
   }
   onWeek() {
-    console.log('onWeek');
+    // console.log('onWeek');
     this.numDays = 7;
     this.numDaysChange.emit(this.numDays);
   }
