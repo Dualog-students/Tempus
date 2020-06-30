@@ -9,66 +9,54 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./compare-hours.component.scss'],
 })
 export class CompareHoursComponent implements OnInit {
-  TimePeriod = TimePeriod;
-  periodOptions = [
-    { name: 'Month', value: TimePeriod.Month },
-    { name: 'Week', value: TimePeriod.Week },
-  ];
   user: User;
   allMonths = [];
-  allWeeks = [];
   selectedPeriods = [];
-  currentTab = this.periodOptions[0].value;
   totalHoursOff = 0;
+  userHoursPerMonth = 0;
   hoursLeftThisPeriod = 0;
 
   constructor(private userService: UserService) {}
 
   async ngOnInit() {
     this.user = await this.userService.getCurrentUser();
-    Object.values(this.user.Hours).forEach((hour: any) => {
-      const month = hour.Date.slice(3);
-      const week = hour.Date.slice(3);
-      if (!this.allMonths.find(x => x.month === month)) {
-        this.allMonths.push({ month: month });
-      }
-      if (!this.allWeeks.find(x => x.week === week)) {
-        this.allWeeks.push({ week: week });
-      }
-    });
-    this.allMonths.sort((a, b) => {
-      return b.month.localeCompare(a.month);
-    });
-    this.allWeeks.sort((a, b) => {
-      return b.week.localeCompare(a.week);
-    });
-    this.renderCurrentTab();
+    this.userHoursPerMonth =
+      (NumWorkHours.Month * this.user.PartTimePercentage) / 100;
+
+    this.getAllMonths();
+    this.calculateHours();
   }
 
-  renderCurrentTab() {
-    switch (this.currentTab) {
-      case TimePeriod.Month:
-        return this.renderMonth();
+  getAllMonths() {
+    const currentMonth = new Date();
+    let oldestMonth = Object.values(this.user.Hours).reduce(
+      (prev, hour: any) => {
+        const month = hour.Date.slice(3);
+        if (month.localeCompare(prev) < 0) return month;
+        return prev;
+      },
+      currentMonth.toLocaleDateString().slice(3),
+    );
 
-      case TimePeriod.Week:
-        return this.renderWeek();
+    oldestMonth = oldestMonth.split('/');
+    const tempMonth = new Date(oldestMonth[0] + '/01/' + oldestMonth[1]);
+    while (
+      tempMonth.getMonth() < currentMonth.getMonth() ||
+      tempMonth.getYear() < currentMonth.getYear()
+    ) {
+      this.allMonths.unshift({
+        month: tempMonth.toLocaleDateString().slice(3),
+      });
+      tempMonth.setMonth(tempMonth.getMonth() + 1);
     }
-  }
-
-  onTabChange(event: any) {
-    this.currentTab = event;
-    this.selectedPeriods = [];
-    this.renderCurrentTab();
   }
 
   onSelect(event: any) {
     this.selectedPeriods = event;
-    this.renderCurrentTab();
+    this.calculateHours();
   }
 
-  renderMonth() {
-    const userHoursPerMonth =
-      (NumWorkHours.Month * this.user.PartTimePercentage) / 100;
+  calculateHours() {
     const currentMonth = new Date().toLocaleDateString().slice(3);
     let prevSum = 0;
     let currentSum = 0;
@@ -76,28 +64,18 @@ export class CompareHoursComponent implements OnInit {
       const month = hour.Date.slice(3);
       if (this.selectedPeriods.find(x => x.month === month)) {
         prevSum += hour.Hours;
-      } else if (month === currentMonth) {
+      }
+      if (month === currentMonth) {
         currentSum += hour.Hours;
       }
     });
-    const prevAvgHours = prevSum / this.selectedPeriods.length;
-    this.totalHoursOff = prevAvgHours - userHoursPerMonth;
 
-    const hoursLeftThisMonth = userHoursPerMonth - currentSum;
-    console.log(hoursLeftThisMonth);
-    // TODO: fix this equation!!!
+    this.totalHoursOff =
+      prevSum - this.userHoursPerMonth * this.selectedPeriods.length;
+
     this.hoursLeftThisPeriod =
-      currentSum - this.totalHoursOff - userHoursPerMonth;
+      this.userHoursPerMonth - currentSum - this.totalHoursOff;
   }
-
-  renderWeek() {}
-}
-
-enum TimePeriod {
-  Year,
-  Month,
-  Week,
-  Custom,
 }
 
 enum NumWorkHours {
