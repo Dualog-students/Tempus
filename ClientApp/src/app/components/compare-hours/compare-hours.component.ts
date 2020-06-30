@@ -10,11 +10,11 @@ import { UserService } from '../../services/user.service';
 })
 export class CompareHoursComponent implements OnInit {
   user: User;
-  allMonths = [];
-  selectedPeriods = [];
-  totalHoursOff = 0;
+  allMonths = [{ month: this.dateToMMYYY(new Date()) }];
+  selectedPeriods = [this.allMonths[0]];
+  totalHours = 0;
+  totalWorkedHours = 0;
   userHoursPerMonth = 0;
-  hoursLeftThisPeriod = 0;
 
   constructor(private userService: UserService) {}
 
@@ -39,18 +39,20 @@ export class CompareHoursComponent implements OnInit {
     );
 
     const oldestMonthSplit = oldestMonth.split('/');
-    const tempMonth = new Date(
+    const oldestDate = new Date(
       oldestMonthSplit[0] + '/01/' + oldestMonthSplit[1],
     );
+    const tempMonth = currentMonth;
+    tempMonth.setMonth(tempMonth.getMonth() - 1);
+    tempMonth.setDate(1);
     while (
-      tempMonth.getMonth() < currentMonth.getMonth() ||
-      tempMonth.getFullYear() < currentMonth.getFullYear()
+      tempMonth.getMonth() >= oldestDate.getMonth() &&
+      tempMonth.getFullYear() >= oldestDate.getFullYear()
     ) {
-      console.log(tempMonth);
-      this.allMonths.unshift({
+      this.allMonths.push({
         month: this.dateToMMYYY(tempMonth),
       });
-      tempMonth.setMonth(tempMonth.getMonth() + 1);
+      tempMonth.setMonth(tempMonth.getMonth() - 1);
     }
   }
 
@@ -61,24 +63,14 @@ export class CompareHoursComponent implements OnInit {
 
   calculateHours() {
     const currentDate = new Date();
-    const currentMonth = this.dateToMMYYY(currentDate);
-    let prevSum = 0;
-    let currentSum = 0;
+    this.totalHours = this.selectedPeriods.length * this.userHoursPerMonth;
+    this.totalWorkedHours = 0;
     Object.values(this.user.Hours).map((hour: any) => {
       const month = hour.Date.slice(3);
       if (this.selectedPeriods.find(x => x.month === month)) {
-        prevSum += hour.Hours;
-      }
-      if (month === currentMonth) {
-        currentSum += hour.Hours;
+        this.totalWorkedHours += hour.Hours;
       }
     });
-
-    this.totalHoursOff =
-      prevSum - this.userHoursPerMonth * this.selectedPeriods.length;
-
-    this.hoursLeftThisPeriod =
-      this.userHoursPerMonth - currentSum - this.totalHoursOff;
   }
 
   dateToMMYYY(date: Date) {
