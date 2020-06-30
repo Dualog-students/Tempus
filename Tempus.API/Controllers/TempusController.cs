@@ -116,7 +116,6 @@ namespace Tempus.API.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("/{id}/delete-user")]
         public async Task<IActionResult> DeleteUser(string id)

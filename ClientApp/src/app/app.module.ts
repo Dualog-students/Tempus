@@ -19,6 +19,8 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { EditUserModalComponent } from './components/modals/edit-user-modal/edit-user-modal.component';
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 import { CompareHoursComponent } from './components/compare-hours/compare-hours.component';
+import { GraphsComponent } from './graphs/graphs.component';
+import { ChartsComponent } from './charts/charts.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { CompareHoursComponent } from './components/compare-hours/compare-hours.
     EditUserModalComponent,
     OverviewPageComponent,
     CompareHoursComponent,
+    GraphsComponent,
+    ChartsComponent,
   ],
   imports: [
     BrowserModule,
