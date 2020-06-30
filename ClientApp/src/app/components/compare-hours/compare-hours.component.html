@@ -5,6 +5,7 @@
       [itemsSelected]="selectedPeriods"
       [selectable]="true"
       [searchable]="true"
+      [searchProps]="['month']"
       uniqueProperty="month"
       (selected)="onSelect($event)"
       searchPlaceholder="Search for month"
@@ -13,26 +14,27 @@
     </dp-datagrid>
   </div>
   <div style="width: 45% !important">
-    <ds-grid>
-      <ds-grid-row>
-        <ds-grid-column title="Total hours off:">
-          <div *ngIf="totalHoursOff < 0; else green">
-            <dp-body-type style="color: red">{{ totalHoursOff }}</dp-body-type>
-          </div>
-          <ng-template #green>
-            <dp-body-type style="color: green"
-              >{{ totalHoursOff }}</dp-body-type
-            >
-          </ng-template>
-        </ds-grid-column>
-      </ds-grid-row>
-      <ds-grid-row>
-        <ds-grid-column title="Hours needed to make up this month">
-          <dp-body-type>
-            {{ hoursLeftThisPeriod }}
-          </dp-body-type>
-        </ds-grid-column>
-      </ds-grid-row>
-    </ds-grid>
+    <dp-card icon="clock" header="Total hours">
+      <div *ngIf="totalWorkedHours < totalHours; else green">
+        <dp-body-type style="color: red"
+          >{{ totalWorkedHours }} / {{ totalHours }}</dp-body-type
+        >
+        <br />
+        <br />
+        <dp-body-type style="color: red"
+          >({{ totalWorkedHours - totalHours }})</dp-body-type
+        >
+      </div>
+      <ng-template #green>
+        <dp-body-type style="color: green"
+          >{{ totalWorkedHours }} / {{ totalHours }}</dp-body-type
+        >
+        <br />
+        <br />
+        <dp-body-type style="color: green"
+          >({{ totalWorkedHours - totalHours }})</dp-body-type
+        >
+      </ng-template>
+    </dp-card>
   </div>
 </div>
