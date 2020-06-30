@@ -18,7 +18,7 @@ import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { EditUserModalComponent } from './components/modals/edit-user-modal/edit-user-modal.component';
 import { DashboardComponent } from './pages/dashboard/dashboard-page.component';
-import { RegisterHoursComponent } from './components/register-hours/register-hours.component';
+import { RegisterHoursComponent } from './components/modals/register-hours/register-hours-modal.component';
 import { ProjectDateSelectorComponent } from './components/project-date-selector/project-date-selector.component';
 import { GridLoggerComponent } from './components/grid-logger/grid-logger.component';
 import { LoggerDetailsComponent } from './components/logger-details/logger-details.component';

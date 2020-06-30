@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { User } from 'src/app/models/user.model';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +12,8 @@ export class DashboardComponent implements OnInit {
   user: User;
   @Input() numDays: number;
 
+  modal = true;
+
   ngOnInit(): void {
     console.log(this.userService.isLoggedIn);
 
@@ -20,5 +22,9 @@ export class DashboardComponent implements OnInit {
       this.user = resp;
     });
     this.numDays = 7;
+  }
+
+  onRegister() {
+    this.modal = true;
   }
 }
