@@ -2,15 +2,7 @@
   <dp-header1 class="dp-mb-8" *ngIf="user"
     >Dashboard - {{ user.Name }}</dp-header1
   >
-  <div class="grid-container">
-    <div class="selector">
-      <app-project-date-selector></app-project-date-selector>
-    </div>
-    <div class="grid">
-      <app-grid-logger></app-grid-logger>
-    </div>
-    <div class="details">
-      <p>Some details go here</p>
-    </div>
-  </div>
+  <app-project-date-selector></app-project-date-selector>
+  <app-grid-logger></app-grid-logger>
+  <app-logger-details></app-logger-details>
 </div>
