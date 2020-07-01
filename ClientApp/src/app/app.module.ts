@@ -24,6 +24,7 @@ import { GridLoggerComponent } from './components/grid-logger/grid-logger.compon
 import { LoggerDetailsComponent } from './components/logger-details/logger-details.component';
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 import { CompareHoursComponent } from './components/compare-hours/compare-hours.component';
+import { ManagementPageComponent } from './pages/management-page/management-page.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CompareHoursComponent } from './components/compare-hours/compare-hours.
     LoggerDetailsComponent,
     OverviewPageComponent,
     CompareHoursComponent,
+    ManagementPageComponent,
   ],
   imports: [
     BrowserModule,
