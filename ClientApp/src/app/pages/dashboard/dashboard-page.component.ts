@@ -11,13 +11,15 @@ export class DashboardComponent implements OnInit {
   constructor(private userService: UserService) {}
   user: User;
   @Input() numDays: number;
-  @Input() date: Date;
+  @Input() currentDate: Date;
+  @Input() selectedDate: Date;
 
   modal = false;
 
   async ngOnInit() {
     this.numDays = 7;
-    this.date = new Date();
+    this.currentDate = new Date();
+    this.selectedDate = new Date();
     this.user = await this.userService.getCurrentUser();
   }
 }

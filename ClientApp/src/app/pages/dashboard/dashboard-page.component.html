@@ -3,9 +3,14 @@
     >Dashboard - {{ user?.Name }}</dp-header1
   >
   <app-project-date-selector
-    [(date)]="date"
+    [(currentDate)]="currentDate"
+    [(selectedDate)]="selectedDate"
     [(numDays)]="numDays"
   ></app-project-date-selector>
-  <app-grid-logger [date]="date" [numDays]="numDays"></app-grid-logger>
+  <app-grid-logger
+    [(currentDate)]="currentDate"
+    [(selectedDate)]="selectedDate"
+    [numDays]="numDays"
+  ></app-grid-logger>
   <app-logger-details></app-logger-details>
 </div>
