@@ -280,8 +280,8 @@ namespace Tempus.API.Controllers
 
 
         [HttpPost]
-        [Route("/{id}/delete-hours/{_date}")]
-        public async Task<IActionResult> DeleteHours(string id, Int64 _date)
+        [Route("/{id}/delete-hours/")]
+        public async Task<IActionResult> DeleteHours(string id, [FromBody]HoursDto hours)
         {
             ObjectId _id;
             if(!ObjectId.TryParse(id, out _id))
@@ -289,9 +289,9 @@ namespace Tempus.API.Controllers
                 return BadRequest(id + " is not a valid id.");
             }
 
-            var date = DateTimeOffset.FromUnixTimeMilliseconds(_date).ToString("dd/MM/yyyy");
+            var date = DateTimeOffset.FromUnixTimeMilliseconds(hours.Date).ToString("dd/MM/yyyy");
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
-            var update = Builders<BsonDocument>.Update.Unset("Hours." + date);
+            var update = Builders<BsonDocument>.Update.Unset($"Hours.{hours.Project}.{date}");
             var result = await userCollection.UpdateOneAsync(filter, update);
             if(!result.IsAcknowledged)
             {
