@@ -113,6 +113,11 @@ export class GridLoggerComponent implements OnInit {
     this.user = await this.userService.getCurrentUser();
   }
 
+  async onDelete(day, project) {
+    console.log([day, project]);
+    // this.user = await this.userService.getCurrentUser();
+  }
+
   addDays(date, days) {
     const result = new Date(date);
     result.setDate(result.getDate() + days);
