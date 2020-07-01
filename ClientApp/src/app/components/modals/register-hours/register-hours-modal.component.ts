@@ -73,6 +73,11 @@ export class RegisterHoursComponent implements OnInit {
   onSubmit(): void {
     const id = this.user._id;
     const hours = this.hoursRegisterForm.value;
+    const oldForm: Hours = {
+      Date: this.date.getTime(),
+      Hours: this.project.Hours,
+      Project: this.project.Project,
+    };
 
     // Project sent to DB should only be the name of the project
     hours.project = hours.project.name;
