@@ -5,6 +5,7 @@
     <li><a routerLink="/overview">Overview</a></li>
     <div *ngIf="user?.IsAdmin">
       <li><a routerLink="/manage-admin">Manage admins</a></li>
+      <li><a routerLink="/management">Management</a></li>
     </div>
     <li><a class="navbar_logout" (click)="logout()">Logout</a></li>
   </ul>

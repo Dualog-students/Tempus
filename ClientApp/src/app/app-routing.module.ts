@@ -5,6 +5,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin-page.component';
+import { ManagementPageComponent } from './pages/management-page/management-page.component';
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 import {
   IsLoggedInGuard,
@@ -33,6 +34,11 @@ const routes: Routes = [
   {
     path: 'manage-admin',
     component: ManageAdminPageComponent,
+    canActivate: [IsAdminGuard],
+  },
+  {
+    path: 'management',
+    component: ManagementPageComponent,
     canActivate: [IsAdminGuard],
   },
   { path: '404', component: NotFoundComponent },

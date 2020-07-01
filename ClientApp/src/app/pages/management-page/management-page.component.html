@@ -1,0 +1,12 @@
+<dp-datagrid
+  [items]="users"
+  [header]="true"
+  [clickable]="true"
+  [searchable]="true"
+  [searchProps]="['Name']"
+  (rowClicked)="onRowClick($event)"
+  searchPlaceholder="Search for user"
+>
+  <dp-datagrid-column field="Name" header="Name" width="10">
+  </dp-datagrid-column>
+</dp-datagrid>
