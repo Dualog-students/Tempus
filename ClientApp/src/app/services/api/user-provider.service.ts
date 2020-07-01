@@ -33,4 +33,7 @@ export class UserProviderService extends BaseApiService {
       Field: field,
       Value: value,
     });
+
+  deleteHours = (id: string, hours: Hours): Promise<string> =>
+    super.post<string>(id + '/delete-hours', hours);
 }

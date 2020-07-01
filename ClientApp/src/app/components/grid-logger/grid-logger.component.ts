@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import { UserProviderService } from '../../services/api/user-provider.service';
+import { Hours } from '../../models/hours.model';
 
 @Component({
   selector: 'app-grid-logger',
@@ -27,7 +29,10 @@ export class GridLoggerComponent implements OnInit {
   modal = false;
   editProject: object;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private userProviderService: UserProviderService,
+  ) {}
 
   async ngOnInit() {
     this.user = await this.userService.getCurrentUser();
@@ -55,7 +60,7 @@ export class GridLoggerComponent implements OnInit {
     return this.weekDays[(day + 1) % 7];
   }
 
-  getDateByDay(day) {
+  getDateByDay(day): Date {
     if (this.numDays !== 1) {
       return this.addDays(
         this.selectedDate,
@@ -114,8 +119,13 @@ export class GridLoggerComponent implements OnInit {
   }
 
   async onDelete(day, project) {
-    console.log([day, project]);
-    // this.user = await this.userService.getCurrentUser();
+    const hours: Hours = {
+      Date: this.getDateByDay(day).getTime(),
+      Hours: 0,
+      Project: project,
+    };
+    await this.userProviderService.deleteHours(this.user._id, hours);
+    this.user = await this.userService.getCurrentUser();
   }
 
   addDays(date, days) {
