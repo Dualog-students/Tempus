@@ -12,8 +12,6 @@ export class GraphsComponent implements OnInit {
   constructor(private userService: UserService) {}
   async ngOnInit() {
     this.user = await this.userService.getCurrentUser();
-    console.log(this.user);
-    console.log(this.test.getDay());
   }
 
   dateString = '30/06/2020'.split('/');
