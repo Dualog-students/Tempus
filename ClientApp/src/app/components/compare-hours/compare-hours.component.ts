@@ -11,7 +11,7 @@ import { UserService } from '../../services/user.service';
 export class CompareHoursComponent implements OnInit {
   user: User;
   allMonths = [{ month: this.dateToMMYYY(new Date()) }];
-  selectedPeriods = [this.allMonths[0]];
+  selectedPeriods = [];
   totalHours = 0;
   totalWorkedHours = 0;
   userHoursPerMonth = 0;
@@ -54,6 +54,8 @@ export class CompareHoursComponent implements OnInit {
       });
       tempMonth.setMonth(tempMonth.getMonth() - 1);
     }
+
+    this.selectedPeriods = [this.allMonths[0]];
   }
 
   onSelect(event: any) {
