@@ -32,9 +32,12 @@ export class RegisterHoursComponent implements OnInit {
   hoursKey: string;
   hoursRegisterForm = this.fb.group({
     date: [, Validators.required],
-    hours: [, Validators.required],
+    hours: [, [Validators.required, Validators.min(0), Validators.max(24)]],
     project: ['', Validators.required],
   });
+
+  infoMessage = 'No change in registered data';
+  submitDisable = !this.hoursRegisterForm.valid;
 
   // TODO: Replace with data from DB
   projectOptions = ['Tempus', 'Summer Internship', 'Ship GUI'].map((x) => {
@@ -67,19 +70,19 @@ export class RegisterHoursComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // Change the project field to only contain the project name
-    this.hoursRegisterForm.patchValue({
-      project: this.hoursRegisterForm.get('project').value.name,
-    });
-
     const id = this.user._id;
-    const hours: Hours = this.hoursRegisterForm.value;
+    const hours = this.hoursRegisterForm.value;
+
+    // Project sent to DB should only be the name of the project
+    hours.project = hours.project.name;
+
+    // Only register in DB if hours and project has changed
     this.hoursService.registerHours(id, hours).then((resp) => {
       if (resp) {
         this.closeModal();
         location.reload();
       } else {
-        alert('Hour registration failed');
+        this.infoMessage = 'Hour registration failed';
       }
     });
   }
@@ -92,10 +95,16 @@ export class RegisterHoursComponent implements OnInit {
       project = this.projectOptions[0].name;
     }
 
+    let hours: {} = this.getHoursObject().Hours;
+    if (hours === null || hours === undefined) {
+      // Set hours to zero if not found in DB
+      hours = 0;
+    }
+
     // Update the fields in the form
     this.hoursRegisterForm.patchValue({
       date: this.date.getTime(),
-      hours: this.getHoursObject().Hours,
+      hours: hours,
       project: { name: project },
     });
   }
