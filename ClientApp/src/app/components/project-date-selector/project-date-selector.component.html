@@ -5,14 +5,25 @@
       </dp-icon-button>
     </div>
     <div class="child">
-      <!--<dp-datepicker></dp-datepicker>-->
-      <p (click)="onCurrent()">{{ date.toDateString() }}</p>
+      <dp-datepicker
+        #datePicker
+        [defaultDate]="date"
+        (selected)="onPicked($event)"
+      ></dp-datepicker>
     </div>
     <div class="child">
       <dp-icon-button
         iconType="arrowright"
         [disabled]="false"
         (clicked)="onNext()"
+      >
+      </dp-icon-button>
+    </div>
+    <div class="child">
+      <dp-icon-button
+        iconType="redo"
+        [disabled]="false"
+        (clicked)="onCurrent()"
       >
       </dp-icon-button>
     </div>
