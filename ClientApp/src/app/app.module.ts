@@ -22,6 +22,9 @@ import { RegisterHoursComponent } from './components/modals/register-hours/regis
 import { ProjectDateSelectorComponent } from './components/project-date-selector/project-date-selector.component';
 import { GridLoggerComponent } from './components/grid-logger/grid-logger.component';
 import { LoggerDetailsComponent } from './components/logger-details/logger-details.component';
+import { GraphsComponent } from './components/graphs/graphs.component';
+import { ChartsComponent } from './components/charts/charts.component';
+import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,9 @@ import { LoggerDetailsComponent } from './components/logger-details/logger-detai
     ProjectDateSelectorComponent,
     GridLoggerComponent,
     LoggerDetailsComponent,
+    GraphsComponent,
+    ChartsComponent,
+    OverviewPageComponent,
   ],
   imports: [
     BrowserModule,
