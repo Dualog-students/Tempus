@@ -1,7 +1,7 @@
 <div class="wrapper">
-  <ul class="column-list">
+  <li class="column-list">
     <div *ngFor="let day of numDaysList">
-      <li
+      <ul
         class="column-item"
         [ngStyle]="{
           'background-color':
@@ -14,22 +14,24 @@
           <dp-header2>{{ getWeekDay(day) }}</dp-header2>
           <dp-header5>{{ dateToString(getDateByDay(day)) }}</dp-header5>
         </div>
-        <ul class="card-list">
-          <div *ngIf="user">
-            <div *ngFor="let hours of getHours(day)">
-              <li class="card-item" (click)="onEdit(day)">
-                <dp-header4>{{ hours.Project }}</dp-header4>
-                <dp-body-type>Hours: {{ hours.Hours }}</dp-body-type>
-              </li>
-            </div>
-          </div>
-          <li class="card-item card-item-add" (click)="onAdd(day)">
-            <p>+</p>
+        <div *ngIf="user">
+          <li class="card-list">
+            <ul
+              *ngFor="let hours of getHours(day)"
+              class="card-item"
+              (click)="onEdit(day)"
+            >
+              <dp-header4>{{ hours.Project }}</dp-header4>
+              <dp-body-type>Hours: {{ hours.Hours }}</dp-body-type>
+            </ul>
+            <ul class="card-item card-item-add" (click)="onAdd(day)">
+              <p>+</p>
+            </ul>
           </li>
-        </ul>
-      </li>
+        </div>
+      </ul>
     </div>
-  </ul>
+  </li>
 </div>
 <div *ngIf="modal">
   <app-register-hours-modal

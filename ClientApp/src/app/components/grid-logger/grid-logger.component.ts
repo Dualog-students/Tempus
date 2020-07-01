@@ -73,9 +73,20 @@ export class GridLoggerComponent implements OnInit {
   }
 
   mapHours(date: Date) {
-    return Object.values(this.user.Hours).filter(
-      (hour: any) => this.dateToString(date) === hour.Date,
-    );
+    const result = [];
+    Object.entries(this.user.Hours).map(([project, obj]) => {
+      Object.entries(obj).map(([_date, hour]) => {
+        if (this.dateToString(date) === _date) {
+          result.push({
+            Project: project,
+            Date: _date,
+            Hours: hour.Hours,
+            Notes: hour.Notes,
+          });
+        }
+      });
+    });
+    return result;
   }
 
   async onAdd(day) {
