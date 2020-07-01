@@ -7,20 +7,18 @@
           'background-color':
             dateToString(getDateByDay(day)) === dateToString(currentDate)
               ? 'var(--dualog-purple)'
-              : dateToString(getDateByDay(day)) === dateToString(selectedDate)
-              ? 'var(--dualog-aqua80)'
               : 'var(--dualog-nordic-light)'
         }"
       >
         <div class="column-title--wrapper">
           <dp-header2>{{ getWeekDay(day) }}</dp-header2>
-          <dp-header3>{{ getDateByDay(day).getDate() }}</dp-header3>
+          <dp-header5>{{ dateToString(getDateByDay(day)) }}</dp-header5>
         </div>
         <ul class="card-list">
           <div *ngIf="user">
             <div *ngFor="let hours of getHours(day)">
               <li class="card-item" (click)="onEdit(day)">
-                <dp-header5>{{ hours.Project }}</dp-header5>
+                <dp-header4>{{ hours.Project }}</dp-header4>
                 <dp-body-type>Hours: {{ hours.Hours }}</dp-body-type>
               </li>
             </div>
