@@ -25,6 +25,7 @@ export class GridLoggerComponent implements OnInit {
   modalDate = new Date();
   modalEdit: boolean;
   modal = false;
+  editProject: object;
 
   constructor(private userService: UserService) {}
 
@@ -96,16 +97,18 @@ export class GridLoggerComponent implements OnInit {
       day + 1 - this.selectedDate.getDay(),
     );
     this.modalEdit = false;
+    this.editProject = null;
     this.modal = true;
     this.user = await this.userService.getCurrentUser();
   }
 
-  async onEdit(day) {
+  async onEdit(day, hours) {
     this.modalDate = this.addDays(
       this.selectedDate,
       day + 1 - this.selectedDate.getDay(),
     );
     this.modalEdit = true;
+    this.editProject = hours;
     this.modal = true;
     this.user = await this.userService.getCurrentUser();
   }

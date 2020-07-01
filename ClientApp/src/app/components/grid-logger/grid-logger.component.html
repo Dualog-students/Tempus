@@ -19,7 +19,7 @@
             <ul
               *ngFor="let hours of getHours(day)"
               class="card-item"
-              (click)="onEdit(day)"
+              (click)="onEdit(day, hours)"
             >
               <dp-header4>{{ hours.Project }}</dp-header4>
               <dp-body-type>Hours: {{ hours.Hours }}</dp-body-type>
@@ -37,6 +37,7 @@
   <app-register-hours-modal
     [date]="modalDate"
     [edit]="modalEdit"
+    [project]="editProject"
     [(modal)]="modal"
   ></app-register-hours-modal>
 </div>

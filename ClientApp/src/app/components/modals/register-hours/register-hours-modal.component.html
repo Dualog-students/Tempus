@@ -3,7 +3,10 @@
   [openWindow]="modal"
   (cancel)="closeModal()"
 >
-  <div class="message-box dp-mt-8" *ngIf="!hoursRegisterForm.dirty">
+  <div
+    class="message-box dp-mt-8"
+    *ngIf="!hoursRegisterForm.dirty && this.edit"
+  >
     <dp-message-box-info>{{ infoMessage }}</dp-message-box-info>
   </div>
   <form
@@ -31,7 +34,9 @@
     <div class="formButton dp-mt-8">
       <dp-primary-button
         label="{{ registerTypeText }} Hours"
-        [disabled]="!hoursRegisterForm.valid || !hoursRegisterForm.dirty"
+        [disabled]="
+          !hoursRegisterForm.valid || (!hoursRegisterForm.dirty && this.edit)
+        "
         [fullWidth]="true"
         htmlType="submit"
       >
