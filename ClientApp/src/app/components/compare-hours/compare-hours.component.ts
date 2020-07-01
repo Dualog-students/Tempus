@@ -69,7 +69,7 @@ export class CompareHoursComponent implements OnInit {
     this.totalHours = this.selectedPeriods.length * this.userHoursPerMonth;
     this.totalWorkedHours = 0;
     Object.values(this.user.Hours).map((project: any) => {
-      Object.entries(project).map(([date, hour]) => {
+        Object.entries(project).map(([date, hour]: any) => {
         const month = date.slice(3);
         if (this.selectedPeriods.find(x => x.month === month)) {
           this.totalWorkedHours += hour.Hours;
