@@ -57,15 +57,10 @@
   font-weight: bold;
   color: var(--dualog-dark-aqua);
   padding: 0;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  gap: 1px 1px;
-  grid-template-areas: 'plus';
-  display: grid;
   p {
-    grid-area: plus;
     margin: 0;
     margin-top: -0.5rem;
   }
