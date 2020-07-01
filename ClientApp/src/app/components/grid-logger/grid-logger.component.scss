@@ -44,6 +44,24 @@
   box-shadow: 0 1px 0 var(--dualog-black);
   padding: 0.25rem;
   text-align: center;
+
+  grid-template-columns: 0.5fr 2fr 0.5fr;
+  grid-template-rows: 1fr;
+  gap: 1px 1px;
+  grid-template-areas: 'space text delete';
+  display: grid;
+}
+
+.card-text {
+  grid-area: text;
+}
+
+.card-delete {
+  grid-area: delete;
+}
+
+.delete-button:hover {
+  background-color: var(--dualog-blue80);
 }
 
 .card-item:hover {

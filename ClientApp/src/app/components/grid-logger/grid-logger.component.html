@@ -15,19 +15,30 @@
           <dp-header5>{{ dateToString(getDateByDay(day)) }}</dp-header5>
         </div>
         <div *ngIf="user">
-          <li class="card-list">
-            <ul
+          <div class="card-list">
+            <div
               *ngFor="let hours of getHours(day)"
               class="card-item"
               (click)="onEdit(day, hours)"
             >
-              <dp-header4>{{ hours.Project }}</dp-header4>
-              <dp-body-type>Hours: {{ hours.Hours }}</dp-body-type>
-            </ul>
-            <ul class="card-item card-item-add" (click)="onAdd(day)">
+              <div class="card-text">
+                <dp-header4>{{ hours.Project }}</dp-header4>
+                <dp-body-type>Hours: {{ hours.Hours }}</dp-body-type>
+              </div>
+              <div class="card-delete">
+                <dp-icon-button
+                  class="delete-button"
+                  iconType="trash"
+                  [disabled]="false"
+                  (clicked)="onDelete(day, hours.Project)"
+                >
+                </dp-icon-button>
+              </div>
+            </div>
+            <div class="card-item card-item-add" (click)="onAdd(day)">
               <p>+</p>
-            </ul>
-          </li>
+            </div>
+          </div>
         </div>
       </ul>
     </div>
