@@ -1,5 +1,5 @@
 <dp-modal-medium
-  header="Register Hours {{ hoursKey }}"
+  header="{{ registerTypeText }} Hours {{ hoursKey }}"
   [openWindow]="modal"
   (cancel)="closeModal()"
 >
@@ -30,7 +30,7 @@
 
     <div class="formButton dp-mt-8">
       <dp-primary-button
-        label="Register Hours"
+        label="{{ registerTypeText }} Hours"
         [disabled]="!hoursRegisterForm.valid || !hoursRegisterForm.dirty"
         [fullWidth]="true"
         htmlType="submit"

@@ -25,8 +25,10 @@ export class RegisterHoursComponent implements OnInit {
   ) {}
 
   @Input() date: Date;
+  @Input() edit: boolean;
   @Input() modal: boolean;
   @Output() modalChange = new EventEmitter<boolean>();
+  registerTypeText: string;
 
   user: User;
   hoursKey: string;
@@ -44,6 +46,7 @@ export class RegisterHoursComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.registerTypeText = this.edit ? 'Edit' : 'Register';
     this.hoursKey = this.findHoursKey(this.date);
     this.getUserData();
   }
