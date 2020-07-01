@@ -68,9 +68,8 @@ export class GridLoggerComponent implements OnInit {
       return this.mapHours(
         this.addDays(this.selectedDate, day + 1 - this.selectedDate.getDay()),
       );
-    } else {
-      return this.mapHours(this.selectedDate);
     }
+    return this.mapHours(this.selectedDate);
   }
 
   mapHours(date: Date) {
