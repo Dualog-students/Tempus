@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 
 @Component({
   selector: 'app-project-date-selector',
@@ -6,6 +14,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./project-date-selector.component.scss'],
 })
 export class ProjectDateSelectorComponent implements OnInit {
+  @ViewChild('datePicker') datePicker: ElementRef;
   @Input() numDays: number;
   @Output() numDaysChange = new EventEmitter<number>();
   @Input() date: Date;
@@ -27,6 +36,10 @@ export class ProjectDateSelectorComponent implements OnInit {
     }
   }
 
+  onPicked(event) {
+    this.setDate(event);
+  }
+
   onCurrent() {
     this.setDate(new Date());
   }
@@ -43,12 +56,14 @@ export class ProjectDateSelectorComponent implements OnInit {
   addDate(num: number) {
     const date = this.date;
     date.setDate(date.getDate() + num);
+    console.log(date);
     this.setDate(date);
   }
 
   setDate(date = new Date()) {
     this.date = date;
     this.dateChange.emit(this.date);
+    this.datePicker?.writeValue(this.date);
   }
 
   onDay() {
