@@ -29,14 +29,15 @@ export class CompareHoursComponent implements OnInit {
 
   getAllMonths() {
     const currentMonth = new Date();
-    const oldestMonth = Object.values(this.user.Hours).reduce<string>(
-      (prev, hour: any) => {
-        const month = hour.Date.slice(3);
-        if (month.localeCompare(prev) < 0) return month;
-        return prev;
-      },
-      this.dateToMMYYY(currentMonth),
-    );
+    let oldestMonth = this.dateToMMYYY(currentMonth);
+    Object.values(this.user.Hours).map((project: any) => {
+      Object.keys(project).map((date: string) => {
+        const month = date.slice(3);
+        if (oldestMonth.localeCompare(month) > 0) {
+          oldestMonth = month;
+        }
+      });
+    });
 
     const oldestMonthSplit = oldestMonth.split('/');
     const oldestDate = new Date(
@@ -67,11 +68,13 @@ export class CompareHoursComponent implements OnInit {
     const currentDate = new Date();
     this.totalHours = this.selectedPeriods.length * this.userHoursPerMonth;
     this.totalWorkedHours = 0;
-    Object.values(this.user.Hours).map((hour: any) => {
-      const month = hour.Date.slice(3);
-      if (this.selectedPeriods.find(x => x.month === month)) {
-        this.totalWorkedHours += hour.Hours;
-      }
+    Object.values(this.user.Hours).map((project: any) => {
+      Object.entries(project).map(([date, hour]) => {
+        const month = date.slice(3);
+        if (this.selectedPeriods.find(x => x.month === month)) {
+          this.totalWorkedHours += hour.Hours;
+        }
+      });
     });
   }
 
