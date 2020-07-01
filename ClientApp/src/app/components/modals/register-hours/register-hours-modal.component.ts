@@ -37,7 +37,6 @@ export class RegisterHoursComponent implements OnInit {
   });
 
   infoMessage = 'No change in registered data';
-  submitDisable = !this.hoursRegisterForm.valid;
 
   // TODO: Replace with data from DB
   projectOptions = ['Tempus', 'Summer Internship', 'Ship GUI'].map((x) => {
@@ -82,7 +81,7 @@ export class RegisterHoursComponent implements OnInit {
         this.closeModal();
         location.reload();
       } else {
-        this.infoMessage = 'Hour registration failed';
+        alert('Hour registration failed');
       }
     });
   }
