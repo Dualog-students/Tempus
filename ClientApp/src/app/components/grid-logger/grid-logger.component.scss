@@ -52,6 +52,25 @@
   display: grid;
 }
 
+.card-item-add {
+  font-size: xx-large;
+  font-weight: bold;
+  color: var(--dualog-dark-aqua);
+  padding: 0;
+  text-align: center;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 1px 1px;
+  grid-template-areas: 'plus';
+  display: grid;
+  p {
+    grid-area: plus;
+    margin: 0;
+    margin-top: -0.5rem;
+  }
+}
+
 .card-text {
   grid-area: text;
 }
@@ -72,15 +91,4 @@
 
 .card-item:active {
   background-color: var(--dualog-nordic-dark);
-}
-
-.card-item-add {
-  font-size: xx-large;
-  font-weight: bold;
-  color: var(--dualog-dark-aqua);
-  padding: 0;
-  p {
-    margin: 0;
-    margin-top: -0.5rem;
-  }
 }
