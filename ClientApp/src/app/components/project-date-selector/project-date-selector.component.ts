@@ -5,8 +5,8 @@ import {
   Output,
   EventEmitter,
   ViewChild,
-  ElementRef,
 } from '@angular/core';
+import { DatepickerComponent } from '@dualog/design-system';
 
 @Component({
   selector: 'app-project-date-selector',
@@ -14,7 +14,7 @@ import {
   styleUrls: ['./project-date-selector.component.scss'],
 })
 export class ProjectDateSelectorComponent implements OnInit {
-  @ViewChild('datePicker') datePicker: ElementRef;
+  @ViewChild('datePicker') datePicker: DatepickerComponent;
   @Input() numDays: number;
   @Output() numDaysChange = new EventEmitter<number>();
   @Input() currentDate: Date;
