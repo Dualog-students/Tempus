@@ -124,8 +124,10 @@ export class GridLoggerComponent implements OnInit {
       Hours: 0,
       Project: project,
     };
+    console.log(hours);
     await this.userProviderService.deleteHours(this.user._id, hours);
     this.user = await this.userService.getCurrentUser();
+    /* location.reload(); */
   }
 
   addDays(date, days) {

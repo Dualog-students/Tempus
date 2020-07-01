@@ -8,6 +8,7 @@ import {
 
 import { UserService } from '../../../services/user.service';
 import { HoursService } from '../../../services/hours.service';
+import { UserProviderService } from '../../../services/api/user-provider.service';
 
 import { User } from 'src/app/models/user.model';
 import { Hours } from 'src/app/models/hours.model';
@@ -22,6 +23,7 @@ export class RegisterHoursComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private hoursService: HoursService,
+    private userProviderService: UserProviderService,
   ) {}
 
   @Input() date: Date;
@@ -75,11 +77,26 @@ export class RegisterHoursComponent implements OnInit {
   onSubmit(): void {
     const id = this.user._id;
     const hours = this.hoursRegisterForm.value;
+    const oldForm: Hours = {
+      Date: this.date.getTime(),
+      Hours: this.project.Hours,
+      Project: this.project.Project,
+    };
 
     // Project sent to DB should only be the name of the project
     hours.project = hours.project.name;
 
+    if (this.project && hours.project !== this.project.Project) {
+      this.userProviderService.deleteHours(id, oldForm);
+      this.insertHours(id, hours);
+    } else {
+      this.insertHours(id, hours);
+    }
+
     // Only register in DB if hours and project has changed
+  }
+
+  insertHours(id, hours) {
     this.hoursService.registerHours(id, hours).then((resp) => {
       if (resp) {
         this.closeModal();
