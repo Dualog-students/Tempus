@@ -22,7 +22,6 @@ import { RegisterHoursComponent } from './components/modals/register-hours/regis
 import { ProjectDateSelectorComponent } from './components/project-date-selector/project-date-selector.component';
 import { GridLoggerComponent } from './components/grid-logger/grid-logger.component';
 import { LoggerDetailsComponent } from './components/logger-details/logger-details.component';
-import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 import { CompareHoursComponent } from './components/compare-hours/compare-hours.component';
 import { ManagementPageComponent } from './pages/management-page/management-page.component';
 import { ManageUserPageComponent } from './pages/manage-user-page/manage-user-page.component';
@@ -31,6 +30,9 @@ import {
   Date2WeekDayUS,
   Date2String,
 } from './utils/pipes/date.pipe';
+import { GraphsComponent } from './components/graphs/graphs.component';
+import { ChartsComponent } from './components/charts/charts.component';
+import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 
 @NgModule({
   declarations: [
@@ -48,13 +50,15 @@ import {
     ProjectDateSelectorComponent,
     GridLoggerComponent,
     LoggerDetailsComponent,
-    OverviewPageComponent,
     CompareHoursComponent,
     ManagementPageComponent,
     ManageUserPageComponent,
     Date2WeekDayEU,
     Date2WeekDayUS,
     Date2String,
+    GraphsComponent,
+    ChartsComponent,
+    OverviewPageComponent,
   ],
   imports: [
     BrowserModule,
