@@ -30,6 +30,7 @@ const routes: Routes = [
     component: OverviewPageComponent,
     canActivate: [IsLoggedInGuard],
   },
+]
  
 
 @NgModule({
