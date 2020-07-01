@@ -25,6 +25,7 @@ import { LoggerDetailsComponent } from './components/logger-details/logger-detai
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 import { CompareHoursComponent } from './components/compare-hours/compare-hours.component';
 import { ManagementPageComponent } from './pages/management-page/management-page.component';
+import { ManageUserPageComponent } from './pages/manage-user-page/manage-user-page.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ManagementPageComponent } from './pages/management-page/management-page
     OverviewPageComponent,
     CompareHoursComponent,
     ManagementPageComponent,
+    ManageUserPageComponent,
   ],
   imports: [
     BrowserModule,
