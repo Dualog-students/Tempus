@@ -3,20 +3,23 @@
   [openWindow]="modal"
   (cancel)="closeModal()"
 >
+  <div class="message-box dp-mt-8" *ngIf="!hoursRegisterForm.dirty">
+    <dp-message-box-info>{{ infoMessage }}</dp-message-box-info>
+  </div>
   <form
     [formGroup]="hoursRegisterForm"
     (ngSubmit)="onSubmit()"
     class="form dp-mt=20"
   >
     <dp-input
+      class="dp-mt-8"
       label="hours"
       type="number"
-      min="0"
-      max="24"
       formControlName="hours"
     ></dp-input>
 
     <dp-autocomplete
+      class="dp-mt-4"
       [options]="projectOptions"
       optionField="name"
       label="Select Project"
@@ -27,17 +30,12 @@
 
     <div class="formButton dp-mt-8">
       <dp-primary-button
-        class="dp-mt-8"
-        label="Register"
-        [disabled]="false"
-        [fullWidth]="false"
+        label="Register Hours"
+        [disabled]="!hoursRegisterForm.valid || !hoursRegisterForm.dirty"
+        [fullWidth]="true"
         htmlType="submit"
       >
       </dp-primary-button>
     </div>
   </form>
 </dp-modal-medium>
-
-<div class="box" *ngIf="jsonString">
-  {{ jsonString }}
-</div>
