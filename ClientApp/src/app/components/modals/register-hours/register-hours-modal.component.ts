@@ -27,6 +27,7 @@ export class RegisterHoursComponent implements OnInit {
   @Input() date: Date;
   @Input() edit: boolean;
   @Input() modal: boolean;
+  @Input() project: Hours;
   @Output() modalChange = new EventEmitter<boolean>();
   registerTypeText: string;
 
@@ -90,30 +91,20 @@ export class RegisterHoursComponent implements OnInit {
   }
 
   updateForm() {
-    // Find the project in the hours object
-    let project: {} = this.getHoursObject().Project;
-    if (project === null || project === undefined) {
-      // The hour object didn't have a project field, so use first value in project dropdown
-      project = this.projectOptions[0].name;
+    if (this.project) {
+      this.hoursRegisterForm.patchValue({
+        date: this.date.getTime(),
+        hours: this.project.Hours,
+        project: { name: this.project.Project },
+      });
+    } else {
+      // no existing project use default values
+      this.hoursRegisterForm.patchValue({
+        date: this.date.getTime(),
+        hours: 0,
+        project: { name: this.projectOptions[0].name },
+      });
     }
-
-    let hours: {} = this.getHoursObject().Hours;
-    if (hours === null || hours === undefined) {
-      // Set hours to zero if not found in DB
-      hours = 0;
-    }
-
-    // Update the fields in the form
-    this.hoursRegisterForm.patchValue({
-      date: this.date.getTime(),
-      hours: hours,
-      project: { name: project },
-    });
-  }
-
-  // Return the wanted hours object from the database or an empty object
-  getHoursObject(): Hours {
-    return this.user.Hours[this.hoursKey] || {};
   }
 
   validHourValidator(): ValidatorFn {
