@@ -20,7 +20,8 @@ export class GridLoggerComponent implements OnInit {
   ];
 
   @Input() numDays: number;
-  @Input() date: Date;
+  @Input() currentDate: Date;
+  @Input() selectedDate: Date;
   modalDate = new Date();
   modal = false;
 
@@ -38,7 +39,7 @@ export class GridLoggerComponent implements OnInit {
     return (n < 10 ? '0' + n : n).toString();
   }
 
-  updateHoursKey(date): string {
+  dateToString(date): string {
     const day = this.zeroPad(date.getDate());
     const month = this.zeroPad(date.getMonth() + 1);
     const year = date.getFullYear();
@@ -47,33 +48,48 @@ export class GridLoggerComponent implements OnInit {
 
   getWeekDay(day) {
     if (this.numDays === 1) {
-      return this.weekDays[this.date.getDay()];
+      return this.weekDays[this.selectedDate.getDay()];
     }
     return this.weekDays[(day + 1) % 7];
   }
 
+  getDateByDay(day) {
+    return this.addDays(
+      this.selectedDate,
+      day + 1 - this.selectedDate.getDay(),
+    );
+  }
+
   getHours(day: number) {
-    const date = new Date();
     if (this.numDays !== 1) {
-      date.setDate(this.date.getDate() + day + 1 - this.date.getDay());
-      return this.mapHours(date);
+      return this.mapHours(
+        this.addDays(this.selectedDate, day + 1 - this.selectedDate.getDay()),
+      );
     } else {
-      return this.mapHours(this.date);
+      return this.mapHours(this.selectedDate);
     }
   }
 
   mapHours(date: Date) {
     return Object.values(this.user.Hours).filter(
-      (hour: any) => this.updateHoursKey(date) === hour.Date,
+      (hour: any) => this.dateToString(date) === hour.Date,
     );
   }
 
   async onAdd(day) {
-    this.modalDate = new Date();
-    this.modalDate.setDate(this.date.getDate() + day + 1 - this.date.getDay());
+    this.modalDate = this.addDays(
+      this.selectedDate,
+      day + 1 - this.selectedDate.getDay(),
+    );
     this.modal = true;
     this.user = await this.userService.getCurrentUser();
   }
 
   onEdit(day, i) {}
+
+  addDays(date, days) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
 }

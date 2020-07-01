@@ -17,53 +17,59 @@ export class ProjectDateSelectorComponent implements OnInit {
   @ViewChild('datePicker') datePicker: ElementRef;
   @Input() numDays: number;
   @Output() numDaysChange = new EventEmitter<number>();
-  @Input() date: Date;
-  @Output() dateChange = new EventEmitter<Date>();
+  @Input() currentDate: Date;
+  @Output() currentDateChange = new EventEmitter<Date>();
+  @Input() selectedDate: Date;
+  @Output() selectedDateChange = new EventEmitter<Date>();
 
   constructor() {}
 
   ngOnInit(): void {
-    this.setDate();
     this.onWeek();
+    this.setCurrentDate();
+    this.setSelectedDate();
   }
 
   onBack() {
     if (this.numDays === 1) {
       this.addDate(-1);
     } else {
-      const add = 1 - this.date.getDay() - 7;
+      const add = 1 - this.selectedDate.getDay() - 7;
       this.addDate(add);
     }
   }
 
   onPicked(event) {
-    this.setDate(event);
+    this.setSelectedDate(event);
   }
 
   onCurrent() {
-    this.setDate(new Date());
+    this.setCurrentDate(new Date());
   }
 
   onNext() {
     if (this.numDays === 1) {
       this.addDate(1);
     } else {
-      const add = 8 - this.date.getDay();
+      const add = 8 - this.selectedDate.getDay();
       this.addDate(add);
     }
   }
 
   addDate(num: number) {
-    const date = this.date;
-    date.setDate(date.getDate() + num);
-    console.log(date);
-    this.setDate(date);
+    this.setSelectedDate(this.addDays(this.selectedDate, num));
   }
 
-  setDate(date = new Date()) {
-    this.date = date;
-    this.dateChange.emit(this.date);
-    this.datePicker?.writeValue(this.date);
+  setSelectedDate(date = new Date()) {
+    this.selectedDate = date;
+    this.selectedDateChange.emit(this.selectedDate);
+    this.datePicker?.writeValue(this.selectedDate);
+  }
+
+  setCurrentDate(date = new Date()) {
+    this.currentDate = date;
+    this.currentDateChange.emit(this.currentDate);
+    this.setSelectedDate(this.currentDate);
   }
 
   onDay() {
@@ -77,5 +83,11 @@ export class ProjectDateSelectorComponent implements OnInit {
   onWeek() {
     this.numDays = 7;
     this.numDaysChange.emit(this.numDays);
+  }
+
+  addDays(date, days) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
   }
 }

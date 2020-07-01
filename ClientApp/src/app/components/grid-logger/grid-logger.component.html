@@ -1,16 +1,27 @@
 <div class="wrapper">
   <ul class="column-list">
     <div *ngFor="let day of numDaysList">
-      <li class="column-item">
+      <li
+        class="column-item"
+        [ngStyle]="{
+          'background-color':
+            dateToString(getDateByDay(day)) === dateToString(currentDate)
+              ? 'var(--dualog-purple)'
+              : dateToString(getDateByDay(day)) === dateToString(selectedDate)
+              ? 'var(--dualog-aqua80)'
+              : 'var(--dualog-nordic-light)'
+        }"
+      >
         <div class="column-title--wrapper">
-          <h2>{{ getWeekDay(day) }}</h2>
+          <dp-header2>{{ getWeekDay(day) }}</dp-header2>
+          <dp-header3>{{ getDateByDay(day).getDate() }}</dp-header3>
         </div>
         <ul class="card-list">
           <div *ngIf="user">
             <div *ngFor="let hours of getHours(day)">
               <li class="card-item" (click)="onEdit(day)">
-                <h5>{{ hours.Project }}</h5>
-                <p>Hours: {{ hours.Hours }}</p>
+                <dp-header5>{{ hours.Project }}</dp-header5>
+                <dp-body-type>Hours: {{ hours.Hours }}</dp-body-type>
               </li>
             </div>
           </div>
