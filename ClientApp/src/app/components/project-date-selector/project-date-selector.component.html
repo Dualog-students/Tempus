@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="inner date">
+    <div class="child">
+      <dp-icon-button iconType="back" [disabled]="false" (clicked)="onBack()">
+      </dp-icon-button>
+    </div>
+    <div class="child">
+      <!--<dp-datepicker></dp-datepicker>-->
+      <p>{{ date.toDateString() }}</p>
+    </div>
+    <div class="child">
+      <dp-icon-button
+        iconType="arrowright"
+        [disabled]="false"
+        (clicked)="onNext()"
+      >
+      </dp-icon-button>
+    </div>
+  </div>
+  <div class="inner days">
+    <div class="child">
+      <dp-secondary-button
+        label="Day"
+        [disabled]="false"
+        [fullWidth]="false"
+        (clicked)="onDay()"
+      >
+      </dp-secondary-button>
+    </div>
+    <div class="child">
+      <dp-secondary-button
+        label="Work week"
+        [disabled]="false"
+        [fullWidth]="false"
+        (clicked)="onWorkWeek()"
+      >
+      </dp-secondary-button>
+    </div>
+    <div class="child">
+      <dp-secondary-button
+        label="Week"
+        [disabled]="false"
+        [fullWidth]="false"
+        (clicked)="onWeek()"
+      >
+      </dp-secondary-button>
+    </div>
+  </div>
+</div>

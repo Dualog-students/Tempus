@@ -1,0 +1,67 @@
+.column-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 1rem;
+  align-items: start;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  // Overflow scroll
+  /*
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 1fr);
+  */
+}
+
+.column-item {
+  border-radius: 0.5rem;
+  background-color: var(--dualog-nordic-light);
+  padding: 0.5rem;
+}
+
+.column-title--wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0.25rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.card-list {
+  display: grid;
+  grid-template-rows: auto;
+  grid-gap: 0.5rem;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card-item {
+  background-color: var(--dualog-white);
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 0 var(--dualog-black);
+  padding: 0.25rem;
+  text-align: center;
+}
+
+.card-item:hover {
+  cursor: pointer;
+  background-color: var(--dualog-blue80);
+  color: var(--dualog-white);
+}
+
+.card-item:active {
+  background-color: var(--dualog-nordic-dark);
+}
+
+.card-item-add {
+  font-size: xx-large;
+  font-weight: bold;
+  color: var(--dualog-dark-aqua);
+  padding: 0;
+  p {
+    margin: 0;
+    margin-top: -0.5rem;
+  }
+}

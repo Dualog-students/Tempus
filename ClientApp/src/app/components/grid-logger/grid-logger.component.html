@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <ul class="column-list">
+    <div *ngFor="let day of weekDays; index as i">
+      <div *ngIf="i < numDays">
+        <li class="column-item">
+          <div class="column-title--wrapper">
+            <h2>{{ day.name }}</h2>
+          </div>
+          <ul class="card-list">
+            <div *ngFor="let project of projects">
+              <li class="card-item" (click)="onEdit(day, i)">
+                <h5>{{ project.name }}</h5>
+                <p>Hours: {{ project.hours }}</p>
+              </li>
+            </div>
+            <li class="card-item card-item-add" (click)="onAdd(day, i)">
+              <p>+</p>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </div>
+  </ul>
+</div>
+<div *ngIf="modal">
+  <app-register-hours-modal
+    [date]="modalDate"
+    [(modal)]="modal"
+  ></app-register-hours-modal>
+</div>

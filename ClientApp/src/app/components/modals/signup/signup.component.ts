@@ -20,6 +20,7 @@ import { partTimePercentValidator } from '../../../validators/part-time-percenta
 export class SignupComponent implements OnInit {
   @Input() modal: boolean;
   @Output() modalChange = new EventEmitter<boolean>();
+
   error = false;
   errorMsg = 'Email is already taken';
   options = positions.map(x => {
@@ -27,6 +28,7 @@ export class SignupComponent implements OnInit {
   });
   isFullTime = true;
   passwordLength = 6;
+  dropdownHeight = 150;
 
   signUpForm = new FormGroup({
     email: new FormControl('', [
@@ -94,6 +96,8 @@ export class SignupComponent implements OnInit {
       this.error = true;
       return;
     }
-    this.router.navigate(['/home']);
+
+    this.router.navigate(['/']);
+
   }
 }

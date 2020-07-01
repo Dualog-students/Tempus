@@ -17,10 +17,16 @@ import { UserService } from './services/user.service';
 import { ManageAdminPageComponent } from './pages/manage-admin-page/manage-admin-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { EditUserModalComponent } from './components/modals/edit-user-modal/edit-user-modal.component';
+
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 import { CompareHoursComponent } from './components/compare-hours/compare-hours.component';
 import { GraphsComponent } from './graphs/graphs.component';
 import { ChartsComponent } from './charts/charts.component';
+import { DashboardComponent } from './pages/dashboard/dashboard-page.component';
+import { RegisterHoursComponent } from './components/modals/register-hours/register-hours-modal.component';
+import { ProjectDateSelectorComponent } from './components/project-date-selector/project-date-selector.component';
+import { GridLoggerComponent } from './components/grid-logger/grid-logger.component';
+import { LoggerDetailsComponent } from './components/logger-details/logger-details.component';
 
 @NgModule({
   declarations: [
@@ -33,10 +39,16 @@ import { ChartsComponent } from './charts/charts.component';
     ManageAdminPageComponent,
     ProfilePageComponent,
     EditUserModalComponent,
+
     OverviewPageComponent,
     CompareHoursComponent,
     GraphsComponent,
     ChartsComponent,
+    DashboardComponent,
+    RegisterHoursComponent,
+    ProjectDateSelectorComponent,
+    GridLoggerComponent,
+    LoggerDetailsComponent,
   ],
   imports: [
     BrowserModule,

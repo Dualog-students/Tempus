@@ -1,0 +1,43 @@
+<dp-modal-medium
+  header="Register Hours {{ hoursKey }}"
+  [openWindow]="modal"
+  (cancel)="closeModal()"
+>
+  <form
+    [formGroup]="hoursRegisterForm"
+    (ngSubmit)="onSubmit()"
+    class="form dp-mt=20"
+  >
+    <dp-input
+      label="hours"
+      type="number"
+      min="0"
+      max="24"
+      formControlName="hours"
+    ></dp-input>
+
+    <dp-autocomplete
+      [options]="projectOptions"
+      optionField="name"
+      label="Select Project"
+      formControlName="project"
+      placeholder="Select Project"
+    >
+    </dp-autocomplete>
+
+    <div class="formButton dp-mt-8">
+      <dp-primary-button
+        class="dp-mt-8"
+        label="Register"
+        [disabled]="false"
+        [fullWidth]="false"
+        htmlType="submit"
+      >
+      </dp-primary-button>
+    </div>
+  </form>
+</dp-modal-medium>
+
+<div class="box" *ngIf="jsonString">
+  {{ jsonString }}
+</div>
