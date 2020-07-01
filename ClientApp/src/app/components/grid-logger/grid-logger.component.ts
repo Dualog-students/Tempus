@@ -54,10 +54,13 @@ export class GridLoggerComponent implements OnInit {
   }
 
   getDateByDay(day) {
-    return this.addDays(
-      this.selectedDate,
-      day + 1 - this.selectedDate.getDay(),
-    );
+    if (this.numDays !== 1) {
+      return this.addDays(
+        this.selectedDate,
+        day + 1 - this.selectedDate.getDay(),
+      );
+    }
+    return this.selectedDate;
   }
 
   getHours(day: number) {
