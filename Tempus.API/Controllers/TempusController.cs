@@ -250,11 +250,15 @@ namespace Tempus.API.Controllers
                 return BadRequest(id + " is not a valid id.");
             }
 
+            var bson_obj = new BsonDocument
+            {
+                {"Hours", hours.Hours},
+                {"Notes", hours.Notes == null ? "" : hours.Notes}
+            };
+
             var date = DateTimeOffset.FromUnixTimeMilliseconds(hours.Date).ToString("dd/MM/yyyy");
-            var bson_hours = hours.ToBsonDocument();
-            bson_hours["Date"] = date;
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
-            var update = Builders<BsonDocument>.Update.Set("Hours." + date, bson_hours);
+            var update = Builders<BsonDocument>.Update.Set($"Hours.{hours.Project}.{date}", bson_obj);
             var result = await userCollection.UpdateOneAsync(filter, update);
             if(!result.IsAcknowledged)
             {
