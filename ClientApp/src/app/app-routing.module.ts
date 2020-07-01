@@ -30,7 +30,15 @@ const routes: Routes = [
     component: OverviewPageComponent,
     canActivate: [IsLoggedInGuard],
   },
- 
+
+  {
+    path: 'manage-admin',
+    component: ManageAdminPageComponent,
+    canActivate: [IsAdminGuard],
+  },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404' },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
