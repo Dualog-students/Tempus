@@ -1,10 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {
-  FormBuilder,
-  Validators,
-  ValidatorFn,
-  AbstractControl,
-} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { UserService } from '../../../services/user.service';
 import { HoursService } from '../../../services/hours.service';
@@ -37,7 +32,7 @@ export class RegisterHoursComponent implements OnInit {
   hoursKey: string;
   hoursRegisterForm = this.fb.group({
     date: [, Validators.required],
-    hours: [, [Validators.required, Validators.min(0), Validators.max(24)]],
+    hours: [, [Validators.required, Validators.min(1), Validators.max(24)]],
     project: ['', Validators.required],
   });
 
@@ -116,19 +111,10 @@ export class RegisterHoursComponent implements OnInit {
       // no existing project use default values
       this.hoursRegisterForm.patchValue({
         date: this.date.getTime(),
-        hours: 0,
+        hours: 8,
         project: { name: this.projectOptions[0].name },
       });
     }
-  }
-
-  validHourValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value < 0 || control.value > 24) {
-        return { error: 'Registered hours should be between 0 and 24' };
-      }
-      return null;
-    };
   }
 
   closeModal() {
