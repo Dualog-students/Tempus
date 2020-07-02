@@ -87,7 +87,6 @@ export class RegisterHoursComponent implements OnInit {
       // Project sent to DB should only be the name of the project
       hours.project = hours.project.name;
 
-      console.log(this.user.Hours);
       const existingHours = this.user.Hours;
       if (hours.project in existingHours) {
         if (this.hoursKey in existingHours[hours.project]) {
