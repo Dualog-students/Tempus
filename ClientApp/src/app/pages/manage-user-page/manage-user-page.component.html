@@ -1,9 +1,15 @@
 <dp-header1>{{ user?.Name }}</dp-header1>
 <div class="dp-mt-16">
+  <div *ngIf="page === 2" class="dp-mb-8">
+    <dp-icon-button
+      [iconType]="'back'"
+      [disabled]="false"
+      (clicked)="changePage(1)"
+    >
+    </dp-icon-button>
+  </div>
+  <dp-datepicker-range (selected)="onDateSelect($event)"></dp-datepicker-range>
   <div *ngIf="page === 1">
-    <dp-datepicker-range
-      (selected)="onDateSelect($event)"
-    ></dp-datepicker-range>
     <dp-datagrid
       [items]="report"
       [header]="true"
@@ -18,13 +24,6 @@
     </dp-datagrid>
   </div>
   <div *ngIf="page === 2">
-    <dp-icon-button
-      [iconType]="'back'"
-      [disabled]="false"
-      (clicked)="changePage(1)"
-    >
-    </dp-icon-button>
-    <br />
     <dp-header3 class="dp-mt-6">{{ currentProject.name }}</dp-header3>
     <dp-datagrid
       [items]="currentProject.hours"

@@ -42,7 +42,6 @@ export class ManageUserPageComponent implements OnInit {
       let temp = { project: project, hours: 0 };
       Object.entries(obj).map(([_date, hours]: any) => {
         const date = this.parseDDMMYYYToDate(_date);
-        date.setHours(3);
         if (date >= this.selectedDate.from && date <= this.selectedDate.to) {
           temp.hours += hours.Hours;
         }
@@ -57,20 +56,25 @@ export class ManageUserPageComponent implements OnInit {
 
   onDateSelect(event: any) {
     this.selectedDate = event;
-    if (this.user) this.refreshReport();
+    if (this.user && this.page === 1) this.refreshReport();
+    if (this.page === 2)
+      this.currentProject.hours = this.getCurrentProjectHours();
   }
 
   onRowClick(event: any) {
     if (event.project === 'Total') return;
     this.changePage(2);
     this.currentProject.name = event.project;
-    this.currentProject.hours = Object.entries(
-      this.user.Hours[event.project],
-    ).filter(([_date, obj]) => {
-      const date = this.parseDDMMYYYToDate(_date);
-      date.setHours(3);
-      return date >= this.selectedDate.from && date <= this.selectedDate.to;
-    });
+    this.currentProject.hours = this.getCurrentProjectHours();
+  }
+
+  getCurrentProjectHours() {
+    return Object.entries(this.user.Hours[this.currentProject.name]).filter(
+      ([_date, obj]) => {
+        const date = this.parseDDMMYYYToDate(_date);
+        return date >= this.selectedDate.from && date <= this.selectedDate.to;
+      },
+    );
   }
 
   changePage(page: number) {
@@ -81,6 +85,15 @@ export class ManageUserPageComponent implements OnInit {
 
   parseDDMMYYYToDate(date: string) {
     const _date = date.split('/');
-    return new Date(`${_date[1]}/${_date[0]}/${_date[2]}`);
+    return new Date(
+      Date.UTC(
+        parseInt(_date[2]),
+        parseInt(_date[1] - 1),
+        parseInt(_date[0]),
+        0,
+        0,
+        0,
+      ),
+    );
   }
 }
