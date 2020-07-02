@@ -1,43 +1,41 @@
 <div class="wrapper">
   <li class="column-list">
-    <div *ngFor="let day of numDaysList">
+    <div *ngFor="let day of dayList">
       <ul
         class="column-item"
         [ngStyle]="{
           'background-color':
-            dateToString(getDateByDay(day)) === dateToString(currentDate)
+            (day.date | date2String) === (currentDate | date2String)
               ? 'var(--dualog-purple)'
               : 'var(--dualog-nordic-light)'
         }"
       >
         <div class="column-title--wrapper">
-          <dp-header2>{{ getWeekDay(day) }}</dp-header2>
-          <dp-header5>{{ dateToString(getDateByDay(day)) }}</dp-header5>
+          <dp-header2>{{ day.weekDayEU.name }}</dp-header2>
+          <dp-header5>{{ day.date | date2String }}</dp-header5>
         </div>
-        <div *ngIf="user">
-          <div class="card-list">
-            <div
-              *ngFor="let hours of getHours(day)"
-              class="card-item"
-              (click)="onEdit(day, hours)"
-            >
-              <div class="card-text">
-                <dp-header4>{{ hours.Project }}</dp-header4>
-                <dp-body-type>Hours: {{ hours.Hours }}</dp-body-type>
-              </div>
-              <div class="card-delete">
-                <dp-icon-button
-                  class="delete-button"
-                  iconType="trash"
-                  [disabled]="false"
-                  (clicked)="onDelete(day, hours.Project)"
-                >
-                </dp-icon-button>
-              </div>
+        <div class="card-list">
+          <div
+            *ngFor="let hours of day.hoursList"
+            class="card-item"
+            (click)="onEdit(day, hours)"
+          >
+            <div class="card-text">
+              <dp-header4>{{ hours.Project }}</dp-header4>
+              <dp-body-type>Hours: {{ hours.Hours }}</dp-body-type>
             </div>
-            <div class="card-item card-item-add" (click)="onAdd(day)">
-              <p>+</p>
+            <div class="card-delete">
+              <dp-icon-button
+                class="delete-button"
+                iconType="trash"
+                [disabled]="false"
+                (clicked)="onDelete(day, hours)"
+              >
+              </dp-icon-button>
             </div>
+          </div>
+          <div class="card-item card-item-add" (click)="onAdd(day)">
+            <p>+</p>
           </div>
         </div>
       </ul>

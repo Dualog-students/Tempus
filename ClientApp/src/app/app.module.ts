@@ -26,6 +26,11 @@ import { OverviewPageComponent } from './pages/overview-page/overview-page.compo
 import { CompareHoursComponent } from './components/compare-hours/compare-hours.component';
 import { ManagementPageComponent } from './pages/management-page/management-page.component';
 import { ManageUserPageComponent } from './pages/manage-user-page/manage-user-page.component';
+import {
+  Date2WeekDayEU,
+  Date2WeekDayUS,
+  Date2String,
+} from './utils/pipes/date.pipe';
 
 @NgModule({
   declarations: [
@@ -47,6 +52,9 @@ import { ManageUserPageComponent } from './pages/manage-user-page/manage-user-pa
     CompareHoursComponent,
     ManagementPageComponent,
     ManageUserPageComponent,
+    Date2WeekDayEU,
+    Date2WeekDayUS,
+    Date2String,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +65,13 @@ import { ManageUserPageComponent } from './pages/manage-user-page/manage-user-pa
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [LoginService, UserService],
+  providers: [
+    LoginService,
+    UserService,
+    Date2WeekDayEU,
+    Date2WeekDayUS,
+    Date2String,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
