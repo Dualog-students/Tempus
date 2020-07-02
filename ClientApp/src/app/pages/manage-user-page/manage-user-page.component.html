@@ -1,1 +1,41 @@
 <dp-header1>{{ user?.Name }}</dp-header1>
+<div class="dp-mt-16">
+  <div *ngIf="page === 1">
+    <dp-datepicker-range
+      (selected)="onDateSelect($event)"
+    ></dp-datepicker-range>
+    <dp-datagrid
+      [items]="report"
+      [header]="true"
+      [sortable]="true"
+      [clickable]="true"
+      (rowClicked)="onRowClick($event)"
+    >
+      <dp-datagrid-column field="project" header="Project" width="6">
+      </dp-datagrid-column>
+      <dp-datagrid-column field="hours" header="Hours" width="3">
+      </dp-datagrid-column>
+    </dp-datagrid>
+  </div>
+  <div *ngIf="page === 2">
+    <dp-icon-button
+      [iconType]="'back'"
+      [disabled]="false"
+      (clicked)="changePage(1)"
+    >
+    </dp-icon-button>
+    <br />
+    <dp-header3 class="dp-mt-6">{{ currentProject.name }}</dp-header3>
+    <dp-datagrid
+      [items]="currentProject.hours"
+      [header]="true"
+      [sortable]="true"
+      [clickable]="false"
+    >
+      <dp-datagrid-column field="0" header="Date" width="6">
+      </dp-datagrid-column>
+      <dp-datagrid-column field="1.Hours" header="Hours" width="3">
+      </dp-datagrid-column>
+    </dp-datagrid>
+  </div>
+</div>
