@@ -5,7 +5,7 @@
 >
   <div
     class="message-box dp-mt-8"
-    *ngIf="!hoursRegisterForm.dirty && this.edit"
+    *ngIf="(!hoursRegisterForm.dirty && this.edit) || this.displayInfoMessage"
   >
     <dp-message-box-info>{{ infoMessage }}</dp-message-box-info>
   </div>
