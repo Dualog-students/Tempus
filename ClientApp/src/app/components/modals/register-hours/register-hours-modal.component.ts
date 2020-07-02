@@ -152,17 +152,17 @@ export class RegisterHoursComponent implements OnInit {
         // The user has registered hours on project before
         if (this.hoursKey in existingHours[c.value.project.name]) {
           // The user has hours on this date on the project
+          this.displayInfoMessage = true;
           if (
             c.value.hours ===
             existingHours[c.value.project.name][this.hoursKey].Hours
           ) {
             // These hours already exist for the project on this date
-            this.displayInfoMessage = true;
             this.infoMessage = 'These hours have already been registered';
             return { entryExists: true };
           } else if (!this.edit) {
             // Tryin to add new hours to existing project on this date
-            this.infoMessage = `There are already registered hours on this project for ${this.hoursKey}`;
+            this.infoMessage = `There are already registered hours on ${c.value.project.name} for ${this.hoursKey}`;
             return { entryExists: true };
           }
         }
