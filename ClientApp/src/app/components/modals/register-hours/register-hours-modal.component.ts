@@ -1,16 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {
-  FormBuilder,
-  Validators,
-  ValidatorFn,
-  FormGroup,
-  ValidationErrors,
-  AbstractControl,
-} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { UserService } from '../../../services/user.service';
 import { HoursService } from '../../../services/hours.service';
 import { UserProviderService } from '../../../services/api/user-provider.service';
+
+import {
+  validateRange,
+  validateChange,
+} from '../../../validators/hour-registration.validator';
 
 import { User } from 'src/app/models/user.model';
 import { Hours } from 'src/app/models/hours.model';
@@ -41,10 +39,10 @@ export class RegisterHoursComponent implements OnInit {
   hoursRegisterForm = this.fb.group(
     {
       date: [, Validators.required],
-      hours: [, [Validators.required, Validators.min(1), Validators.max(24)]],
+      hours: [, [Validators.required, validateRange(1, 24)]],
       project: ['', Validators.required],
     },
-    { validators: (c) => this.validateChange(c) },
+    { validators: validateChange.bind(this) },
   );
 
   displayInfoMessage: boolean;
@@ -142,34 +140,6 @@ export class RegisterHoursComponent implements OnInit {
         project: { name: this.projectOptions[0].name },
       });
     }
-  }
-
-  private validateChange(c: AbstractControl) {
-    if (c.value.date) {
-      // Only run when the form has a date
-      const existingHours = this.user.Hours;
-      if (c.value.project.name in existingHours) {
-        // The user has registered hours on project before
-        if (this.hoursKey in existingHours[c.value.project.name]) {
-          // The user has hours on this date on the project
-          this.displayInfoMessage = true;
-          if (
-            c.value.hours ===
-            existingHours[c.value.project.name][this.hoursKey].Hours
-          ) {
-            // These hours already exist for the project on this date
-            this.infoMessage = 'These hours have already been registered';
-            return { entryExists: true };
-          } else if (!this.edit) {
-            // Tryin to add new hours to existing project on this date
-            this.infoMessage = `There are already registered hours on ${c.value.project.name} for ${this.hoursKey}`;
-            return { entryExists: true };
-          }
-        }
-      }
-    }
-
-    this.displayInfoMessage = false;
   }
 
   closeModal() {
