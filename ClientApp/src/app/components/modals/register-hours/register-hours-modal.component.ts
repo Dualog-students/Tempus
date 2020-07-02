@@ -1,5 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  Validators,
+  ValidatorFn,
+  FormGroup,
+  ValidationErrors,
+  AbstractControl,
+} from '@angular/forms';
 
 import { UserService } from '../../../services/user.service';
 import { HoursService } from '../../../services/hours.service';
@@ -31,12 +38,16 @@ export class RegisterHoursComponent implements OnInit {
 
   user: User;
   hoursKey: string;
-  hoursRegisterForm = this.fb.group({
-    date: [, Validators.required],
-    hours: [, [Validators.required, Validators.min(1), Validators.max(24)]],
-    project: ['', Validators.required],
-  });
+  hoursRegisterForm = this.fb.group(
+    {
+      date: [, Validators.required],
+      hours: [, [Validators.required, Validators.min(1), Validators.max(24)]],
+      project: ['', Validators.required],
+    },
+    { validators: (c) => this.validateChange(c) },
+  );
 
+  displayInfoMessage: boolean;
   infoMessage = 'No change in registered data';
 
   // TODO: Replace with data from DB
@@ -71,26 +82,41 @@ export class RegisterHoursComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const id = this.user._id;
-    const hours = this.hoursRegisterForm.value;
+    if (this.hoursRegisterForm.valid) {
+      const id = this.user._id;
+      const hours = this.hoursRegisterForm.value;
 
-    // Project sent to DB should only be the name of the project
-    hours.project = hours.project.name;
+      // Project sent to DB should only be the name of the project
+      hours.project = hours.project.name;
 
-    if (this.project && hours.project !== this.project.Project) {
-      const oldForm: Hours = {
-        Date: this.date.getTime(),
-        Hours: this.project.Hours,
-        Project: this.project.Project,
-      };
-      this.userProviderService.deleteHours(id, oldForm);
-      this.insertHours(id, hours);
-    } else {
-      this.insertHours(id, hours);
+      console.log(this.user.Hours);
+      const existingHours = this.user.Hours;
+      if (hours.project in existingHours) {
+        if (this.hoursKey in existingHours[hours.project]) {
+          if (
+            hours.hours === existingHours[hours.project][this.hoursKey].Hours
+          ) {
+            this.displayInfoMessage = true;
+            this.infoMessage = 'This entry already exist';
+          }
+        }
+      }
+
+      if (this.project && hours.project !== this.project.Project) {
+        const oldForm: Hours = {
+          Date: this.date.getTime(),
+          Hours: this.project.Hours,
+          Project: this.project.Project,
+        };
+        this.userProviderService.deleteHours(id, oldForm);
+        /* this.insertHours(id, hours); */
+      } else {
+        /* this.insertHours(id, hours); */
+      }
     }
   }
 
-  insertHours(id, hours) {
+  insertHours(id: string, hours: Hours) {
     this.hoursService.registerHours(id, hours).then((resp) => {
       if (resp) {
         this.closeModal();
@@ -118,7 +144,35 @@ export class RegisterHoursComponent implements OnInit {
     }
   }
 
+  private validateChange(c: AbstractControl) {
+    if (c.value.date) {
+      // Only run when the form has a date
+      const existingHours = this.user.Hours;
+      if (c.value.project.name in existingHours) {
+        // The user has registered hours on project before
+        if (this.hoursKey in existingHours[c.value.project.name]) {
+          // The user has hours on this date on the project
+          if (
+            c.value.hours ===
+            existingHours[c.value.project.name][this.hoursKey].Hours
+          ) {
+            this.displayInfoMessage = true;
+            this.infoMessage = 'These hours have already been registered';
+            return { entryExists: true };
+          } else if (!this.edit) {
+            this.infoMessage = `There are already registered hours on this project for ${this.hoursKey}`;
+            return { entryExists: true };
+          }
+        }
+      }
+    }
+
+    this.displayInfoMessage = false;
+  }
+
   closeModal() {
+    this.infoMessage = '';
+    this.displayInfoMessage = false;
     this.modal = false;
     this.modalChange.emit(this.modal);
     this.refreshUser.emit();
