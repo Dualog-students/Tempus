@@ -109,9 +109,9 @@ export class RegisterHoursComponent implements OnInit {
           Project: this.project.Project,
         };
         this.userProviderService.deleteHours(id, oldForm);
-        /* this.insertHours(id, hours); */
+        this.insertHours(id, hours);
       } else {
-        /* this.insertHours(id, hours); */
+        this.insertHours(id, hours);
       }
     }
   }
@@ -156,10 +156,12 @@ export class RegisterHoursComponent implements OnInit {
             c.value.hours ===
             existingHours[c.value.project.name][this.hoursKey].Hours
           ) {
+            // These hours already exist for the project on this date
             this.displayInfoMessage = true;
             this.infoMessage = 'These hours have already been registered';
             return { entryExists: true };
           } else if (!this.edit) {
+            // Tryin to add new hours to existing project on this date
             this.infoMessage = `There are already registered hours on this project for ${this.hoursKey}`;
             return { entryExists: true };
           }
