@@ -13,6 +13,7 @@
     [formGroup]="hoursRegisterForm"
     (ngSubmit)="onSubmit()"
     class="form dp-mt=20"
+    (keyup.enter)="onSubmit()"
   >
     <dp-input
       class="dp-mt-8"
