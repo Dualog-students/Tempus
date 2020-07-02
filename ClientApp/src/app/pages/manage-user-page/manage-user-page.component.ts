@@ -88,7 +88,7 @@ export class ManageUserPageComponent implements OnInit {
     return new Date(
       Date.UTC(
         parseInt(_date[2]),
-        parseInt(_date[1] - 1),
+        parseInt(_date[1]) - 1,
         parseInt(_date[0]),
         0,
         0,
