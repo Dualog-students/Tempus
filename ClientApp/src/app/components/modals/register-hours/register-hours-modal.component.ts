@@ -77,23 +77,21 @@ export class RegisterHoursComponent implements OnInit {
   onSubmit(): void {
     const id = this.user._id;
     const hours = this.hoursRegisterForm.value;
-    const oldForm: Hours = {
-      Date: this.date.getTime(),
-      Hours: this.project.Hours,
-      Project: this.project.Project,
-    };
 
     // Project sent to DB should only be the name of the project
     hours.project = hours.project.name;
 
     if (this.project && hours.project !== this.project.Project) {
+      const oldForm: Hours = {
+        Date: this.date.getTime(),
+        Hours: this.project.Hours,
+        Project: this.project.Project,
+      };
       this.userProviderService.deleteHours(id, oldForm);
       this.insertHours(id, hours);
     } else {
       this.insertHours(id, hours);
     }
-
-    // Only register in DB if hours and project has changed
   }
 
   insertHours(id, hours) {
