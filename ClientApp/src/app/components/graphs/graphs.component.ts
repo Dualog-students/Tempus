@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
+import { Hours } from 'src/app/models/hours.model';
 
 @Component({
   selector: 'app-graphs',
@@ -9,9 +10,11 @@ import { User } from '../../models/user.model';
 })
 export class GraphsComponent implements OnInit {
   user: User;
+  hours: Hours;
   constructor(private userService: UserService) {}
   async ngOnInit() {
     this.user = await this.userService.getCurrentUser();
+    console.log(this.user.Hours);
   }
 
   dateString = '30/06/2020'.split('/');
@@ -24,11 +27,11 @@ export class GraphsComponent implements OnInit {
   series = [
     {
       name: 'Hours',
-      data: [6.5, 8, 2, 8, 7.5],
+      data: this.hours,
     },
   ];
 
   xaxis = {
-    categories: this.test,
+    categories: [1, 2, 3, 4, 5, 6, 7],
   };
 }
