@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Security.Cryptography;
 using System.Text;
+using System.Globalization;
 using Tempus.API.Controllers.Dto;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -256,7 +257,7 @@ namespace Tempus.API.Controllers
                 {"Notes", hours.Notes == null ? "" : hours.Notes}
             };
 
-            var date = DateTimeOffset.FromUnixTimeMilliseconds(hours.Date).ToString("dd/MM/yyyy");
+            var date = DateTimeOffset.FromUnixTimeMilliseconds(hours.Date).ToString("dd/MM/yyyy", DateTimeFormatInfo.InvariantInfo);
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
             var update = Builders<BsonDocument>.Update.Set($"Hours.{hours.Project}.{date}", bson_obj);
             var result = await userCollection.UpdateOneAsync(filter, update);
@@ -289,7 +290,7 @@ namespace Tempus.API.Controllers
                 return BadRequest(id + " is not a valid id.");
             }
 
-            var date = DateTimeOffset.FromUnixTimeMilliseconds(hours.Date).ToString("dd/MM/yyyy");
+            var date = DateTimeOffset.FromUnixTimeMilliseconds(hours.Date).ToString("dd/MM/yyyy", DateTimeFormatInfo.InvariantInfo);
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
             var update = Builders<BsonDocument>.Update.Unset($"Hours.{hours.Project}.{date}");
             var result = await userCollection.UpdateOneAsync(filter, update);
