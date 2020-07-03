@@ -39,7 +39,7 @@ export class RegisterHoursComponent implements OnInit {
   hoursRegisterForm = this.fb.group(
     {
       date: [, Validators.required],
-      hours: [, [Validators.required, validateRange(1, 24)]],
+      hours: [, [Validators.required, validateRange(0, 24)]],
       project: ['', Validators.required],
     },
     { validators: validateChange.bind(this) },
