@@ -29,6 +29,7 @@ export class RegisterHoursComponent implements OnInit {
   registerTypeText: string;
   displayInfoMessage: boolean;
   infoMessage = 'No change in registered data';
+  hoursRegisterForm: any;
 
   // TODO: Replace with data from DB
   projectOptions = ['Tempus', 'Summer Internship', 'Ship GUI'].map((x) => {
@@ -42,16 +43,16 @@ export class RegisterHoursComponent implements OnInit {
     private userProviderService: UserProviderService,
   ) {}
 
-  hoursRegisterForm = this.fb.group(
-    {
-      date: [, Validators.required],
-      hours: [, [Validators.required, validateRange(0, 24)]],
-      project: ['', Validators.required],
-    },
-    { validators: validateChange.bind(this) },
-  );
-
   ngOnInit(): void {
+    this.hoursRegisterForm = this.fb.group(
+      {
+        date: [, Validators.required],
+        hours: [, [Validators.required, validateRange(0, 24)]],
+        project: ['', Validators.required],
+      },
+      { validators: validateChange.bind(this) },
+    );
+
     this.registerTypeText = this.edit ? 'Edit' : 'Register';
     this.hoursKey = this.findHoursKey(this.date);
     this.getUserData();
@@ -74,6 +75,7 @@ export class RegisterHoursComponent implements OnInit {
     this.userService.refreshCurrentUser().then((resp) => {
       this.user = resp;
       this.updateForm();
+      console.log(this.user.Hours);
     });
   }
 
@@ -130,7 +132,7 @@ export class RegisterHoursComponent implements OnInit {
         project: { name: this.project.Project },
       });
     } else {
-      // no existing project use default values
+      // No existing project use default values
       this.hoursRegisterForm.patchValue({
         date: this.date.getTime(),
         hours: 8,
