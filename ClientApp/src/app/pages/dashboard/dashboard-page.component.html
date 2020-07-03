@@ -6,9 +6,11 @@
     [(currentDate)]="currentDate"
     [(selectedDate)]="selectedDate"
     [(numDays)]="numDays"
+    (refreshUserSelector)="refreshUserChild()"
   ></app-project-date-selector>
   <div *ngIf="currentDate && selectedDate">
     <app-grid-logger
+      #gridLogger
       [(currentDate)]="currentDate"
       [(selectedDate)]="selectedDate"
       [numDays]="numDays"

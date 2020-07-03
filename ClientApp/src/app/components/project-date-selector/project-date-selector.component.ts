@@ -15,6 +15,7 @@ import { DatepickerComponent } from '@dualog/design-system';
 })
 export class ProjectDateSelectorComponent implements OnInit {
   @ViewChild('datePicker') datePicker: DatepickerComponent;
+
   @Input() numDays: number;
   @Output() numDaysChange = new EventEmitter<number>();
 
@@ -23,6 +24,8 @@ export class ProjectDateSelectorComponent implements OnInit {
 
   @Input() selectedDate: number;
   @Output() selectedDateChange = new EventEmitter<number>();
+
+  @Output() refreshUserSelector = new EventEmitter();
 
   defaultCurrentDate = new Date();
 
@@ -65,10 +68,10 @@ export class ProjectDateSelectorComponent implements OnInit {
   }
 
   setSelectedDate(date = new Date().getTime()) {
-    console.log(['setSelectedDate', new Date(date)]);
     this.selectedDate = date;
     this.selectedDateChange.emit(this.selectedDate);
     this.datePicker?.writeValue(new Date(this.selectedDate));
+    this.refreshUserSelector.emit();
   }
 
   setCurrentDate(date = new Date().getTime()) {
@@ -80,14 +83,17 @@ export class ProjectDateSelectorComponent implements OnInit {
   onDay() {
     this.numDays = 1;
     this.numDaysChange.emit(this.numDays);
+    this.refreshUserSelector.emit();
   }
   onWorkWeek() {
     this.numDays = 5;
     this.numDaysChange.emit(this.numDays);
+    this.refreshUserSelector.emit();
   }
   onWeek() {
     this.numDays = 7;
     this.numDaysChange.emit(this.numDays);
+    this.refreshUserSelector.emit();
   }
 
   addDays(date: number, days: number) {

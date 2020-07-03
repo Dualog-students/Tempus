@@ -7,9 +7,11 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   AfterContentChecked,
+  ViewChild,
 } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
+import { GridLoggerComponent } from '../../components/grid-logger/grid-logger.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,16 +20,18 @@ import { User } from '../../models/user.model';
   styleUrls: ['./dashboard-page.component.scss'],
 })
 export class DashboardComponent implements OnInit, AfterContentChecked {
-  constructor(
-    private userService: UserService,
-    private cdr: ChangeDetectorRef,
-  ) {}
+  @ViewChild('gridLogger') gridLogger: GridLoggerComponent;
   user: User;
   @Input() numDays: number;
   @Input() currentDate?: number;
   @Input() selectedDate?: number;
 
   modal = false;
+
+  constructor(
+    private userService: UserService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   async ngOnInit() {
     this.numDays = 7;
@@ -36,5 +40,9 @@ export class DashboardComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked() {
     this.cdr.detectChanges();
+  }
+
+  refreshUserChild() {
+    this.gridLogger?.refreshUser();
   }
 }
