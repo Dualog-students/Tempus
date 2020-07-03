@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { UserProviderService } from '../../services/api/user-provider.service';
 import { Hours } from '../../models/hours.model';
-import { Day, WeekDay } from '../../models/day.model';
+import { Day } from '../../models/day.model';
 import {
   Date2WeekDayEU,
   Date2WeekDayUS,
@@ -34,6 +34,7 @@ export class GridLoggerComponent implements OnInit {
     private date2WeekDayEU: Date2WeekDayEU,
     private date2WeekDayUS: Date2WeekDayUS,
     private date2String: Date2String,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -62,7 +63,8 @@ export class GridLoggerComponent implements OnInit {
         hoursList: hours.hours,
       };
     });
-    console.log(this.dayList);
+    this.cdr.detectChanges();
+    // console.log(this.dayList);
   }
 
   day2Date(day: number): Date {
@@ -113,7 +115,7 @@ export class GridLoggerComponent implements OnInit {
   async onModal(day: Day) {
     this.modalDate = day.date;
     this.modal = true;
-    this.refreshUser();
+    // this.refreshUser();
   }
 
   async onDelete(day: Day, hours: Hours) {
@@ -121,6 +123,6 @@ export class GridLoggerComponent implements OnInit {
     await this.userProviderService.deleteHours(this.user._id, hours);
     // Ges user from database
     this.user = await this.userService.getCurrentUser();
-    this.refreshUser();
+    // this.refreshUser();
   }
 }

@@ -25,6 +25,7 @@ export class RegisterHoursComponent implements OnInit {
   @Input() edit: boolean;
   @Input() modal: boolean;
   @Input() project: Hours;
+  @Output() refreshUser = new EventEmitter();
   @Output() modalChange = new EventEmitter<boolean>();
   registerTypeText: string;
 
@@ -120,5 +121,6 @@ export class RegisterHoursComponent implements OnInit {
   closeModal() {
     this.modal = false;
     this.modalChange.emit(this.modal);
+    this.refreshUser.emit();
   }
 }
