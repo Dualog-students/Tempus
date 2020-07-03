@@ -75,7 +75,6 @@ export class RegisterHoursComponent implements OnInit {
     this.userService.refreshCurrentUser().then((resp) => {
       this.user = resp;
       this.updateForm();
-      console.log(this.user.Hours);
     });
   }
 
@@ -116,7 +115,6 @@ export class RegisterHoursComponent implements OnInit {
   insertHours(id: string, hours: Hours) {
     this.hoursService.registerHours(id, hours).then((resp) => {
       if (resp) {
-        console.table(hours);
         this.closeModal();
       } else {
         alert('Hour registration failed');
