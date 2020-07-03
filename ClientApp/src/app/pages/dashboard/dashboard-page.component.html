@@ -7,7 +7,7 @@
     [(selectedDate)]="selectedDate"
     [(numDays)]="numDays"
   ></app-project-date-selector>
-  <div *ngIf="false">
+  <div *ngIf="currentDate && selectedDate">
     <app-grid-logger
       [(currentDate)]="currentDate"
       [(selectedDate)]="selectedDate"
