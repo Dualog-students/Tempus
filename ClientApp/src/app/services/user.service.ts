@@ -16,19 +16,14 @@ export class UserService {
   ) {}
 
   public async getCurrentUser(): Promise<User> {
-    if (!this._user) {
-      try {
-        // First time or refresh
-        const token = this.sessionService.getToken();
-        const user = await this.userProvider.getUser(token);
-        this.setUser(user);
-        return this._user;
-      } catch (e) {
-        return null;
-      }
+    try {
+      const token = this.sessionService.getToken();
+      const user = await this.userProvider.getUser(token);
+      this.setUser(user);
+      return this._user;
+    } catch (e) {
+      return null;
     }
-
-    return this._user;
   }
 
   public async fetchUser(id: string) {
