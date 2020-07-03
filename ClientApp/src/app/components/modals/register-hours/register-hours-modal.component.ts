@@ -117,7 +117,6 @@ export class RegisterHoursComponent implements OnInit {
     this.hoursService.registerHours(id, hours).then((resp) => {
       if (resp) {
         this.closeModal();
-        // location.reload();
       } else {
         alert('Hour registration failed');
       }
