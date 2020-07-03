@@ -17,24 +17,28 @@ export class ProjectDateSelectorComponent implements OnInit {
   @ViewChild('datePicker') datePicker: DatepickerComponent;
   @Input() numDays: number;
   @Output() numDaysChange = new EventEmitter<number>();
-  @Input() currentDate: Date;
-  @Output() currentDateChange = new EventEmitter<Date>();
-  @Input() selectedDate: Date;
-  @Output() selectedDateChange = new EventEmitter<Date>();
+
+  @Input() currentDate: number;
+  @Output() currentDateChange = new EventEmitter<number>();
+
+  @Input() selectedDate: number;
+  @Output() selectedDateChange = new EventEmitter<number>();
+
+  defaultCurrentDate = new Date();
 
   constructor() {}
 
   ngOnInit(): void {
     this.onWeek();
     this.setCurrentDate();
-    this.setSelectedDate();
+    //this.setSelectedDate();
   }
 
   onBack() {
     if (this.numDays === 1) {
       this.addDate(-1);
     } else {
-      const add = 1 - this.selectedDate.getDay() - 7;
+      const add = 1 - new Date(this.selectedDate).getDay() - 7;
       this.addDate(add);
     }
   }
@@ -44,14 +48,14 @@ export class ProjectDateSelectorComponent implements OnInit {
   }
 
   onCurrent() {
-    this.setCurrentDate(new Date());
+    this.setCurrentDate(new Date().getTime());
   }
 
   onNext() {
     if (this.numDays === 1) {
       this.addDate(1);
     } else {
-      const add = 8 - this.selectedDate.getDay();
+      const add = 8 - new Date(this.selectedDate).getDay();
       this.addDate(add);
     }
   }
@@ -60,16 +64,17 @@ export class ProjectDateSelectorComponent implements OnInit {
     this.setSelectedDate(this.addDays(this.selectedDate, num));
   }
 
-  setSelectedDate(date = new Date()) {
+  setSelectedDate(date = new Date().getTime()) {
+    console.log(['setSelectedDate', new Date(date)]);
     this.selectedDate = date;
     this.selectedDateChange.emit(this.selectedDate);
-    this.datePicker?.writeValue(this.selectedDate);
+    this.datePicker?.writeValue(new Date(this.selectedDate));
   }
 
-  setCurrentDate(date = new Date()) {
+  setCurrentDate(date = new Date().getTime()) {
     this.currentDate = date;
     this.currentDateChange.emit(this.currentDate);
-    this.setSelectedDate(this.currentDate);
+    // this.setSelectedDate(this.currentDate);
   }
 
   onDay() {
@@ -85,9 +90,9 @@ export class ProjectDateSelectorComponent implements OnInit {
     this.numDaysChange.emit(this.numDays);
   }
 
-  addDays(date, days) {
+  addDays(date: number, days: number) {
     const result = new Date(date);
     result.setDate(result.getDate() + days);
-    return result;
+    return result.getTime();
   }
 }
