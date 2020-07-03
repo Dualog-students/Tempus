@@ -4,12 +4,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { HoursService } from '../../../services/hours.service';
 import { UserProviderService } from '../../../services/api/user-provider.service';
-
 import {
   validateRange,
   validateChange,
 } from '../../../validators/hour-registration.validator';
-
 import { User } from 'src/app/models/user.model';
 import { Hours } from 'src/app/models/hours.model';
 
@@ -19,6 +17,24 @@ import { Hours } from 'src/app/models/hours.model';
   styleUrls: ['./register-hours-modal.component.scss'],
 })
 export class RegisterHoursComponent implements OnInit {
+  @Input() date: Date;
+  @Input() edit: boolean;
+  @Input() modal: boolean;
+  @Input() project: Hours;
+  @Output() refreshUser = new EventEmitter();
+  @Output() modalChange = new EventEmitter<boolean>();
+
+  user: User;
+  hoursKey: string;
+  registerTypeText: string;
+  displayInfoMessage: boolean;
+  infoMessage = 'No change in registered data';
+
+  // TODO: Replace with data from DB
+  projectOptions = ['Tempus', 'Summer Internship', 'Ship GUI'].map((x) => {
+    return { name: x };
+  });
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -26,16 +42,6 @@ export class RegisterHoursComponent implements OnInit {
     private userProviderService: UserProviderService,
   ) {}
 
-  @Input() date: Date;
-  @Input() edit: boolean;
-  @Input() modal: boolean;
-  @Input() project: Hours;
-  @Output() refreshUser = new EventEmitter();
-  @Output() modalChange = new EventEmitter<boolean>();
-  registerTypeText: string;
-
-  user: User;
-  hoursKey: string;
   hoursRegisterForm = this.fb.group(
     {
       date: [, Validators.required],
@@ -44,14 +50,6 @@ export class RegisterHoursComponent implements OnInit {
     },
     { validators: validateChange.bind(this) },
   );
-
-  displayInfoMessage: boolean;
-  infoMessage = 'No change in registered data';
-
-  // TODO: Replace with data from DB
-  projectOptions = ['Tempus', 'Summer Internship', 'Ship GUI'].map((x) => {
-    return { name: x };
-  });
 
   ngOnInit(): void {
     this.registerTypeText = this.edit ? 'Edit' : 'Register';
@@ -73,7 +71,7 @@ export class RegisterHoursComponent implements OnInit {
 
   // Get the user data and update the form
   getUserData() {
-    this.userService.getCurrentUser().then((resp) => {
+    this.userService.refreshCurrentUser().then((resp) => {
       this.user = resp;
       this.updateForm();
     });
@@ -116,6 +114,7 @@ export class RegisterHoursComponent implements OnInit {
   insertHours(id: string, hours: Hours) {
     this.hoursService.registerHours(id, hours).then((resp) => {
       if (resp) {
+        console.table(hours);
         this.closeModal();
       } else {
         alert('Hour registration failed');

@@ -45,7 +45,7 @@ export class GridLoggerComponent implements OnInit {
   }
 
   async refreshUser() {
-    this.user = await this.userService.getCurrentUser();
+    this.user = await this.userService.refreshCurrentUser();
     const dateList = this.numDaysList.map((day) =>
       this.day2Date(day).getTime(),
     );
