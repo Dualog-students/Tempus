@@ -114,13 +114,12 @@ export class GridLoggerComponent implements OnInit {
   async onModal(day: Day) {
     this.modalDate = new Date(day.date);
     this.modal = true;
-    // this.refreshUser();
   }
 
   async onDelete(day: Day, hours: Hours) {
     // Delete user from database
     await this.userProviderService.deleteHours(this.user._id, hours);
-    // Ges user from database
+    // Get user from database
     this.user = await this.userService.getCurrentUser();
     this.refreshUser();
   }
