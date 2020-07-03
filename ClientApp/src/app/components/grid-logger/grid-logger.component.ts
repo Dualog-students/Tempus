@@ -47,7 +47,9 @@ export class GridLoggerComponent implements OnInit {
 
   async refreshUser() {
     this.user = await this.userService.getCurrentUser();
-    const dateList = this.numDaysList.map((day) => this.day2Date(day));
+    const dateList = this.numDaysList.map((day) =>
+      this.day2Date(day).getTime(),
+    );
     const hoursList = dateList.map((date) => {
       return {
         date,
@@ -64,7 +66,7 @@ export class GridLoggerComponent implements OnInit {
       };
     });
     this.cdr.detectChanges();
-    // console.log(this.dayList);
+    console.log(this.dayList);
   }
 
   day2Date(day: number): Date {
@@ -83,14 +85,14 @@ export class GridLoggerComponent implements OnInit {
     return result;
   }
 
-  getHours(date: Date) {
+  getHours(date: number) {
     const result = [];
     Object.entries(this.user.Hours).map(([project, obj]) => {
       Object.entries(obj).map(([_date, hour]) => {
         if (this.date2String.transform(date) === _date) {
           result.push({
             Project: project,
-            Date: _date,
+            Date: date,
             Hours: hour.Hours,
             Notes: hour.Notes,
           });
@@ -113,7 +115,7 @@ export class GridLoggerComponent implements OnInit {
   }
 
   async onModal(day: Day) {
-    this.modalDate = day.date;
+    this.modalDate = new Date(day.date);
     this.modal = true;
     // this.refreshUser();
   }
@@ -123,6 +125,6 @@ export class GridLoggerComponent implements OnInit {
     await this.userProviderService.deleteHours(this.user._id, hours);
     // Ges user from database
     this.user = await this.userService.getCurrentUser();
-    // this.refreshUser();
+    this.refreshUser();
   }
 }
