@@ -31,7 +31,7 @@ namespace Tempus.API.Controllers
             userCollection = database.GetCollection<BsonDocument>("Users");
 
             var key = Builders<BsonDocument>.IndexKeys.Ascending("Email");
-            var option = new CreateIndexOptions{ Unique = true };
+            var option = new CreateIndexOptions { Unique = true };
             userCollection.Indexes.CreateOne(new CreateIndexModel<BsonDocument>(key, option));
         }
 
@@ -58,14 +58,14 @@ namespace Tempus.API.Controllers
         public async Task<IActionResult> GetUser(string id)
         {
             ObjectId _id;
-            if(!ObjectId.TryParse(id, out _id))
+            if (!ObjectId.TryParse(id, out _id))
             {
                 return BadRequest(id + " is not a valid id.");
             }
 
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
             var query_res = await userCollection.Find(filter).FirstOrDefaultAsync();
-            if(query_res == null)
+            if (query_res == null)
             {
                 return BadRequest(id + " is not a user.");
             }
@@ -81,7 +81,7 @@ namespace Tempus.API.Controllers
             StringBuilder s_builder = new StringBuilder();
             byte[] byte_str = Encoding.UTF8.GetBytes(str);
             byte[] buffer = sha256.ComputeHash(byte_str);
-            foreach(var b in buffer)
+            foreach (var b in buffer)
             {
                 s_builder.Append(b.ToString("x2"));
             }
@@ -92,9 +92,9 @@ namespace Tempus.API.Controllers
 
         [HttpPost]
         [Route("/register-user")]
-        public async Task<IActionResult> RegisterUser([FromBody]RegisterUserDto new_user)
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto new_user)
         {
-            if(new_user == null)
+            if (new_user == null)
             {
                 return BadRequest("The body is empty.");
             }
@@ -123,19 +123,19 @@ namespace Tempus.API.Controllers
         public async Task<IActionResult> DeleteUser(string id)
         {
             ObjectId _id;
-            if(!ObjectId.TryParse(id, out _id))
+            if (!ObjectId.TryParse(id, out _id))
             {
                 return BadRequest(id + " is not a valid id.");
             }
 
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
             var result = await userCollection.DeleteOneAsync(filter);
-            if(!result.IsAcknowledged)
+            if (!result.IsAcknowledged)
             {
                 return BadRequest("Something went wrong.");
             }
 
-            if(result.DeletedCount == 0)
+            if (result.DeletedCount == 0)
             {
                 return BadRequest("User was not deleted.");
             }
@@ -146,35 +146,35 @@ namespace Tempus.API.Controllers
 
         [HttpPost]
         [Route("/{id}/update-user-field")]
-        public async Task<IActionResult> UpdateUserField(string id, [FromBody]UpdateUserField field)
+        public async Task<IActionResult> UpdateUserField(string id, [FromBody] UpdateUserField field)
         {
-            if(field == null)
+            if (field == null)
             {
                 return BadRequest("The body is empty.");
             }
 
             ObjectId _id;
-            if(!ObjectId.TryParse(id, out _id))
+            if (!ObjectId.TryParse(id, out _id))
             {
                 return BadRequest(id + " is not a valid id.");
             }
 
-            if(field.Field.ToLower() == "password")
+            if (field.Field.ToLower() == "password")
             {
                 field.Value = HashString(field.Value);
             }
 
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
             UpdateDefinition<BsonDocument> update;
-            if(Boolean.TryParse(field.Value, out bool bool_val))
+            if (Boolean.TryParse(field.Value, out bool bool_val))
             {
                 update = Builders<BsonDocument>.Update.Set(field.Field, bool_val);
             }
-            else if(Int32.TryParse(field.Value, out int int_val))
+            else if (Int32.TryParse(field.Value, out int int_val))
             {
                 update = Builders<BsonDocument>.Update.Set(field.Field, int_val);
             }
-            else if(double.TryParse(field.Value, out double float_val))
+            else if (double.TryParse(field.Value, out double float_val))
             {
                 update = Builders<BsonDocument>.Update.Set(field.Field, float_val);
             }
@@ -192,17 +192,17 @@ namespace Tempus.API.Controllers
                 return BadRequest("A user with this email already exists.");
             }
 
-            if(!result.IsAcknowledged)
+            if (!result.IsAcknowledged)
             {
                 return BadRequest("Something went wrong.");
             }
 
-            if(result.MatchedCount == 0)
+            if (result.MatchedCount == 0)
             {
                 return BadRequest("User not found.");
             }
 
-            if(result.ModifiedCount == 0)
+            if (result.ModifiedCount == 0)
             {
                 return BadRequest("Field was not updated.");
             }
@@ -213,21 +213,21 @@ namespace Tempus.API.Controllers
 
         [HttpPost]
         [Route("/authenticate-user")]
-        public async Task<IActionResult> AuthenticateUser([FromBody]AuthenticateUserDto user)
+        public async Task<IActionResult> AuthenticateUser([FromBody] AuthenticateUserDto user)
         {
-            if(user == null)
+            if (user == null)
             {
                 return BadRequest("The body is empty.");
             }
 
             var filter = Builders<BsonDocument>.Filter.Eq("Email", user.Email);
             var query_res = await userCollection.Find(filter).FirstOrDefaultAsync();
-            if(query_res == null)
+            if (query_res == null)
             {
                 return BadRequest(user.Email + " is not a user.");
             }
 
-            if(HashString(user.Password) == query_res["Password"])
+            if (HashString(user.Password) == query_res["Password"])
             {
                 return Ok(query_res["_id"].ToString());
             }
@@ -238,15 +238,15 @@ namespace Tempus.API.Controllers
 
         [HttpPost]
         [Route("/{id}/insert-hours")]
-        public async Task<IActionResult> InsertHours(string id, [FromBody]HoursDto hours)
+        public async Task<IActionResult> InsertHours(string id, [FromBody] HoursDto hours)
         {
-            if(hours == null)
+            if (hours == null)
             {
                 return BadRequest("The body is empty.");
             }
 
             ObjectId _id;
-            if(!ObjectId.TryParse(id, out _id))
+            if (!ObjectId.TryParse(id, out _id))
             {
                 return BadRequest(id + " is not a valid id.");
             }
@@ -261,17 +261,17 @@ namespace Tempus.API.Controllers
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
             var update = Builders<BsonDocument>.Update.Set($"Hours.{hours.Project}.{date}", bson_obj);
             var result = await userCollection.UpdateOneAsync(filter, update);
-            if(!result.IsAcknowledged)
+            if (!result.IsAcknowledged)
             {
                 return BadRequest("Something went wrong.");
             }
 
-            if(result.MatchedCount == 0)
+            if (result.MatchedCount == 0)
             {
                 return BadRequest("User not found.");
             }
 
-            if(result.ModifiedCount == 0)
+            if (result.ModifiedCount == 0)
             {
                 return BadRequest("Hours have not been logged.");
             }
@@ -282,10 +282,10 @@ namespace Tempus.API.Controllers
 
         [HttpPost]
         [Route("/{id}/delete-hours/")]
-        public async Task<IActionResult> DeleteHours(string id, [FromBody]HoursDto hours)
+        public async Task<IActionResult> DeleteHours(string id, [FromBody] HoursDto hours)
         {
             ObjectId _id;
-            if(!ObjectId.TryParse(id, out _id))
+            if (!ObjectId.TryParse(id, out _id))
             {
                 return BadRequest(id + " is not a valid id.");
             }
@@ -294,17 +294,17 @@ namespace Tempus.API.Controllers
             var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
             var update = Builders<BsonDocument>.Update.Unset($"Hours.{hours.Project}.{date}");
             var result = await userCollection.UpdateOneAsync(filter, update);
-            if(!result.IsAcknowledged)
+            if (!result.IsAcknowledged)
             {
                 return BadRequest("Something went wrong.");
             }
 
-            if(result.MatchedCount == 0)
+            if (result.MatchedCount == 0)
             {
                 return BadRequest("User not found.");
             }
 
-            if(result.ModifiedCount == 0)
+            if (result.ModifiedCount == 0)
             {
                 return BadRequest("Hours was not deleted.");
             }

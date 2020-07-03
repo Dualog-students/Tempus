@@ -15,12 +15,8 @@
           <dp-header5>{{ day.date | date2String }}</dp-header5>
         </div>
         <div class="card-list">
-          <div
-            *ngFor="let hours of day.hoursList"
-            class="card-item"
-            (click)="onEdit(day, hours)"
-          >
-            <div class="card-text">
+          <div *ngFor="let hours of day.hoursList" class="card-item">
+            <div class="card-text" (click)="onEdit(day, hours)">
               <dp-header4>{{ hours.Project }}</dp-header4>
               <dp-body-type>Hours: {{ hours.Hours }}</dp-body-type>
             </div>

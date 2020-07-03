@@ -1,7 +1,7 @@
 import { Hours } from '../models/hours.model';
 
 export class Day {
-  date: Date;
+  date: number;
   weekDayEU?: WeekDay;
   weekDayUS?: WeekDay;
   hoursList?: Hours[];

@@ -17,8 +17,8 @@ export const WEEKDAYS = [
   name: 'date2WeekDayEU',
 })
 export class Date2WeekDayEU implements PipeTransform {
-  transform(date: Date): WeekDay {
-    const day = modulo(date.getDay() - 1, 7);
+  transform(date: number): WeekDay {
+    const day = modulo(new Date(date).getDay() - 1, 7);
     return { name: WEEKDAYS[day], day };
   }
 }
@@ -28,8 +28,8 @@ export class Date2WeekDayEU implements PipeTransform {
   name: 'date2WeekDayUS',
 })
 export class Date2WeekDayUS implements PipeTransform {
-  transform(date: Date): WeekDay {
-    const day = modulo(date.getDay(), 7);
+  transform(date: number): WeekDay {
+    const day = modulo(new Date(date).getDay(), 7);
     return { name: WEEKDAYS[day], day };
   }
 }
@@ -39,7 +39,8 @@ export class Date2WeekDayUS implements PipeTransform {
   name: 'date2String',
 })
 export class Date2String implements PipeTransform {
-  transform(date: Date): string {
+  transform(dateNumber: number): string {
+    const date = new Date(dateNumber);
     const day = zeroPad(date.getDate());
     const month = zeroPad(date.getMonth() + 1);
     const year = date.getFullYear();
