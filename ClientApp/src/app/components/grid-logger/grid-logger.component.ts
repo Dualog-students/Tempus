@@ -66,7 +66,6 @@ export class GridLoggerComponent implements OnInit {
       };
     });
     this.cdr.detectChanges();
-    console.log(this.dayList);
   }
 
   day2Date(day: number): Date {
