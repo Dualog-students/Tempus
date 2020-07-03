@@ -57,7 +57,7 @@ export class ManageUserPageComponent implements OnInit {
   onDateSelect(event: any) {
     this.selectedDate = event;
     if (this.user && this.page === 1) this.refreshReport();
-    if (this.page === 2)
+    else if (this.page === 2)
       this.currentProject.hours = this.getCurrentProjectHours();
   }
 
@@ -78,8 +78,9 @@ export class ManageUserPageComponent implements OnInit {
   }
 
   changePage(page: number) {
-    if (page > this.page) history.pushState(null, null, window.location.href);
-    else history.back();
+    page > this.page
+      ? history.pushState(null, null, window.location.href)
+      : history.back();
     this.page = page;
   }
 
