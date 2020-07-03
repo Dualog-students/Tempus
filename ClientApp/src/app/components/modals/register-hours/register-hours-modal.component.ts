@@ -145,7 +145,6 @@ export class RegisterHoursComponent implements OnInit {
     this.displayInfoMessage = false;
     this.modal = false;
     this.modalChange.emit(this.modal);
-    console.log('closeModal');
     this.refreshUser.emit();
   }
 }

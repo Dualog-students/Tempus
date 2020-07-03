@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
@@ -34,7 +34,6 @@ export class GridLoggerComponent implements OnInit {
     private date2WeekDayEU: Date2WeekDayEU,
     private date2WeekDayUS: Date2WeekDayUS,
     private date2String: Date2String,
-    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -65,7 +64,6 @@ export class GridLoggerComponent implements OnInit {
         hoursList: hours.hours,
       };
     });
-    this.cdr.detectChanges();
   }
 
   day2Date(day: number): Date {
