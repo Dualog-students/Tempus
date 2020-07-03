@@ -21,8 +21,8 @@ export class GridLoggerComponent implements OnInit {
   dayList: Day[];
 
   @Input() numDays: number;
-  @Input() currentDate: Date;
-  @Input() selectedDate: Date;
+  @Input() currentDate: number;
+  @Input() selectedDate: number;
   modalDate = new Date();
   modalEdit: boolean;
   modal = false;
@@ -73,13 +73,13 @@ export class GridLoggerComponent implements OnInit {
     if (this.numDays !== 1) {
       return this.addDays(
         this.selectedDate,
-        day + 1 - this.selectedDate.getDay(),
+        day + 1 - new Date(this.selectedDate).getDay(),
       );
     }
-    return this.selectedDate;
+    return new Date(this.selectedDate);
   }
 
-  addDays(date, days) {
+  addDays(date: number, days: number) {
     const result = new Date(date);
     result.setDate(result.getDate() + days);
     return result;
