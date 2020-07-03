@@ -11,7 +11,6 @@ import { UserProviderService } from '../../services/api/user-provider.service';
   styleUrls: ['./management-page.component.scss'],
 })
 export class ManagementPageComponent implements OnInit {
-  user: User;
   users: User[] = [];
 
   constructor(
@@ -21,7 +20,6 @@ export class ManagementPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userService.getCurrentUser().then(user => (this.user = user));
     this.userProvider.getAllUsers().then(users => (this.users = users));
   }
 
