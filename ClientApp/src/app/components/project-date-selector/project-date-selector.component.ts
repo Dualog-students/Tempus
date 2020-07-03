@@ -31,7 +31,7 @@ export class ProjectDateSelectorComponent implements OnInit {
   ngOnInit(): void {
     this.onWeek();
     this.setCurrentDate();
-    //this.setSelectedDate();
+    this.setSelectedDate();
   }
 
   onBack() {
@@ -74,7 +74,7 @@ export class ProjectDateSelectorComponent implements OnInit {
   setCurrentDate(date = new Date().getTime()) {
     this.currentDate = date;
     this.currentDateChange.emit(this.currentDate);
-    // this.setSelectedDate(this.currentDate);
+    this.setSelectedDate(this.currentDate);
   }
 
   onDay() {
