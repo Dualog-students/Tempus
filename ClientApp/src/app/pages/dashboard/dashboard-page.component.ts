@@ -21,7 +21,7 @@ import { GridLoggerComponent } from '../../components/grid-logger/grid-logger.co
 })
 export class DashboardComponent implements OnInit, AfterContentChecked {
   @ViewChild('gridLogger') gridLogger: GridLoggerComponent;
-  user: User;
+  @Input() user: User;
   @Input() numDays: number;
   @Input() currentDate?: number;
   @Input() selectedDate?: number;
@@ -35,7 +35,6 @@ export class DashboardComponent implements OnInit, AfterContentChecked {
 
   async ngOnInit() {
     this.numDays = 7;
-    this.user = await this.userService.getCurrentUser();
   }
 
   ngAfterContentChecked() {

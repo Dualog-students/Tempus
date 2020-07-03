@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
@@ -17,12 +17,13 @@ import {
   styleUrls: ['./grid-logger.component.scss'],
 })
 export class GridLoggerComponent implements OnInit {
-  user: User;
-  dayList: Day[];
-
+  @Input() user: User;
+  @Output() userChange = new EventEmitter();
   @Input() numDays: number;
   @Input() currentDate: number;
   @Input() selectedDate: number;
+
+  dayList: Day[];
   modalDate = new Date();
   modalEdit: boolean;
   modal = false;
@@ -36,8 +37,9 @@ export class GridLoggerComponent implements OnInit {
     private date2String: Date2String,
   ) {}
 
-  ngOnInit() {
-    this.refreshUser();
+  async ngOnInit() {
+    this.user = await this.userService.getCurrentUser();
+    this.refreshDayList();
   }
 
   get numDaysList() {
@@ -46,6 +48,11 @@ export class GridLoggerComponent implements OnInit {
 
   async refreshUser() {
     this.user = await this.userService.refreshCurrentUser();
+    this.userChange.emit(this.user);
+    this.refreshDayList();
+  }
+
+  refreshDayList() {
     const dateList = this.numDaysList.map((day) =>
       this.day2Date(day).getTime(),
     );
@@ -120,7 +127,6 @@ export class GridLoggerComponent implements OnInit {
     // Delete user from database
     await this.userProviderService.deleteHours(this.user._id, hours);
     // Get user from database
-    this.user = await this.userService.getCurrentUser();
     this.refreshUser();
   }
 }
