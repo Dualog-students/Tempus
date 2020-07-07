@@ -13,6 +13,28 @@
   </p>
 </p>
 
+## Run
+
+The project runs in docker. Build and run using docker-compose:
+
+**Build and run**
+
+```bash
+$ docker-compose up --build
+```
+
+**Start or stop**
+
+```bash
+$ docker-compose (start|stop)
+```
+
+**Stop and remove**
+
+```bash
+$ docker-compose down
+```
+
 ## Requirements
  * Need to create an environment variable with the connection string for the Dualog MongoDB server:
    * Linux:
