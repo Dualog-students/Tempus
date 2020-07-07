@@ -3,7 +3,7 @@
     *ngIf="_field !== 'Password'; else changePassword"
     header="Change {{ _field }}"
     [openWindow]="modal"
-    (confirm)="updateUser()"
+    (confirm)="saveModal()"
     (cancel)="closeModal()"
   >
     <div class="row dp-mt-20 dp-mb-16">
@@ -31,7 +31,7 @@
     <dp-modal-small
       header="Change password"
       [openWindow]="modal"
-      (confirm)="updateUser()"
+      (confirm)="saveModal()"
       (cancel)="closeModal()"
     >
       <div class="row dp-mt-20 dp-mb-16">
