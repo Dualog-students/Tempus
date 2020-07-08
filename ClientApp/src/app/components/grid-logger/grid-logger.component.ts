@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { User } from '../../models/user.model';
+import { HoursService } from '../../services/hours.service';
 import { UserService } from '../../services/user.service';
-import { UserProviderService } from '../../services/api/user-provider.service';
 import { Hours } from '../../models/hours.model';
 import { Day } from '../../models/day.model';
 import {
@@ -31,7 +31,7 @@ export class GridLoggerComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private userProviderService: UserProviderService,
+    private hoursService: HoursService,
     private date2WeekDayEU: Date2WeekDayEU,
     private date2WeekDayUS: Date2WeekDayUS,
     private date2String: Date2String,
@@ -97,7 +97,7 @@ export class GridLoggerComponent implements OnInit {
           result.push({
             Project: project,
             Date: date,
-            Hours: hour.Hours,
+            Hours: hour.Hours / 100,
             Notes: hour.Notes,
           });
         }
@@ -123,9 +123,9 @@ export class GridLoggerComponent implements OnInit {
     this.modal = true;
   }
 
-  async onDelete(day: Day, hours: Hours) {
+  async onDelete(hours: Hours) {
     // Delete user from database
-    await this.userProviderService.deleteHours(this.user._id, hours);
+    await this.hoursService.deleteHours(this.user._id, hours);
     // Get user from database
     this.refreshUser();
   }
