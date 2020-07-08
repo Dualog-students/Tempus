@@ -31,6 +31,7 @@ import {
   Date2WeekDayUS,
   Date2String,
 } from './utils/pipes/date.pipe';
+import { LimitDecimalPlacesDirective } from './directives/limit-decimal-places.directive';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {
     Date2WeekDayEU,
     Date2WeekDayUS,
     Date2String,
+    LimitDecimalPlacesDirective,
   ],
   imports: [
     BrowserModule,
