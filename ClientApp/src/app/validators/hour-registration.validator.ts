@@ -13,23 +13,25 @@ export function validateRange(min: number, max: number): ValidatorFn {
 }
 
 export function validateChange(c: AbstractControl) {
-  if (c.value.date) {
+  if (c.value.Date) {
     // Only run when the form has a date
     const existingHours = this.user.Hours;
-    if (c.value.project.name in existingHours) {
+    if (c.value.Project.name in existingHours) {
       // The user has registered hours on project before
-      if (this.hoursKey in existingHours[c.value.project.name]) {
+      if (this.hoursKey in existingHours[c.value.Project.name]) {
         // The user has hours on this date on the project
         this.displayInfoMessage = true;
-        const oldEntry = existingHours[c.value.project.name][this.hoursKey];
-        if (c.value.hours === oldEntry.Hours) {
+        const oldEntry = existingHours[c.value.Project.name][this.hoursKey];
+        console.log(c.value.Hours);
+        const oldHours = Math.round(oldEntry.Hours / 100);
+        if (c.value.Hours === oldHours) {
           // These hours already exist for the project on this date
           this.infoMessage = 'These hours have already been registered';
           return { entryExists: true };
         } else if (!this.edit) {
           // Trying to add new hours to existing project on this date
           this.infoMessage = `Registering will overwrite ${oldEntry.Hours} hours
-          registered on ${c.value.project.name} for ${this.hoursKey}`;
+          registered on ${c.value.Project.name} for ${this.hoursKey}`;
           return;
         }
       }

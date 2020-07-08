@@ -46,9 +46,9 @@ export class RegisterHoursComponent implements OnInit {
   ngOnInit(): void {
     this.hoursRegisterForm = this.fb.group(
       {
-        date: [, Validators.required],
-        hours: [, [Validators.required, validateRange(0, 24)]],
-        project: ['', Validators.required],
+        Date: [, Validators.required],
+        Hours: [, [Validators.required, validateRange(0, 24)]],
+        Project: ['', Validators.required],
       },
       { validators: validateChange.bind(this) },
     );
@@ -75,6 +75,7 @@ export class RegisterHoursComponent implements OnInit {
     this.userService.refreshCurrentUser().then((resp) => {
       this.user = resp;
       this.updateForm();
+      console.log(this.user.Hours);
     });
   }
 
@@ -84,21 +85,9 @@ export class RegisterHoursComponent implements OnInit {
       const hours = this.hoursRegisterForm.value;
 
       // Project sent to DB should only be the name of the project
-      hours.project = hours.project.name;
+      hours.Project = hours.Project.name;
 
-      const existingHours = this.user.Hours;
-      if (hours.project in existingHours) {
-        if (this.hoursKey in existingHours[hours.project]) {
-          if (
-            hours.hours === existingHours[hours.project][this.hoursKey].Hours
-          ) {
-            this.displayInfoMessage = true;
-            this.infoMessage = 'This entry already exist';
-          }
-        }
-      }
-
-      if (this.project && hours.project !== this.project.Project) {
+      if (this.project && hours.Project !== this.project.Project) {
         const oldForm: Hours = {
           Date: this.date.getTime(),
           Hours: this.project.Hours,
@@ -125,16 +114,16 @@ export class RegisterHoursComponent implements OnInit {
   updateForm() {
     if (this.project) {
       this.hoursRegisterForm.patchValue({
-        date: this.date.getTime(),
-        hours: this.project.Hours,
-        project: { name: this.project.Project },
+        Date: this.date.getTime(),
+        Hours: this.project.Hours,
+        Project: { name: this.project.Project },
       });
     } else {
       // No existing project use default values
       this.hoursRegisterForm.patchValue({
-        date: this.date.getTime(),
-        hours: 8,
-        project: { name: this.projectOptions[0].name },
+        Date: this.date.getTime(),
+        Hours: 8.0,
+        Project: { name: this.projectOptions[0].name },
       });
     }
   }

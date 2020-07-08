@@ -19,7 +19,8 @@
       class="dp-mt-8"
       label="hours"
       type="number"
-      formControlName="hours"
+      formControlName="Hours"
+      appLimitDecimalPlaces
     ></dp-input>
 
     <dp-autocomplete
@@ -27,7 +28,7 @@
       [options]="projectOptions"
       optionField="name"
       label="Select Project"
-      formControlName="project"
+      formControlName="Project"
       placeholder="Select Project"
     >
     </dp-autocomplete>
